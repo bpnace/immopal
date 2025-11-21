@@ -241,7 +241,7 @@ export default function UeberUnsPage() {
             <p className="text-xl mb-8 opacity-90">
               Lassen Sie uns gemeinsam Ihre Traumimmobilie finden oder erfolgreich verkaufen
             </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/kontakt"
                 className="bg-background text-foreground hover:bg-background/90 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"

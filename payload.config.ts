@@ -12,7 +12,6 @@ export default buildConfig({
     user: 'users',
     meta: {
       titleSuffix: '- immopal CMS',
-      favicon: '/favicon.ico',
     },
   },
   collections: [
@@ -569,5 +568,4 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  sharp,
 })
