@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Über uns - immopal',
@@ -240,19 +241,19 @@ export default function UeberUnsPage() {
             <p className="text-xl mb-8 opacity-90">
               Lassen Sie uns gemeinsam Ihre Traumimmobilie finden oder erfolgreich verkaufen
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
                 href="/kontakt"
                 className="bg-background text-foreground hover:bg-background/90 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Jetzt Kontakt aufnehmen
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/immobilien"
                 className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 border-2 border-primary-foreground/20 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien ansehen
-              </a>
+              </Link>
             </div>
           </div>
         </div>
