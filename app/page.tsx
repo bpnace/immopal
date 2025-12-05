@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { getFeaturedProperties } from '@/lib/mock-data';
 import { formatPrice, formatArea } from '@/lib/utils';
+import { ReferralCalculator } from '@/components/referral-calculator';
 
 export default function Home() {
   const featuredProperties = getFeaturedProperties();
@@ -22,13 +23,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/immobilien"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
+                className="bg-background text-foreground border-2 border-border hover:bg-accent px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien entdecken
               </Link>
               <Link
                 href="/kontakt"
-                className="bg-background text-foreground border-2 border-border hover:bg-accent px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Kostenlos beraten lassen
               </Link>
@@ -85,18 +86,102 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Properties */}
+      {/* Partner Section - Verkauf */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ausgewählte Immobilien</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ihr Partner für den Verkauf</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Entdecken Sie unsere Top-Angebote in besten Lagen von Berlin und Brandenburg
+              Wofür benötigen Sie den Wert Ihrer Immobilie?
             </p>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+            {/* Card 1: Verkaufen */}
+            <Link
+              href="/verkaufen"
+              className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
+            >
+              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
+                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                Ich möchte verkaufen
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Kostenlose Bewertung Ihrer Immobilie und professionelle Verkaufsberatung
+              </p>
+            </Link>
+
+            {/* Card 2: Kaufen */}
+            <Link
+              href="/kaufen"
+              className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
+            >
+              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
+                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                Ich möchte kaufen
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Finden Sie Ihre Traumimmobilie mit unserem kostenlosen Suchauftrag-Service
+              </p>
+            </Link>
+
+            {/* Card 3: Neugierig */}
+            <Link
+              href="/tippgeberprovision"
+              className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
+            >
+              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
+                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                Ich bin neugierig
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Berechnen Sie Ihre potenzielle Tippgeberprovision für Immobilienempfehlungen
+              </p>
+            </Link>
+          </div>
+
+          {/* Top 3 Properties Heading */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Top 3 Immobilien</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Unsere aktuellen Highlight-Objekte in Berlin und Brandenburg
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Properties */}
+      <section className="py-0 pb-16 bg-background">
+        <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredProperties.map((property) => (
+            {featuredProperties.slice(0, 3).map((property) => (
               <Link
                 key={property.id}
                 href={`/immobilien/${property.slug}`}
@@ -225,6 +310,15 @@ export default function Home() {
                 Individuelle Betreuung von der ersten Besichtigung bis zum Vertragsabschluss.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Referral Calculator Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <ReferralCalculator compact />
           </div>
         </div>
       </section>
