@@ -4,6 +4,7 @@ import './globals.css';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { CookieBanner } from '@/components/cookie-banner';
+import { WhatsAppButton } from '@/components/whatsapp-button';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         <main className="flex-grow">{children}</main>
         <Footer />
         <CookieBanner />
+        <WhatsAppButton />
       </body>
     </html>
   );

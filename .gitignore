@@ -6,6 +6,7 @@
 
 # Testing
 /coverage
+raw_images/
 
 # Next.js
 /.next/
@@ -13,6 +14,9 @@
 
 # Production
 /build
+dist
+CLAUDE.md
+docker-compose.yml
 
 # Misc
 .DS_Store

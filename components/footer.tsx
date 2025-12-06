@@ -24,7 +24,15 @@ export function Footer() {
                   href="/immobilien"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
-                  Immobilien
+                  Angebote
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/verkaufen"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Verkaufen
                 </Link>
               </li>
               <li>
@@ -104,7 +112,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border">
+        <div className="mt-8 border-t border-border">
           <p className="text-center text-sm text-muted-foreground">
             © {currentYear} immopal. Alle Rechte vorbehalten.
           </p>
