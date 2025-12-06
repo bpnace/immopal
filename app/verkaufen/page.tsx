@@ -27,14 +27,12 @@ import type { PostalCodeData } from '@/lib/postal-codes';
 import { cn } from '@/lib/utils';
 
 export default function VerkaufenPage() {
-  // ...existing code...
   const [currentStep, setCurrentStep] = useState(2); // Start at step 2 (property type)
   const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState<string>('');
   const [errors, setErrors] = useState<ValidationError[]>([]);
-
   const [formData, setFormData] = useState<Partial<SellingFormData>>({
     propertyType: '',
     propertySubtype: '',
@@ -83,30 +81,6 @@ export default function VerkaufenPage() {
     default:
       nextDisabled = false;
   }
-  const [currentStep, setCurrentStep] = useState(2); // Start at step 2 (property type)
-  const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState<string>('');
-  const [errors, setErrors] = useState<ValidationError[]>([]);
-
-  const [formData, setFormData] = useState<Partial<SellingFormData>>({
-    propertyType: '',
-    propertySubtype: '',
-    constructionYear: '',
-    rooms: '',
-    livingArea: '',
-    condition: '',
-    postalCode: '',
-    city: '',
-    district: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    gdprConsent: false,
-    newsletter: false,
-  });
 
   // Handle input change
   const handleInputChange = (field: keyof SellingFormData, value: string | boolean) => {
@@ -252,23 +226,17 @@ export default function VerkaufenPage() {
           </p>
 
           {/* Consultant Info */}
-          <div className="mb-8 rounded-xl border border-border bg-card p-6">
-            <div className="mb-2 flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary">
-                <span className="text-xl font-bold text-primary-foreground">
-                  {VERKAUFEN_CONSULTANT.initials}
-                </span>
-              </div>
+          <div className="mb-8 border border-border bg-card p-8 text-center min-h-[320px] flex flex-col items-center justify-center z-50">
+            <div className="mb-4 flex items-center justify-center rounded-full bg-primary w-16 h-16">
+              <span className="font-bold text-primary-foreground text-xl">{VERKAUFEN_CONSULTANT.initials}</span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Ihr Berater: <span className="font-semibold">{VERKAUFEN_CONSULTANT.name}</span>
-            </p>
+            <h3 className="text-lg font-bold text-foreground">{VERKAUFEN_CONSULTANT.name}</h3>
             <p className="text-sm text-muted-foreground">{VERKAUFEN_CONSULTANT.role}</p>
           </div>
 
           <Link
             href="/"
-            className="inline-block rounded-lg bg-primary px-8 py-4 font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90"
+            className="inline-block bg-primary px-6 sm:px-8 py-3 sm:py-4 font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90"
           >
             Zur Startseite
           </Link>
@@ -481,7 +449,7 @@ export default function VerkaufenPage() {
                   value={formData.firstName || ''}
                   onChange={(e) => handleInputChange('firstName', e.target.value)}
                   className={cn(
-                    'w-full rounded-lg border px-4 py-3 transition-colors',
+                    'w-full border px-4 py-3 transition-colors',
                     getError('firstName')
                       ? 'border-destructive focus:border-destructive focus:ring-destructive'
                       : 'border-input focus:border-primary focus:ring-primary'
@@ -507,7 +475,7 @@ export default function VerkaufenPage() {
                   value={formData.lastName || ''}
                   onChange={(e) => handleInputChange('lastName', e.target.value)}
                   className={cn(
-                    'w-full rounded-lg border px-4 py-3 transition-colors',
+                    'w-full border px-4 py-3 transition-colors',
                     getError('lastName')
                       ? 'border-destructive focus:border-destructive focus:ring-destructive'
                       : 'border-input focus:border-primary focus:ring-primary'
@@ -530,7 +498,7 @@ export default function VerkaufenPage() {
                   value={formData.email || ''}
                   onChange={(e) => handleInputChange('email', e.target.value)}
                   className={cn(
-                    'w-full rounded-lg border px-4 py-3 transition-colors',
+                    'w-full border px-4 py-3 transition-colors',
                     getError('email')
                       ? 'border-destructive focus:border-destructive focus:ring-destructive'
                       : 'border-input focus:border-primary focus:ring-primary'
@@ -553,7 +521,7 @@ export default function VerkaufenPage() {
                   value={formData.phone || ''}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
                   className={cn(
-                    'w-full rounded-lg border px-4 py-3 transition-colors',
+                    'w-full border px-4 py-3 transition-colors',
                     getError('phone')
                       ? 'border-destructive focus:border-destructive focus:ring-destructive'
                       : 'border-input focus:border-primary focus:ring-primary'
@@ -633,35 +601,34 @@ export default function VerkaufenPage() {
         </section>
       )}
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col lg:flex-row lg:items-start gap-2">
-          {/* Desktop Consultant - Left side with 5px gap */}
-          {!submitSuccess && (
-            <div className="hidden lg:block lg:w-64 flex-shrink-0">
-              <ConsultantAvatar
-                name={VERKAUFEN_CONSULTANT.name}
-                role={VERKAUFEN_CONSULTANT.role}
-                initials={VERKAUFEN_CONSULTANT.initials}
-                photo={VERKAUFEN_CONSULTANT.photo}
-              />
-            </div>
-          )}
+      <div className="container mx-auto px-4 py-8 relative">
+        {/* Desktop Consultant - Absolute positioning */}
+        {!submitSuccess && (
+          <div className="absolute left-4 top-8 w-64 z-40 hidden lg:block">
+            <ConsultantAvatar
+              name={VERKAUFEN_CONSULTANT.name}
+              role={VERKAUFEN_CONSULTANT.role}
+              initials={VERKAUFEN_CONSULTANT.initials}
+              photo={VERKAUFEN_CONSULTANT.photo}
+            />
+          </div>
+        )}
 
-          {/* Mobile Consultant - Inline at top */}
-          {!submitSuccess && (
-            <div className="mb-8 lg:hidden">
-              <ConsultantAvatar
-                name={VERKAUFEN_CONSULTANT.name}
-                role={VERKAUFEN_CONSULTANT.role}
-                initials={VERKAUFEN_CONSULTANT.initials}
-                photo={VERKAUFEN_CONSULTANT.photo}
-                size="sm"
-              />
-            </div>
-          )}
+        {/* Mobile Consultant - Inline at top */}
+        {!submitSuccess && (
+          <div className="mb-8 lg:hidden">
+            <ConsultantAvatar
+              name={VERKAUFEN_CONSULTANT.name}
+              role={VERKAUFEN_CONSULTANT.role}
+              initials={VERKAUFEN_CONSULTANT.initials}
+              photo={VERKAUFEN_CONSULTANT.photo}
+              size="sm"
+            />
+          </div>
+        )}
 
-          {/* Animated content area */}
-          <div className="flex-1">
+        {/* Animated content area */}
+          <div className="z-10 relative min-h-[28rem] lg:min-h-[34rem]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.div
                 key={currentStep}
@@ -675,11 +642,11 @@ export default function VerkaufenPage() {
                 {renderStep()}
               </motion.div>
             </AnimatePresence>
-            <div className="flex items-center justify-between border-t border-border pt-6 mt-12">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 border-t border-border pt-16 mt-16">
               <button
                 type="button"
                 onClick={handleBack}
-                className="flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-foreground px-4 sm:px-6 py-3 sm:py-4"
                 disabled={isSubmitting}
               >
                 <span>←</span>
@@ -690,7 +657,7 @@ export default function VerkaufenPage() {
                 onClick={currentStep === 9 ? handleSubmit : handleNext}
                 disabled={nextDisabled || isSubmitting}
                 className={cn(
-                  'rounded-lg bg-primary px-10 py-4 text-lg font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:shadow-lg',
+                  'bg-primary px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:shadow-lg whitespace-nowrap',
                   'disabled:cursor-not-allowed disabled:opacity-50'
                 )}
               >
@@ -698,7 +665,6 @@ export default function VerkaufenPage() {
               </button>
             </div>
           </div>
-        </div>
       </div>
     </>
   );

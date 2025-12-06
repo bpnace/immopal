@@ -105,7 +105,7 @@ export function PostalCodeAutocomplete({
             setShowSuggestions(true);
           }
         }}
-        className={`w-full px-4 py-2 border rounded-lg ${error ? 'border-destructive' : 'border-input'}`}
+        className={`w-full px-4 py-2 border ${error ? 'border-destructive' : 'border-input'}`}
         placeholder={placeholder}
         autoComplete="off"
         aria-autocomplete="list"
@@ -118,7 +118,7 @@ export function PostalCodeAutocomplete({
         <div
           ref={dropdownRef}
           id="postal-code-suggestions"
-          className="absolute z-50 w-full mt-1 bg-white border border-border rounded-lg shadow-lg max-h-60 overflow-auto"
+          className="absolute z-50 w-full mt-1 bg-white border border-border shadow-lg max-h-60 overflow-auto"
           role="listbox"
         >
           {suggestions.map((suggestion, index) => (

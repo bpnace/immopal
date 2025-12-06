@@ -12,7 +12,7 @@ export function QuestionBox({ question, subtitle, className }: QuestionBoxProps)
   return (
     <div
       className={cn(
-        'mb-8 rounded-xl border border-gray-200 bg-gray-100 p-6',
+        'mb-8 border border-gray-200 bg-gray-100 p-6',
         className
       )}
     >

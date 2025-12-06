@@ -231,30 +231,24 @@ export default function KaufenPage() {
           </p>
 
           {/* Consultant Info */}
-          <div className="mb-8 rounded-xl border border-border bg-card p-6">
-            <div className="mb-2 flex justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary">
-                <span className="text-xl font-bold text-primary-foreground">
-                  {KAUFEN_CONSULTANT.initials}
-                </span>
-              </div>
+          <div className="mb-8 border border-border bg-card p-8 text-center min-h-[320px] flex flex-col items-center justify-center z-50">
+            <div className="mb-4 flex items-center justify-center rounded-full bg-primary w-16 h-16">
+              <span className="font-bold text-primary-foreground text-xl">{KAUFEN_CONSULTANT.initials}</span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Ihre Beraterin: <span className="font-semibold">{KAUFEN_CONSULTANT.name}</span>
-            </p>
+            <h3 className="text-lg font-bold text-foreground">{KAUFEN_CONSULTANT.name}</h3>
             <p className="text-sm text-muted-foreground">{KAUFEN_CONSULTANT.role}</p>
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/immobilien"
-              className="inline-block rounded-lg bg-primary px-8 py-4 font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90"
+              className="inline-block bg-primary px-6 sm:px-8 py-3 sm:py-4 font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 whitespace-nowrap"
             >
               Angebote durchsuchen
             </Link>
             <Link
               href="/"
-              className="inline-block rounded-lg border-2 border-primary bg-white px-8 py-4 font-semibold text-primary shadow-md transition-all hover:bg-primary/5"
+              className="inline-block border-2 border-primary bg-white px-6 sm:px-8 py-3 sm:py-4 font-semibold text-primary shadow-md transition-all hover:bg-primary/5"
             >
               Zur Startseite
             </Link>
@@ -507,7 +501,7 @@ export default function KaufenPage() {
                   value={formData.firstName || ''}
                   onChange={(e) => handleInputChange('firstName', e.target.value)}
                   className={cn(
-                    'w-full rounded-lg border px-4 py-3 transition-colors',
+                    'w-full border px-4 py-3 transition-colors',
                     getError('firstName')
                       ? 'border-destructive focus:border-destructive focus:ring-destructive'
                       : 'border-input focus:border-primary focus:ring-primary'
@@ -533,7 +527,7 @@ export default function KaufenPage() {
                   value={formData.lastName || ''}
                   onChange={(e) => handleInputChange('lastName', e.target.value)}
                   className={cn(
-                    'w-full rounded-lg border px-4 py-3 transition-colors',
+                    'w-full border px-4 py-3 transition-colors',
                     getError('lastName')
                       ? 'border-destructive focus:border-destructive focus:ring-destructive'
                       : 'border-input focus:border-primary focus:ring-primary'
@@ -556,7 +550,7 @@ export default function KaufenPage() {
                   value={formData.email || ''}
                   onChange={(e) => handleInputChange('email', e.target.value)}
                   className={cn(
-                    'w-full rounded-lg border px-4 py-3 transition-colors',
+                    'w-full border px-4 py-3 transition-colors',
                     getError('email')
                       ? 'border-destructive focus:border-destructive focus:ring-destructive'
                       : 'border-input focus:border-primary focus:ring-primary'
@@ -579,7 +573,7 @@ export default function KaufenPage() {
                   value={formData.phone || ''}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
                   className={cn(
-                    'w-full rounded-lg border px-4 py-3 transition-colors',
+                    'w-full border px-4 py-3 transition-colors',
                     getError('phone')
                       ? 'border-destructive focus:border-destructive focus:ring-destructive'
                       : 'border-input focus:border-primary focus:ring-primary'
@@ -663,7 +657,7 @@ export default function KaufenPage() {
         {!submitSuccess && (
           <>
             {/* Desktop Consultant - Absolute positioned next to content */}
-            <div className="absolute left-4 top-8 w-64 z-50 hidden lg:block">
+            <div className="absolute left-4 top-8 w-64 z-40 hidden lg:block">
               <ConsultantAvatar
                 name={KAUFEN_CONSULTANT.name}
                 role={KAUFEN_CONSULTANT.role}
@@ -686,7 +680,7 @@ export default function KaufenPage() {
         )}
 
         {/* Animated content area - with left margin for consultant on desktop */}
-        <div className="z-10 relative min-h-[18rem] lg:min-h-[22rem]">
+        <div className="z-10 relative min-h-[28rem] lg:min-h-[34rem]">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
               key={currentStep}
@@ -700,11 +694,11 @@ export default function KaufenPage() {
               {renderStep()}
             </motion.div>
           </AnimatePresence>
-          <div className="flex justify-center gap-4 border-t border-border pt-6 mt-12">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 border-t border-border pt-16 mt-16">
             <button
               type="button"
               onClick={handleBack}
-              className="flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-foreground px-6 py-4 rounded-lg"
+              className="flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-foreground px-4 sm:px-6 py-3 sm:py-4"
               disabled={isSubmitting}
             >
               <span>←</span>
@@ -715,7 +709,7 @@ export default function KaufenPage() {
               onClick={currentStep === 9 ? handleSubmit : handleNext}
               disabled={nextDisabled || isSubmitting}
               className={cn(
-                'rounded-lg bg-primary px-10 py-4 text-lg font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:shadow-lg',
+                'bg-primary px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:shadow-lg whitespace-nowrap',
                 'disabled:cursor-not-allowed disabled:opacity-50'
               )}
             >

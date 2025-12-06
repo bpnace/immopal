@@ -26,7 +26,7 @@ export function TileOption({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        'relative w-full rounded-xl border-2 p-6 text-center transition-all duration-200',
+        'relative w-full border-2 p-6 text-center transition-all duration-200',
         'hover:shadow-lg focus:outline-none',
         !selected && 'focus:ring-2 focus:ring-primary focus:ring-offset-2',
         'disabled:opacity-50 disabled:cursor-not-allowed',
