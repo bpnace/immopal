@@ -23,7 +23,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/immobilien"
-                className="bg-background text-foreground border-2 border-border hover:bg-accent px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
+                className="bg-background text-foreground border-2 border-border hover:bg-muted px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien entdecken
               </Link>
