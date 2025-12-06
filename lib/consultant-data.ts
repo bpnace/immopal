@@ -14,9 +14,9 @@ export interface Consultant {
  * Consultant for Verkaufen (Selling) funnel
  */
 export const VERKAUFEN_CONSULTANT: Consultant = {
-  name: 'Max Müller',
+  name: 'Dennis Darrrr',
   role: 'Immobilienberater',
-  initials: 'MM',
+  initials: 'DD',
   // photo: '/images/consultants/max-mueller.jpg', // Uncomment when real photo is available
 };
 
