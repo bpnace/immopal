@@ -266,8 +266,8 @@ export const fetchPostalCodeSuggestions = async (
       throw new Error(`OpenDataSoft request failed (${res.status})`);
     }
 
-    const json = await res.json();
-    const records = Array.isArray(json?.records) ? json.records : [];
+    const json = (await res.json()) as { records?: unknown[] };
+    const records = Array.isArray(json.records) ? json.records : [];
 
     const mapped = records
       .map(mapGeonamesPostalRecord)

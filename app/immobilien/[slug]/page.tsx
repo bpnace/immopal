@@ -6,13 +6,14 @@ import { fetchListingBySlug } from '@/lib/listings';
 import { formatArea, formatDate, formatPrice } from '@/lib/utils';
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const listing = await fetchListingBySlug(params.slug);
+  const { slug } = await params;
+  const listing = await fetchListingBySlug(slug);
 
   if (!listing) {
     return {
@@ -37,7 +38,8 @@ const statusLabels: Record<string, string> = {
 };
 
 export default async function ListingDetailPage({ params }: Props) {
-  const listing = await fetchListingBySlug(params.slug);
+  const { slug } = await params;
+  const listing = await fetchListingBySlug(slug);
 
   if (!listing) {
     notFound();
