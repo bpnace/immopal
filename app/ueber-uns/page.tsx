@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function UeberUnsPage() {
   return (
-    <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="bg-primary/5 py-16">
+      <section className="bg-primary/5 py-12 min-h-[220px] flex items-center">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Über immopal</h1>

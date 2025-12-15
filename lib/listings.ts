@@ -21,6 +21,37 @@ export type Listing = {
   images: string[];
 };
 
+type JsonApiResourceIdentifier = {
+  id: string;
+  type: string;
+};
+
+type JsonApiRelationship = {
+  data: JsonApiResourceIdentifier | JsonApiResourceIdentifier[] | null;
+};
+
+type JsonApiResource = {
+  id: string;
+  type: string;
+  attributes?: Record<string, unknown>;
+  relationships?: Record<string, JsonApiRelationship>;
+};
+
+type ListingAttributes = {
+  title?: unknown;
+  field_slug?: unknown;
+  field_location?: unknown;
+  field_living_area?: unknown;
+  field_plot_area?: unknown;
+  field_price?: unknown;
+  field_rooms?: unknown;
+  field_features?: unknown;
+  field_short_description?: unknown;
+  field_long_description?: unknown;
+  field_status?: unknown;
+  created?: unknown;
+};
+
 function coerceNumber(value: unknown): number | null {
   if (typeof value === 'number' && Number.isFinite(value)) return value;
   if (typeof value === 'string') {
@@ -44,7 +75,24 @@ function absolutizeDrupalUrl(url: string): string {
   }
 }
 
-function extractFileUrls(included: any[] | undefined, relationshipData: any): string[] {
+function getString(value: unknown): string | null {
+  return typeof value === 'string' ? value : null;
+}
+
+function getStringArray(value: unknown): string[] {
+  return Array.isArray(value) ? value.map(getString).filter((v): v is string => Boolean(v)) : [];
+}
+
+function getProcessedHtml(value: unknown): string {
+  if (!value || typeof value !== 'object') return '';
+  const processed = (value as { processed?: unknown }).processed;
+  return typeof processed === 'string' ? processed : '';
+}
+
+function extractFileUrls(
+  included: JsonApiResource[] | undefined,
+  relationshipData: JsonApiRelationship['data']
+): string[] {
   if (!included || !relationshipData) return [];
 
   const dataArray = Array.isArray(relationshipData) ? relationshipData : [relationshipData];
@@ -56,22 +104,23 @@ function extractFileUrls(included: any[] | undefined, relationshipData: any): st
       if (!resource) return null;
 
       if (resource.type === 'file--file') {
-        const uriUrl = resource.attributes?.uri?.url;
+        const uri = resource.attributes?.uri;
+        const uriUrl = typeof uri === 'object' && uri ? (uri as { url?: unknown }).url : null;
         if (typeof uriUrl === 'string' && uriUrl.length > 0) return absolutizeDrupalUrl(uriUrl);
         return null;
       }
 
       if (String(resource.type).startsWith('media--')) {
         const relationships = resource.relationships ?? {};
-        const mediaImageRel = relationships.field_media_image?.data;
+        const mediaImageRel = relationships.field_media_image?.data ?? null;
         if (mediaImageRel) return extractFileUrls(included, mediaImageRel)[0] ?? null;
 
-        const firstFileRel = Object.values(relationships).find((rel: any) => {
-          const d = rel?.data;
+        const firstFileRel = Object.values(relationships).find((rel) => {
+          const d = rel?.data ?? null;
           if (!d) return false;
           const first = Array.isArray(d) ? d[0] : d;
-          return first?.type === 'file--file';
-        }) as any;
+          return Boolean(first && (first as JsonApiResourceIdentifier).type === 'file--file');
+        });
         if (firstFileRel?.data) return extractFileUrls(included, firstFileRel.data)[0] ?? null;
       }
 
@@ -80,24 +129,24 @@ function extractFileUrls(included: any[] | undefined, relationshipData: any): st
     .filter((v): v is string => Boolean(v));
 }
 
-function mapListing(item: any, included?: any[]): Listing {
-  const a = item.attributes;
-  const images = extractFileUrls(included, item.relationships?.field_main_image?.data);
+function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listing {
+  const a = (item.attributes ?? {}) as ListingAttributes;
+  const images = extractFileUrls(included, item.relationships?.field_main_image?.data ?? null);
 
   return {
     id: item.id,
-    title: a.title,
-    slug: a.field_slug,
-    location: a.field_location,
+    title: getString(a.title) ?? '',
+    slug: getString(a.field_slug) ?? '',
+    location: getString(a.field_location) ?? '',
     livingArea: firstNumber(a.field_living_area),
     plotArea: firstNumber(a.field_plot_area),
     price: a.field_price ? coerceNumber(a.field_price) : null,
     rooms: firstNumber(a.field_rooms),
-    features: a.field_features ?? [],
-    shortDescription: a.field_short_description?.processed ?? '',
-    longDescription: a.field_long_description?.processed ?? '',
-    status: a.field_status,
-    createdAt: a.created,
+    features: getStringArray(a.field_features),
+    shortDescription: getProcessedHtml(a.field_short_description),
+    longDescription: getProcessedHtml(a.field_long_description),
+    status: getString(a.field_status) ?? '',
+    createdAt: getString(a.created) ?? '',
     images,
   };
 }
@@ -111,8 +160,10 @@ export async function fetchListings(): Promise<Listing[]> {
     throw new Error('Fehler beim Laden der Listings');
   }
 
-  const json = await res.json();
-  return (json.data ?? []).map((item: any) => mapListing(item, json.included));
+  const json = (await res.json()) as { data?: unknown; included?: unknown };
+  const data = Array.isArray(json.data) ? (json.data as JsonApiResource[]) : [];
+  const included = Array.isArray(json.included) ? (json.included as JsonApiResource[]) : undefined;
+  return data.map((item) => mapListing(item, included));
 }
 
 export async function fetchListingBySlug(slug: string): Promise<Listing | null> {
@@ -127,9 +178,11 @@ export async function fetchListingBySlug(slug: string): Promise<Listing | null> 
     throw new Error('Fehler beim Laden des Listings');
   }
 
-  const json = await res.json();
-  const item = json.data?.[0];
+  const json = (await res.json()) as { data?: unknown; included?: unknown };
+  const data = Array.isArray(json.data) ? (json.data as JsonApiResource[]) : [];
+  const included = Array.isArray(json.included) ? (json.included as JsonApiResource[]) : undefined;
+  const item = data[0];
   if (!item) return null;
 
-  return mapListing(item, json.included);
+  return mapListing(item, included);
 }

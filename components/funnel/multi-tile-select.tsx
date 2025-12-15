@@ -16,6 +16,8 @@ export interface MultiTileSelectProps {
   multiSelect?: boolean;
   columns?: 2 | 3 | 4;
   disabled?: boolean;
+  onAutoAdvance?: () => void;      // Callback for auto-advance
+  autoAdvanceDelay?: number;        // Configurable delay (default 300ms)
 }
 
 export function MultiTileSelect({
@@ -25,18 +27,27 @@ export function MultiTileSelect({
   multiSelect = false,
   columns = 4,
   disabled = false,
+  onAutoAdvance,
+  autoAdvanceDelay = 300,
 }: MultiTileSelectProps) {
   const handleSelect = (optionValue: string) => {
     if (multiSelect) {
-      // Multi-select mode
+      // Multi-select mode: toggle selection, no auto-advance
       const currentValues = Array.isArray(value) ? value : [];
       const newValues = currentValues.includes(optionValue)
         ? currentValues.filter((v) => v !== optionValue)
         : [...currentValues, optionValue];
       onChange(newValues);
     } else {
-      // Single-select mode
+      // Single-select mode: update value, then auto-advance
       onChange(optionValue);
+
+      // Auto-advance after delay (if callback provided)
+      if (onAutoAdvance) {
+        setTimeout(() => {
+          onAutoAdvance();
+        }, autoAdvanceDelay);
+      }
     }
   };
 

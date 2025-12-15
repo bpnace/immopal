@@ -98,6 +98,10 @@ export default function VerkaufenPage() {
       district: data.district,
     }));
     setErrors([]);
+    if (currentStep === 8) {
+      setDirection(1);
+      setCurrentStep(9);
+    }
   };
 
   // Get error for specific field
@@ -115,6 +119,22 @@ export default function VerkaufenPage() {
     }
 
     return true;
+  };
+
+  // Handle auto-advance (no validation - user clicked a tile)
+  const handleAutoAdvance = () => {
+    setDirection(1);
+
+    // Skip step 3 (subtype) if property type is Gewerbe or Grundstück
+    if (currentStep === 2) {
+      if (!requiresSubtype(formData.propertyType || '')) {
+        setCurrentStep(4); // Jump to construction year
+        return;
+      }
+    }
+
+    // Normal progression
+    setCurrentStep((prev) => prev + 1);
   };
 
   // Handle next step with conditional logic
@@ -263,6 +283,8 @@ export default function VerkaufenPage() {
               options={propertyTypeOptions}
               value={formData.propertyType || ''}
               onChange={(value) => handleInputChange('propertyType', value as string)}
+              onAutoAdvance={handleAutoAdvance}
+              autoAdvanceDelay={300}
               columns={4}
             />
             {getError('propertyType') && (
@@ -289,6 +311,8 @@ export default function VerkaufenPage() {
               options={subtypeOptions}
               value={formData.propertySubtype || ''}
               onChange={(value) => handleInputChange('propertySubtype', value as string)}
+              onAutoAdvance={handleAutoAdvance}
+              autoAdvanceDelay={300}
               columns={4}
             />
             {getError('propertySubtype') && (
@@ -312,6 +336,8 @@ export default function VerkaufenPage() {
               options={constructionYearOptions}
               value={formData.constructionYear || ''}
               onChange={(value) => handleInputChange('constructionYear', value as string)}
+              onAutoAdvance={handleAutoAdvance}
+              autoAdvanceDelay={300}
               columns={4}
             />
             {getError('constructionYear') && (
@@ -336,6 +362,8 @@ export default function VerkaufenPage() {
               options={roomsOptions}
               value={formData.rooms || ''}
               onChange={(value) => handleInputChange('rooms', value as string)}
+              onAutoAdvance={handleAutoAdvance}
+              autoAdvanceDelay={300}
               columns={4}
             />
             {getError('rooms') && (
@@ -359,6 +387,8 @@ export default function VerkaufenPage() {
               options={livingAreaOptionsVerkaufen}
               value={formData.livingArea || ''}
               onChange={(value) => handleInputChange('livingArea', value as string)}
+              onAutoAdvance={handleAutoAdvance}
+              autoAdvanceDelay={300}
               columns={4}
             />
             {getError('livingArea') && (
@@ -382,6 +412,8 @@ export default function VerkaufenPage() {
               options={conditionOptions}
               value={formData.condition || ''}
               onChange={(value) => handleInputChange('condition', value as string)}
+              onAutoAdvance={handleAutoAdvance}
+              autoAdvanceDelay={300}
               columns={4}
             />
             {getError('condition') && (
@@ -587,7 +619,7 @@ export default function VerkaufenPage() {
     <>
       {/* Header */}
       {!submitSuccess && (
-        <section className="bg-primary/5 py-12">
+        <section className="bg-primary/5 py-12 min-h-[220px] flex items-center">
           <div className="container mx-auto px-4">
             <div className="text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -642,7 +674,7 @@ export default function VerkaufenPage() {
                 {renderStep()}
               </motion.div>
             </AnimatePresence>
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 border-t border-border pt-16 mt-16">
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 pt-16 mt-16">
               <button
                 type="button"
                 onClick={handleBack}
@@ -652,17 +684,19 @@ export default function VerkaufenPage() {
                 <span>←</span>
                 <span>Zurück</span>
               </button>
-              <button
-                type="button"
-                onClick={currentStep === 9 ? handleSubmit : handleNext}
-                disabled={nextDisabled || isSubmitting}
-                className={cn(
-                  'bg-primary px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:shadow-lg whitespace-nowrap',
-                  'disabled:cursor-not-allowed disabled:opacity-50'
-                )}
-              >
-                {isSubmitting ? 'Wird gesendet...' : currentStep === 9 ? 'Kostenlose Bewertung erhalten' : 'Weiter'}
-              </button>
+              {currentStep >= 9 && (
+                <button
+                  type="button"
+                  onClick={currentStep === 9 ? handleSubmit : handleNext}
+                  disabled={nextDisabled || isSubmitting}
+                  className={cn(
+                    'bg-primary px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 hover:shadow-lg whitespace-nowrap',
+                    'disabled:cursor-not-allowed disabled:opacity-50'
+                  )}
+                >
+                  {isSubmitting ? 'Wird gesendet...' : currentStep === 9 ? 'Kostenlose Bewertung erhalten' : 'Weiter'}
+                </button>
+              )}
             </div>
           </div>
       </div>

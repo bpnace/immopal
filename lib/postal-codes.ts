@@ -5,6 +5,14 @@ export interface PostalCodeData {
   state: string;
 }
 
+type FetchOptions = {
+  signal?: AbortSignal;
+};
+
+const OPENDATASOFT_BASE_URL =
+  'https://public.opendatasoft.com/api/records/1.0/search/?dataset=geonames-postal-code&lang=de';
+export const POSTAL_CODE_MIN_QUERY_LENGTH = 3;
+
 // Sample postal codes for Berlin & Brandenburg
 // In production, this should be a complete database or API call
 export const berlinBrandenburgPostalCodes: PostalCodeData[] = [
@@ -162,4 +170,134 @@ export const getPostalCodeData = (postalCode: string): PostalCodeData | undefine
  */
 export const formatPostalCodeDisplay = (data: PostalCodeData): string => {
   return `${data.postalCode}, ${data.city} ${data.district}`;
+};
+
+const CITY_STATE_ADMIN_CODES = new Set(['BE', 'HH', 'HB']);
+
+/**
+ * Map an OpenDataSoft geonames-postal-code record into our PostalCodeData format
+ * Fields of interest:
+ * - postal_code
+ * - place_name (city / locality; for city-states can include district suffix)
+ * - admin_name1 (state; for city-states equals the city name)
+ * - admin_code1 (state code, e.g. BE/HH/BY)
+ */
+type GeonamesPostalRecord = {
+  fields?: {
+    postal_code?: string;
+    place_name?: string;
+    admin_name1?: string;
+    admin_code1?: string;
+  };
+};
+
+const mapGeonamesPostalRecord = (record: unknown): PostalCodeData | null => {
+  const fields = (record as GeonamesPostalRecord | null)?.fields;
+  const postalCode = fields?.postal_code;
+  const placeName = fields?.place_name;
+  const adminName1 = fields?.admin_name1;
+  const adminCode1 = fields?.admin_code1;
+
+  if (!postalCode || !placeName) return null;
+
+  let city = String(placeName);
+  let district = '';
+
+  if (adminCode1 && CITY_STATE_ADMIN_CODES.has(String(adminCode1)) && adminName1) {
+    const cityName = String(adminName1);
+    city = cityName;
+    const prefix = `${cityName} `;
+    if (String(placeName).startsWith(prefix)) {
+      district = String(placeName).slice(prefix.length).trim();
+    }
+  }
+
+  return {
+    postalCode: String(postalCode),
+    city,
+    district,
+    state: adminName1 ? String(adminName1) : '',
+  };
+};
+
+/**
+ * Fetch postal code suggestions from OpenDataSoft API with fallback to local data.
+ */
+export const fetchPostalCodeSuggestions = async (
+  query: string,
+  limit = 10,
+  options: FetchOptions = {}
+): Promise<PostalCodeData[]> => {
+  const trimmed = query.trim();
+  if (trimmed.length < POSTAL_CODE_MIN_QUERY_LENGTH) {
+    return [];
+  }
+
+  const isNumericQuery = /^\d+$/.test(trimmed);
+
+  const params = new URLSearchParams({
+    rows: String(limit),
+  });
+
+  if (isNumericQuery) {
+    if (trimmed.length >= 5) {
+      params.append('refine.postal_code', trimmed);
+    } else {
+      params.append('q', trimmed);
+    }
+  } else {
+    params.append('q', trimmed);
+  }
+
+  params.append('refine.country_code', 'DE');
+
+  const url = `${OPENDATASOFT_BASE_URL}&${params.toString()}`;
+
+  try {
+    const res = await fetch(url, {
+      headers: {
+        Accept: 'application/json',
+      },
+      cache: 'no-store',
+      signal: options.signal,
+    });
+
+    if (!res.ok) {
+      throw new Error(`OpenDataSoft request failed (${res.status})`);
+    }
+
+    const json = await res.json();
+    const records = Array.isArray(json?.records) ? json.records : [];
+
+    const mapped = records
+      .map(mapGeonamesPostalRecord)
+      .filter((item): item is PostalCodeData => Boolean(item));
+
+    if (mapped.length > 0) {
+      // Stable sort: exact postal code matches first, then by postal code.
+      mapped.sort((a, b) => {
+        const aExact = a.postalCode === trimmed;
+        const bExact = b.postalCode === trimmed;
+        if (aExact && !bExact) return -1;
+        if (!aExact && bExact) return 1;
+        return a.postalCode.localeCompare(b.postalCode);
+      });
+
+      // De-dupe by (postalCode, city, district) to avoid repeated entries.
+      const seen = new Set<string>();
+      return mapped.filter((item) => {
+        const key = `${item.postalCode}|${item.city}|${item.district}`;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+  } catch (error) {
+    if ((error as Error).name === 'AbortError') {
+      return [];
+    }
+    console.warn('Falling back to static postal codes', error);
+  }
+
+  return searchPostalCodes(trimmed, limit);
 };

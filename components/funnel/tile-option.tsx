@@ -14,7 +14,7 @@ export interface TileOptionProps {
 
 export function TileOption({
   label,
-  value,
+  value: _value,
   icon,
   selected,
   onClick,
