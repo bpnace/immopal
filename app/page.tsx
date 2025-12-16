@@ -10,26 +10,28 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-primary/5 to-background py-20 md:py-32">
-        <div className="container mx-auto px-4">
+      <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-b from-primary/5 to-background">
+        <Image src="/images/hero1.webp" alt="" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40" aria-hidden="true" />
+        <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Ihre Traumimmobilie in <span className="text-primary">Berlin & Brandenburg</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+              Ihre Traumimmobilie in <span className="text-primary-foreground">Berlin & Brandenburg</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
               Professionelle Immobilienvermittlung mit persönlicher Beratung. Finden Sie Ihre perfekte Wohnung oder
               Ihr Traumhaus.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/immobilien"
-                className="bg-background text-foreground border-2 border-border hover:bg-muted px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
+                className="bg-white/95 text-foreground border-2 border-white/20 hover:bg-white px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien entdecken
               </Link>
               <Link
                 href="/kontakt"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 border-1 border rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Kostenlos beraten lassen
               </Link>
