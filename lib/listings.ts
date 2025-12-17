@@ -17,6 +17,7 @@ export type Listing = {
   shortDescription: string;
   longDescription: string;
   status: string;
+  featured: boolean;
   createdAt: string;
   images: string[];
 };
@@ -49,6 +50,7 @@ type ListingAttributes = {
   field_short_description?: unknown;
   field_long_description?: unknown;
   field_status?: unknown;
+  field_featured?: unknown;
   created?: unknown;
 };
 
@@ -81,6 +83,13 @@ function getString(value: unknown): string | null {
 
 function getStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.map(getString).filter((v): v is string => Boolean(v)) : [];
+}
+
+function getBoolean(value: unknown): boolean {
+  if (typeof value === 'boolean') return value;
+  if (typeof value === 'number') return value === 1;
+  if (typeof value === 'string') return value === '1' || value.toLowerCase() === 'true';
+  return false;
 }
 
 function getProcessedHtml(value: unknown): string {
@@ -146,6 +155,7 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
     shortDescription: getProcessedHtml(a.field_short_description),
     longDescription: getProcessedHtml(a.field_long_description),
     status: getString(a.field_status) ?? '',
+    featured: getBoolean(a.field_featured),
     createdAt: getString(a.created) ?? '',
     images,
   };

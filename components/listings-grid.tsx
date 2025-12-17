@@ -1,11 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
-import { formatArea, formatPrice } from '@/lib/utils';
 import type { Listing } from '@/lib/listings';
+import { ListingCard } from '@/components/listing-card';
 
 const priceOptions = [0, 300000, 500000, 750000, 1000000, 1500000];
 const roomOptions = [0, 1, 2, 3, 4, 5];
@@ -133,59 +131,7 @@ export function ListingsGrid({ listings }: ListingsGridProps) {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredListings.map((listing) => (
-              <Link
-                key={listing.id}
-                href={`/immobilien/${listing.slug}`}
-                className="group bg-card border border-border rounded-xl overflow-hidden"
-              >
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src={listing.images?.[0] ?? '/images/spacejoy.jpg'}
-                    alt={listing.title}
-                    fill
-                    className="object-cover"
-                  />
-                  {listing.status === 'reserved' && (
-                    <div className="absolute top-4 right-4 bg-destructive text-destructive-foreground px-3 py-1 rounded-md text-sm font-medium">
-                      Reserviert
-                    </div>
-                  )}
-                  {listing.status === 'sold' && (
-                    <div className="absolute top-4 right-4 bg-muted text-muted-foreground px-3 py-1 rounded-md text-sm font-medium border border-border">
-                      Verkauft
-                    </div>
-                  )}
-                </div>
-                <div className="p-5">
-                  <div className="text-sm text-muted-foreground mb-2 line-clamp-1">{listing.location}</div>
-                  <h3 className="text-xl font-semibold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                    {listing.title}
-                  </h3>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                    {listing.rooms !== null && <span>{listing.rooms} Zimmer</span>}
-                    {listing.livingArea !== null && (
-                      <>
-                        <span>•</span>
-                        <span>{formatArea(listing.livingArea)}</span>
-                      </>
-                    )}
-                    {listing.plotArea !== null && (
-                      <>
-                        <span>•</span>
-                        <span>{formatArea(listing.plotArea)} Grundstück</span>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <p className="text-2xl font-bold text-primary">
-                      {listing.price !== null ? formatPrice(listing.price) : 'Auf Anfrage'}
-                    </p>
-                    <span className="text-primary text-sm font-medium group-hover:translate-x-1 transition-transform">
-                      Details →
-                    </span>
-                  </div>
-                </div>
-              </Link>
+              <ListingCard key={listing.id} listing={listing} />
             ))}
           </div>
         )}

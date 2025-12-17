@@ -1,11 +1,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getFeaturedProperties } from '@/lib/mock-data';
-import { formatPrice, formatArea } from '@/lib/utils';
 import { ReferralCalculator } from '@/components/referral-calculator';
+import { fetchListings } from '@/lib/listings';
+import { ListingCard } from '@/components/listing-card';
 
-export default function Home() {
-  const featuredProperties = getFeaturedProperties();
+export default async function Home() {
+  const listings = await fetchListings();
+  const featuredListings = [...listings]
+    .sort((a, b) => {
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    })
+    .slice(0, 4);
 
   return (
     <main>
@@ -183,60 +189,12 @@ export default function Home() {
       <section className="py-0 pb-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredProperties.slice(0, 3).map((property) => (
-              <Link
-                key={property.id}
-                href={`/immobilien/${property.slug}`}
-                className="group bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all"
-              >
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src={property.images[0].url}
-                    alt={property.images[0].alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {property.status === 'reserved' && (
-                    <div className="absolute top-4 right-4 bg-destructive text-destructive-foreground px-3 py-1 rounded-md text-sm font-medium">
-                      Reserviert
-                    </div>
-                  )}
-                  {property.featured && property.status === 'available' && (
-                    <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-md text-sm font-medium">
-                      Top-Angebot
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                    <span className="capitalize">{property.category}</span>
-                    <span>•</span>
-                    <span>
-                      {property.location.district}, {property.location.city}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                    {property.title}
-                  </h3>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                    <span>{property.rooms} Zimmer</span>
-                    <span>•</span>
-                    <span>{formatArea(property.livingArea)}</span>
-                    {property.plotSize && (
-                      <>
-                        <span>•</span>
-                        <span>{formatArea(property.plotSize)} Grundstück</span>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <p className="text-2xl font-bold text-primary">{formatPrice(property.price)}</p>
-                    <span className="text-primary text-sm font-medium group-hover:translate-x-1 transition-transform">
-                      Details →
-                    </span>
-                  </div>
-                </div>
-              </Link>
+            {featuredListings.map((listing) => (
+              <ListingCard
+                key={listing.id}
+                listing={listing}
+                badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
+              />
             ))}
           </div>
 
