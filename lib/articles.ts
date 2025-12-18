@@ -1,7 +1,6 @@
-const DRUPAL_API_BASE = process.env.DRUPAL_API_BASE ?? '';
-
-if (!DRUPAL_API_BASE) {
-  throw new Error('DRUPAL_API_BASE ist nicht gesetzt');
+function getDrupalApiBase(): string | null {
+  const base = process.env.DRUPAL_API_BASE;
+  return typeof base === 'string' && base.length > 0 ? base : null;
 }
 
 type JsonApiResourceIdentifier = {
@@ -39,8 +38,10 @@ export type Article = {
 };
 
 function absolutizeDrupalUrl(url: string): string {
+  const base = getDrupalApiBase();
+  if (!base) return url;
   try {
-    return new URL(url, DRUPAL_API_BASE).toString();
+    return new URL(url, base).toString();
   } catch {
     return url;
   }
@@ -154,8 +155,10 @@ async function fetchJsonApi(url: string): Promise<{ data: JsonApiResource[]; inc
 }
 
 export async function fetchArticles(limit = 24): Promise<Article[]> {
+  const base = getDrupalApiBase();
+  if (!base) return [];
   const url =
-    `${DRUPAL_API_BASE}/jsonapi/node/article` +
+    `${base}/jsonapi/node/article` +
     `?include=field_image,field_tags` +
     `&sort=-created` +
     `&page%5Blimit%5D=${encodeURIComponent(String(limit))}`;
@@ -165,9 +168,11 @@ export async function fetchArticles(limit = 24): Promise<Article[]> {
 }
 
 export async function fetchArticleBySlug(slug: string): Promise<Article | null> {
+  const base = getDrupalApiBase();
+  if (!base) return null;
   // 1) If slug looks like a UUID, try direct fetch by id.
   if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)) {
-    const url = `${DRUPAL_API_BASE}/jsonapi/node/article/${encodeURIComponent(slug)}?include=field_image,field_tags`;
+    const url = `${base}/jsonapi/node/article/${encodeURIComponent(slug)}?include=field_image,field_tags`;
     const { data, included } = await fetchJsonApi(url);
     const item = data[0];
     return item ? mapArticle(item, included) : null;
@@ -176,7 +181,7 @@ export async function fetchArticleBySlug(slug: string): Promise<Article | null> 
   // 2) If slug is numeric, attempt to filter by nid.
   if (/^\d+$/.test(slug)) {
     const url =
-      `${DRUPAL_API_BASE}/jsonapi/node/article` +
+      `${base}/jsonapi/node/article` +
       `?include=field_image,field_tags` +
       `&filter[drupal_internal__nid]=${encodeURIComponent(slug)}`;
     const { data, included } = await fetchJsonApi(url);
@@ -188,4 +193,3 @@ export async function fetchArticleBySlug(slug: string): Promise<Article | null> 
   const candidates = await fetchArticles(50);
   return candidates.find((a) => a.slug === slug) ?? null;
 }
-
