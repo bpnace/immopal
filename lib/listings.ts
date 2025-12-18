@@ -1,7 +1,6 @@
-const DRUPAL_API_BASE = process.env.DRUPAL_API_BASE ?? '';
-
-if (!DRUPAL_API_BASE) {
-  throw new Error('DRUPAL_API_BASE ist nicht gesetzt');
+function getDrupalApiBase(): string | null {
+  const base = process.env.DRUPAL_API_BASE;
+  return typeof base === 'string' && base.length > 0 ? base : null;
 }
 
 export type Listing = {
@@ -70,8 +69,10 @@ function firstNumber(value: unknown): number | null {
 }
 
 function absolutizeDrupalUrl(url: string): string {
+  const base = getDrupalApiBase();
+  if (!base) return url;
   try {
-    return new URL(url, DRUPAL_API_BASE).toString();
+    return new URL(url, base).toString();
   } catch {
     return url;
   }
@@ -162,7 +163,9 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
 }
 
 export async function fetchListings(): Promise<Listing[]> {
-  const res = await fetch(`${DRUPAL_API_BASE}/jsonapi/node/listing?include=field_main_image`, {
+  const base = getDrupalApiBase();
+  if (!base) return [];
+  const res = await fetch(`${base}/jsonapi/node/listing?include=field_main_image`, {
     cache: 'no-store',
   });
 
@@ -177,8 +180,10 @@ export async function fetchListings(): Promise<Listing[]> {
 }
 
 export async function fetchListingBySlug(slug: string): Promise<Listing | null> {
+  const base = getDrupalApiBase();
+  if (!base) return null;
   const url =
-    `${DRUPAL_API_BASE}/jsonapi/node/listing` +
+    `${base}/jsonapi/node/listing` +
     `?filter[field_slug]=${encodeURIComponent(slug)}` +
     `&include=field_main_image`;
 
