@@ -16,7 +16,7 @@ export default async function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-b from-primary/5 to-background">
+      <section className="relative min-h-[calc(100svh-4rem)] pt-20 pb-14 md:pt-28 md:pb-16 overflow-hidden bg-gradient-to-b from-primary/5 to-background">
         <Image src="/images/hero1.webp" alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40" aria-hidden="true" />
         <div className="relative z-10 container mx-auto px-4">
@@ -42,51 +42,47 @@ export default async function Home() {
                 Kostenlos beraten lassen
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Search Bar */}
-      <section className="py-8 bg-background border-b border-border">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Immobilientyp</label>
-                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                    <option>Alle</option>
-                    <option>Wohnung</option>
-                    <option>Haus</option>
-                    <option>Grundstück</option>
-                    <option>Gewerbe</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Ort</label>
-                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                    <option>Berlin & Brandenburg</option>
-                    <option>Berlin</option>
-                    <option>Brandenburg</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Preis bis</label>
-                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                    <option>Unbegrenzt</option>
-                    <option>300.000 €</option>
-                    <option>500.000 €</option>
-                    <option>750.000 €</option>
-                    <option>1.000.000 €</option>
-                  </select>
-                </div>
-                <div className="flex items-end">
-                  <Link
-                    href="/immobilien"
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md font-medium transition-colors text-center"
-                  >
-                    Suchen
-                  </Link>
+            {/* Search Bar */}
+            <div className="mt-10 text-left">
+              <div className="bg-background/95 backdrop-blur border border-border rounded-lg p-6 shadow-lg">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <div>
+                    <label className="text-sm font-medium mb-2 block text-foreground">Immobilientyp</label>
+                    <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                      <option>Alle</option>
+                      <option>Wohnung</option>
+                      <option>Haus</option>
+                      <option>Grundstück</option>
+                      <option>Gewerbe</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block text-foreground">Ort</label>
+                    <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                      <option>Berlin & Brandenburg</option>
+                      <option>Berlin</option>
+                      <option>Brandenburg</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block text-foreground">Preis bis</label>
+                    <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                      <option>Unbegrenzt</option>
+                      <option>300.000 €</option>
+                      <option>500.000 €</option>
+                      <option>750.000 €</option>
+                      <option>1.000.000 €</option>
+                    </select>
+                  </div>
+                  <div className="flex items-end">
+                    <Link
+                      href="/immobilien"
+                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md font-medium transition-colors text-center"
+                    >
+                      Suchen
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -174,38 +170,6 @@ export default async function Home() {
               </p>
             </Link>
           </div>
-
-          {/* Top 3 Properties Heading */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Top 3 Immobilien</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Unsere aktuellen Highlight-Objekte in Berlin und Brandenburg
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Properties */}
-      <section className="py-0 pb-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredListings.map((listing) => (
-              <ListingCard
-                key={listing.id}
-                listing={listing}
-                badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
-              />
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/immobilien"
-              className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-medium transition-colors"
-            >
-              Alle Immobilien anzeigen
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -274,19 +238,18 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Referral Calculator Section */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <ReferralCalculator compact />
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-primary-foreground">
+      <section className="relative py-16 text-primary-foreground overflow-hidden">
+        <Image
+          src="/images/signature.webp"
+          alt=""
+          fill
+          className="object-cover object-top opacity-100"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-primary/80" aria-hidden="true" />
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center p-10 relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Bereit, Ihre Traumimmobilie zu finden?
             </h2>
@@ -307,6 +270,46 @@ export default async function Home() {
                 Immobilien durchstöbern
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Properties */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Aktuelle Immobilien</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Unsere neuesten Highlights aus Berlin & Brandenburg – direkt aus unserem Portfolio.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {featuredListings.map((listing) => (
+              <ListingCard
+                key={listing.id}
+                listing={listing}
+                badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
+              />
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/immobilien"
+              className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-medium transition-colors"
+            >
+              Alle Immobilien anzeigen
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Referral Calculator Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <ReferralCalculator compact />
           </div>
         </div>
       </section>
