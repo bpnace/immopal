@@ -6,6 +6,9 @@
 
 # Testing
 /coverage
+/test-results/
+/playwright-report/
+/playwright/.cache/
 raw_images/
 
 # Next.js
@@ -15,8 +18,6 @@ raw_images/
 # Production
 /build
 dist
-CLAUDE.md
-docker-compose.yml
 
 # Misc
 .DS_Store
@@ -32,9 +33,15 @@ yarn-error.log*
 .env*.local
 .env.production
 .claude
+
+# Config files (project-specific)
 .eslintrc.json
 .prettierrc
+CLAUDE.md
+
+# Docker
 docker-compose.yml
+docker-compose.override.yml
 
 # Vercel
 .vercel
@@ -49,6 +56,8 @@ next-env.d.ts
 *.swp
 *.swo
 *~
+*.sublime-project
+*.sublime-workspace
 
 # Payload CMS
 /media
@@ -60,12 +69,8 @@ logs
 *.log
 
 # OS
-.DS_Store
 Thumbs.db
 
 # Temporary files
 *.tmp
 *.temp
-
-# Docker
-docker-compose.override.yml

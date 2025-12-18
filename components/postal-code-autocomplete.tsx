@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { searchPostalCodes, formatPostalCodeDisplay, type PostalCodeData } from '@/lib/postal-codes';
+import { POSTAL_CODE_MIN_QUERY_LENGTH, type PostalCodeData } from '@/lib/postal-codes';
 
 interface PostalCodeAutocompleteProps {
   value: string;
@@ -23,19 +23,59 @@ export function PostalCodeAutocomplete({
   const [suggestions, setSuggestions] = useState<PostalCodeData[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const listboxId = 'postal-code-suggestions';
+  const activeDescendantId =
+    selectedIndex >= 0 && selectedIndex < suggestions.length
+      ? `postal-code-suggestion-${selectedIndex}`
+      : undefined;
 
   useEffect(() => {
-    if (value && value.length >= 2) {
-      const results = searchPostalCodes(value);
-      setSuggestions(results);
-      setShowSuggestions(results.length > 0);
-    } else {
+    const trimmed = value.trim();
+    if (!trimmed || trimmed.length < POSTAL_CODE_MIN_QUERY_LENGTH) {
       setSuggestions([]);
       setShowSuggestions(false);
+      setSelectedIndex(-1);
+      setFetchError(null);
+      return;
     }
-    setSelectedIndex(-1);
+
+    const controller = new AbortController();
+    const debounceId = window.setTimeout(async () => {
+      setIsLoading(true);
+      setFetchError(null);
+
+      try {
+        const params = new URLSearchParams({
+          q: trimmed,
+          limit: '10',
+        });
+        const response = await fetch(`/api/postal-codes?${params.toString()}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          throw new Error('Failed to load postal code suggestions');
+        }
+        const data = await response.json();
+        setSuggestions(data.suggestions ?? []);
+        setShowSuggestions(true);
+      } catch (error) {
+        if ((error as Error).name !== 'AbortError') {
+          setFetchError('Postleitzahlen konnten nicht geladen werden. Bitte versuchen Sie es erneut.');
+        }
+      } finally {
+        setIsLoading(false);
+        setSelectedIndex(-1);
+      }
+    }, 250);
+
+    return () => {
+      controller.abort();
+      window.clearTimeout(debounceId);
+    };
   }, [value]);
 
   // Click outside to close
@@ -108,22 +148,34 @@ export function PostalCodeAutocomplete({
         className={`w-full px-4 py-2 border ${error ? 'border-destructive' : 'border-input'}`}
         placeholder={placeholder}
         autoComplete="off"
+        role="combobox"
         aria-autocomplete="list"
-        aria-controls="postal-code-suggestions"
+        aria-controls={listboxId}
         aria-expanded={showSuggestions}
+        aria-haspopup="listbox"
+        aria-activedescendant={activeDescendantId}
       />
 
       {/* Suggestions Dropdown */}
-      {showSuggestions && suggestions.length > 0 && (
+      {showSuggestions && (
         <div
           ref={dropdownRef}
-          id="postal-code-suggestions"
+          id={listboxId}
           className="absolute z-50 w-full mt-1 bg-white border border-border shadow-lg max-h-60 overflow-auto"
           role="listbox"
         >
+          {isLoading && (
+            <div className="px-4 py-3 text-sm text-muted-foreground">Lade Vorschläge…</div>
+          )}
+          {!isLoading && suggestions.length === 0 && (
+            <div className="px-4 py-3 text-sm text-muted-foreground">
+              Keine passenden Postleitzahlen gefunden.
+            </div>
+          )}
           {suggestions.map((suggestion, index) => (
             <button
-              key={`${suggestion.postalCode}-${suggestion.district}`}
+              key={`${suggestion.postalCode}-${suggestion.city}-${suggestion.district}`}
+              id={`postal-code-suggestion-${index}`}
               type="button"
               onClick={() => handleSelectSuggestion(suggestion)}
               onMouseEnter={() => setSelectedIndex(index)}
@@ -138,7 +190,9 @@ export function PostalCodeAutocomplete({
                   <span className="font-semibold text-primary">{suggestion.postalCode}</span>
                   <span className="text-muted-foreground mx-2">•</span>
                   <span className="text-foreground">{suggestion.city}</span>
-                  <span className="text-muted-foreground ml-2">{suggestion.district}</span>
+                  {suggestion.district && (
+                    <span className="text-muted-foreground ml-2">{suggestion.district}</span>
+                  )}
                 </div>
                 <svg
                   className="w-4 h-4 text-muted-foreground flex-shrink-0"
@@ -155,10 +209,16 @@ export function PostalCodeAutocomplete({
       )}
 
       {error && <p className="text-destructive text-sm mt-1">{error}</p>}
+      {!error && fetchError && <p className="text-destructive text-sm mt-1">{fetchError}</p>}
 
       {/* Helper text */}
-      {!error && !showSuggestions && value.length > 0 && value.length < 2 && (
-        <p className="text-muted-foreground text-xs mt-1">Mindestens 2 Zeichen eingeben</p>
+      {!error &&
+        !showSuggestions &&
+        value.length > 0 &&
+        value.trim().length < POSTAL_CODE_MIN_QUERY_LENGTH && (
+          <p className="text-muted-foreground text-xs mt-1">
+            Mindestens {POSTAL_CODE_MIN_QUERY_LENGTH} Zeichen eingeben
+          </p>
       )}
     </div>
   );

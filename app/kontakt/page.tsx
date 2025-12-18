@@ -9,12 +9,14 @@ export default function KontaktPage() {
   return (
     <main className="min-h-screen bg-background">
       {/* Header */}
-      <section className="bg-primary/5 py-12">
+      <section className="bg-primary/5 py-12 min-h-[220px] flex items-center">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Kontakt</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Kontakt</h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Wir freuen uns auf Ihre Nachricht und beraten Sie gerne bei der Suche nach Ihrer Traumimmobilie
-          </p>
+            </p>
+          </div>
         </div>
       </section>
 

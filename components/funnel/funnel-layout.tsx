@@ -2,7 +2,6 @@
 
 import { ConsultantAvatar } from './consultant-avatar';
 import { QuestionBox } from './question-box';
-import { cn } from '@/lib/utils';
 
 export interface FunnelLayoutProps {
   consultant: {
@@ -29,13 +28,13 @@ export function FunnelLayout({
   question,
   subtitle,
   children,
-  onBack,
-  onNext,
-  nextLabel = 'Weiter',
-  showBack = true,
+  onBack: _onBack,
+  onNext: _onNext,
+  nextLabel: _nextLabel = 'Weiter',
+  showBack: _showBack = true,
   error,
-  nextDisabled = false,
-  isSubmitting = false,
+  nextDisabled: _nextDisabled = false,
+  isSubmitting: _isSubmitting = false,
   showConsultant = true,
 }: FunnelLayoutProps) {
   return (

@@ -14,8 +14,8 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
   const maxValue = 2000000;
   const step = 10000;
 
-  // German real estate commission is typically 3-7%, using 3% for calculation
-  const commissionRate = 0.03;
+  // German real estate commission is typically 3-7%, using 6% for calculation
+  const commissionRate = 0.06;
   const referralRate = 0.20; // 20% of net commission
 
   const grossCommission = propertyValue * commissionRate;
@@ -65,7 +65,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
             <span className="font-semibold">{formatPrice(propertyValue)}</span>
           </div>
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Provision (3%):</span>
+            <span className="text-muted-foreground">Provision (6%):</span>
             <span className="font-semibold">{formatPrice(grossCommission)}</span>
           </div>
           <div className="pt-2 border-t border-border">
@@ -141,7 +141,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
             <div className="flex justify-between items-center py-4 border-b border-border">
               <div>
                 <p className="font-medium text-foreground">Maklerprovision</p>
-                <p className="text-xs text-muted-foreground mt-1">3% vom Verkaufspreis</p>
+                <p className="text-xs text-muted-foreground mt-1">6% vom Verkaufspreis</p>
               </div>
               <p className="text-2xl font-bold text-foreground">{formatPrice(grossCommission)}</p>
             </div>

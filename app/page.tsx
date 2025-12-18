@@ -1,35 +1,43 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getFeaturedProperties } from '@/lib/mock-data';
-import { formatPrice, formatArea } from '@/lib/utils';
 import { ReferralCalculator } from '@/components/referral-calculator';
+import { fetchListings } from '@/lib/listings';
+import { ListingCard } from '@/components/listing-card';
 
-export default function Home() {
-  const featuredProperties = getFeaturedProperties();
+export default async function Home() {
+  const listings = await fetchListings();
+  const featuredListings = [...listings]
+    .sort((a, b) => {
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    })
+    .slice(0, 4);
 
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-primary/5 to-background py-20 md:py-32">
-        <div className="container mx-auto px-4">
+      <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-b from-primary/5 to-background">
+        <Image src="/images/hero1.webp" alt="" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40" aria-hidden="true" />
+        <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Ihre Traumimmobilie in <span className="text-primary">Berlin & Brandenburg</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+              Ihre Traumimmobilie in <span className="text-primary-foreground">Berlin & Brandenburg</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
               Professionelle Immobilienvermittlung mit persönlicher Beratung. Finden Sie Ihre perfekte Wohnung oder
               Ihr Traumhaus.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/immobilien"
-                className="bg-background text-foreground border-2 border-border hover:bg-muted px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
+                className="bg-white/95 text-foreground border-2 border-white/20 hover:bg-white px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien entdecken
               </Link>
               <Link
                 href="/kontakt"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 border-1 border rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Kostenlos beraten lassen
               </Link>
@@ -181,60 +189,12 @@ export default function Home() {
       <section className="py-0 pb-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredProperties.slice(0, 3).map((property) => (
-              <Link
-                key={property.id}
-                href={`/immobilien/${property.slug}`}
-                className="group bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all"
-              >
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src={property.images[0].url}
-                    alt={property.images[0].alt}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  {property.status === 'reserved' && (
-                    <div className="absolute top-4 right-4 bg-destructive text-destructive-foreground px-3 py-1 rounded-md text-sm font-medium">
-                      Reserviert
-                    </div>
-                  )}
-                  {property.featured && property.status === 'available' && (
-                    <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-md text-sm font-medium">
-                      Top-Angebot
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                    <span className="capitalize">{property.category}</span>
-                    <span>•</span>
-                    <span>
-                      {property.location.district}, {property.location.city}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                    {property.title}
-                  </h3>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-                    <span>{property.rooms} Zimmer</span>
-                    <span>•</span>
-                    <span>{formatArea(property.livingArea)}</span>
-                    {property.plotSize && (
-                      <>
-                        <span>•</span>
-                        <span>{formatArea(property.plotSize)} Grundstück</span>
-                      </>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <p className="text-2xl font-bold text-primary">{formatPrice(property.price)}</p>
-                    <span className="text-primary text-sm font-medium group-hover:translate-x-1 transition-transform">
-                      Details →
-                    </span>
-                  </div>
-                </div>
-              </Link>
+            {featuredListings.map((listing) => (
+              <ListingCard
+                key={listing.id}
+                listing={listing}
+                badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
+              />
             ))}
           </div>
 
