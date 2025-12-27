@@ -21,14 +21,14 @@ export default async function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40" aria-hidden="true" />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+            <h1 className="text-4xl md:text-6xl font-bold mb-12 text-white">
               Ihre Traumimmobilie in <span className="text-primary-foreground">Berlin & Brandenburg</span>
             </h1>
             <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
               Professionelle Immobilienvermittlung mit persönlicher Beratung. Finden Sie Ihre perfekte Wohnung oder
               Ihr Traumhaus.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
                 href="/immobilien"
                 className="bg-white/95 text-foreground border-2 border-white/20 hover:bg-white px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
@@ -43,49 +43,6 @@ export default async function Home() {
               </Link>
             </div>
 
-            {/* Search Bar */}
-            <div className="mt-10 text-left">
-              <div className="bg-background/95 backdrop-blur border border-border rounded-lg p-6 shadow-lg">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block text-foreground">Immobilientyp</label>
-                    <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                      <option>Alle</option>
-                      <option>Wohnung</option>
-                      <option>Haus</option>
-                      <option>Grundstück</option>
-                      <option>Gewerbe</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block text-foreground">Ort</label>
-                    <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                      <option>Berlin & Brandenburg</option>
-                      <option>Berlin</option>
-                      <option>Brandenburg</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block text-foreground">Preis bis</label>
-                    <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                      <option>Unbegrenzt</option>
-                      <option>300.000 €</option>
-                      <option>500.000 €</option>
-                      <option>750.000 €</option>
-                      <option>1.000.000 €</option>
-                    </select>
-                  </div>
-                  <div className="flex items-end">
-                    <Link
-                      href="/immobilien"
-                      className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md font-medium transition-colors text-center"
-                    >
-                      Suchen
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -280,8 +237,52 @@ export default async function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Aktuelle Immobilien</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Unsere neuesten Highlights aus Berlin & Brandenburg – direkt aus unserem Portfolio.
+              Unsere neuesten Highlights aus Berlin & Brandenburg direkt aus unserem Portfolio.
             </p>
+          </div>
+
+          {/* Suche */}
+          <div className="max-w-4xl mx-auto mb-10">
+            <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Immobilientyp</label>
+                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                    <option>Alle</option>
+                    <option>Wohnung</option>
+                    <option>Haus</option>
+                    <option>Grundstück</option>
+                    <option>Gewerbe</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Ort</label>
+                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                    <option>Berlin & Brandenburg</option>
+                    <option>Berlin</option>
+                    <option>Brandenburg</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Preis bis</label>
+                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                    <option>Unbegrenzt</option>
+                    <option>300.000 €</option>
+                    <option>500.000 €</option>
+                    <option>750.000 €</option>
+                    <option>1.000.000 €</option>
+                  </select>
+                </div>
+                <div className="flex items-end">
+                  <Link
+                    href="/immobilien"
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md font-medium transition-colors text-center"
+                  >
+                    Suchen
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">

@@ -26,7 +26,7 @@ export interface SellingFormData {
   livingArea: string; // 'bis-80' | '81-120' | '121-160' | etc.
 
   // Step 7: Condition
-  condition: 'neuwertig' | 'saniert' | 'gepflegt' | 'baufällig' | '';
+  condition: 'neuwertig' | 'saniert' | 'gepflegt' | 'baufaellig' | '';
 
   // Step 8: Location
   postalCode: string;

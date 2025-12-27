@@ -202,7 +202,7 @@ export const conditionOptions: TileSelectOption[] = [
   { value: 'neuwertig', label: 'Neuwertig' },
   { value: 'saniert', label: 'Saniert' },
   { value: 'gepflegt', label: 'Gepflegt' },
-  { value: 'baufällig', label: 'Baufällig' },
+  { value: 'baufaellig', label: 'Baufällig' },
 ];
 
 /**
