@@ -15,6 +15,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.output = config.output ?? {}
+      config.output.chunkFilename = 'chunks/[id].js'
+    }
+    return config
+  },
 }
 
 export default withPayload(nextConfig)
