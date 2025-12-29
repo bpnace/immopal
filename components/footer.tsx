@@ -11,7 +11,7 @@ export function Footer() {
           <div className="col-span-1">
             <h3 className="text-lg font-bold text-foreground mb-4">immopal</h3>
             <p className="text-muted-foreground text-sm">
-              Ihr vertrauensvoller Immobilienmakler in Berlin und Brandenburg.
+              Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026
             </p>
           </div>
 
@@ -82,14 +82,6 @@ export function Footer() {
                   Datenschutz
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/agb"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  AGB
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -98,21 +90,21 @@ export function Footer() {
             <h4 className="text-sm font-semibold text-foreground mb-4">Kontakt</h4>
             <ul className="space-y-2">
               <li className="text-sm text-muted-foreground">
-                <a href="mailto:info@immopal.de" className="hover:text-primary transition-colors">
-                  info@immopal.de
+                <a href="mailto:info@immo-pal.de" className="hover:text-primary transition-colors">
+                  info@immo-pal.de
                 </a>
               </li>
               <li className="text-sm text-muted-foreground">
-                <a href="tel:+493012345678" className="hover:text-primary transition-colors">
-                  +49 (0)30 123 456 78
+                <a href="tel:+493046690542" className="hover:text-primary transition-colors">
+                  030 46690542
                 </a>
               </li>
-              <li className="text-sm text-muted-foreground">Berlin, Deutschland</li>
+              <li className="text-sm text-muted-foreground">Genfenbergstraße 23, 13595 Berlin</li>
             </ul>
 
             <div className="mt-4 flex items-center gap-3">
               <a
-                href="https://wa.me/4930123456789"
+                href="https://wa.me/493046690542"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background text-foreground hover:text-primary hover:border-primary transition-colors"
@@ -142,7 +134,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border">
           <p className="text-center text-sm text-muted-foreground">
-            © {currentYear} immopal. Alle Rechte vorbehalten.
+             2026 ©immo-pal Alle Rechte vorbehalten.
           </p>
         </div>
       </div>

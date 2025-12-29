@@ -162,8 +162,8 @@ export default function KontaktPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">Telefon</h3>
-                    <a href="tel:+493012345678" className="text-primary hover:underline">
-                      +49 (0)30 123 456 78
+                    <a href="tel:+493046690542" className="text-primary hover:underline">
+                      030 46690542
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">
                       Mo-Fr: 9:00 - 18:00 Uhr
@@ -186,8 +186,8 @@ export default function KontaktPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1">E-Mail</h3>
-                    <a href="mailto:info@immopal.de" className="text-primary hover:underline">
-                      info@immopal.de
+                    <a href="mailto:info@immo-pal.de" className="text-primary hover:underline">
+                      info@immo-pal.de
                     </a>
                     <p className="text-sm text-muted-foreground mt-1">
                       Wir antworten innerhalb von 24 Stunden
@@ -215,9 +215,9 @@ export default function KontaktPage() {
                   <div>
                     <h3 className="font-semibold mb-1">Adresse</h3>
                     <p className="text-muted-foreground">
-                      Kurfürstendamm 66
+                      Genfenbergstraße 23
                       <br />
-                      10707 Berlin
+                      13595 Berlin
                       <br />
                       Deutschland
                     </p>
@@ -226,7 +226,7 @@ export default function KontaktPage() {
               </div>
             </div>
 
-            <DsgvoGoogleMaps address="Kurfürstendamm 66, 10707 Berlin, Deutschland" />
+            <DsgvoGoogleMaps address="Genfenbergstraße 23, 13595 Berlin, Deutschland" />
 
             {/* Additional Info */}
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 mt-6">
@@ -246,7 +246,7 @@ export default function KontaktPage() {
               </p>
               <div className="flex gap-3">
                 <a
-                  href="tel:+493012345678"
+                  href="tel:+493046690542"
                   className="inline-flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -260,7 +260,7 @@ export default function KontaktPage() {
                   Jetzt anrufen
                 </a>
                 <a
-                  href={`https://wa.me/493012345678?text=${encodeURIComponent(
+                  href={`https://wa.me/493046690542?text=${encodeURIComponent(
                     'Hallo! Ich habe eine Frage und würde gerne Kontakt aufnehmen.'
                   )}`}
                   target="_blank"

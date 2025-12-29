@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Über uns - immopal',
-  description: 'Erfahren Sie mehr über immopal, Ihren vertrauensvollen Immobilienmakler in Berlin & Brandenburg',
+  description: 'Erfahren Sie mehr über immopal, Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026',
 };
 
 export default function UeberUnsPage() {
@@ -67,7 +67,7 @@ export default function UeberUnsPage() {
               <div className="bg-card border border-border rounded-lg overflow-hidden">
                 <div className="relative h-64 bg-muted">
                   <Image
-                    src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg"
+                    src="/images/tarik.webp"
                     alt="Thomas Weber"
                     fill
                     className="object-cover"

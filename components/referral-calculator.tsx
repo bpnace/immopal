@@ -161,7 +161,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
           <div className="mt-8">
             <a
               href="/kontakt"
-              className="block w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md"
+              className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md"
             >
               Jetzt Immobilie empfehlen
             </a>

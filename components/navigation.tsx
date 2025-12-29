@@ -48,7 +48,7 @@ export function Navigation() {
             </Link>
             {/* WhatsApp Icon */}
             <a
-              href="https://wa.me/4930123456789"
+              href="https://wa.me/493046690542"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:text-primary/80 transition-colors"
@@ -64,7 +64,7 @@ export function Navigation() {
           <div className="flex items-center gap-4 md:hidden">
             {/* WhatsApp Icon */}
             <a
-              href="https://wa.me/4930123456789"
+              href="https://wa.me/493046690542"
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:text-primary/80 transition-colors"

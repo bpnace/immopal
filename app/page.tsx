@@ -27,8 +27,8 @@ const trustpilotReviews: TrustpilotReview[] = [
     date: 'vor 7 Tagen',
   },
   {
-    title: 'Wir haben 2022 ein Haus über Immopal gekauft',
-    text: 'Wir haben 2022 ein Haus über Immopal gekauft und waren von Anfang an bestens beraten und begleitet.',
+    title: 'Wir haben ein Haus über Immopal gekauft',
+    text: 'Wir haben ein Haus über Immopal gekauft und waren von Anfang an bestens beraten und begleitet.',
     author: 'Michelle',
     date: '19. Dezember',
   },
