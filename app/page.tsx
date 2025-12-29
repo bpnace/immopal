@@ -1,8 +1,67 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ReferralCalculator } from '@/components/referral-calculator';
+import { BlogPreview } from '@/components/blog-preview';
+import { FaqSection } from '@/components/faq';
 import { fetchListings } from '@/lib/listings';
 import { ListingCard } from '@/components/listing-card';
+
+type TrustpilotReview = {
+  title: string;
+  text: string;
+  author: string;
+  date: string;
+};
+
+const trustpilotReviews: TrustpilotReview[] = [
+  {
+    title: 'Perfekt, freundlich, kompetent',
+    text: 'Wir sind sehr zufrieden mit dem Verkauf unserer Immobilie. Von Beginn an bis zum Abschluss sehr professionell.',
+    author: 'Andreas R.',
+    date: 'vor 21 Stunden',
+  },
+  {
+    title: 'Ausgezeichnete Marktkenntnis',
+    text: 'Ausgezeichnete Marktkenntnis, realistische Einschätzung und sehr angenehme Zusammenarbeit.',
+    author: 'Mehmet-Ali Öztürk',
+    date: 'vor 7 Tagen',
+  },
+  {
+    title: 'Wir haben 2022 ein Haus über Immopal gekauft',
+    text: 'Wir haben 2022 ein Haus über Immopal gekauft und waren von Anfang an bestens beraten und begleitet.',
+    author: 'Michelle',
+    date: '19. Dezember',
+  },
+  {
+    title: 'Wohnung verkauft',
+    text: 'Während des gesamten Prozesses, von der Wohnungsbesichtigung bis zur Übergabe, verlief alles reibungslos.',
+    author: 'Damian Dobrodziej',
+    date: '18. Dezember',
+  },
+];
+
+function TrustpilotStars({ rating = 5 }: { rating?: 1 | 2 | 3 | 4 | 5 }) {
+  return (
+    <div className="flex items-center gap-1" aria-label={`${rating} von 5 Sternen`}>
+      {[1, 2, 3, 4, 5].map((star) => {
+        const filled = star <= rating;
+        return (
+          <span
+            key={star}
+            className={`inline-flex h-5 w-5 items-center justify-center rounded-[2px] ${
+              filled ? 'bg-[#00b67a]' : 'bg-muted'
+            }`}
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill={filled ? 'white' : 'currentColor'}>
+              <path d="M12 17.27l5.18 3.13-1.64-5.81L20 9.75l-5.97-.51L12 3.75 9.97 9.24 4 9.75l4.46 4.84-1.64 5.81z" />
+            </svg>
+          </span>
+        );
+      })}
+    </div>
+  );
+}
 
 export default async function Home() {
   const listings = await fetchListings();
@@ -16,19 +75,19 @@ export default async function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 overflow-hidden bg-gradient-to-b from-primary/5 to-background">
+      <section className="relative min-h-[calc(100svh-4rem)] pt-20 pb-14 md:pt-28 md:pb-16 overflow-hidden bg-gradient-to-b from-primary/5 to-background">
         <Image src="/images/hero1.webp" alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40" aria-hidden="true" />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+            <h1 className="text-4xl md:text-6xl font-bold mb-12 text-white">
               Ihre Traumimmobilie in <span className="text-primary-foreground">Berlin & Brandenburg</span>
             </h1>
             <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
               Professionelle Immobilienvermittlung mit persönlicher Beratung. Finden Sie Ihre perfekte Wohnung oder
               Ihr Traumhaus.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
                 href="/immobilien"
                 className="bg-white/95 text-foreground border-2 border-white/20 hover:bg-white px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
@@ -39,57 +98,10 @@ export default async function Home() {
                 href="/kontakt"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 border-1 border rounded-lg text-lg font-medium transition-colors inline-block"
               >
-                Kostenlos beraten lassen
+                Kostenlose Immobilienbewertung
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Search Bar */}
-      <section className="py-8 bg-background border-b border-border">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Immobilientyp</label>
-                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                    <option>Alle</option>
-                    <option>Wohnung</option>
-                    <option>Haus</option>
-                    <option>Grundstück</option>
-                    <option>Gewerbe</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Ort</label>
-                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                    <option>Berlin & Brandenburg</option>
-                    <option>Berlin</option>
-                    <option>Brandenburg</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Preis bis</label>
-                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
-                    <option>Unbegrenzt</option>
-                    <option>300.000 €</option>
-                    <option>500.000 €</option>
-                    <option>750.000 €</option>
-                    <option>1.000.000 €</option>
-                  </select>
-                </div>
-                <div className="flex items-end">
-                  <Link
-                    href="/immobilien"
-                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md font-medium transition-colors text-center"
-                  >
-                    Suchen
-                  </Link>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -174,38 +186,6 @@ export default async function Home() {
               </p>
             </Link>
           </div>
-
-          {/* Top 3 Properties Heading */}
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Top 3 Immobilien</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Unsere aktuellen Highlight-Objekte in Berlin und Brandenburg
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Properties */}
-      <section className="py-0 pb-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredListings.map((listing) => (
-              <ListingCard
-                key={listing.id}
-                listing={listing}
-                badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
-              />
-            ))}
-          </div>
-
-          <div className="text-center">
-            <Link
-              href="/immobilien"
-              className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-medium transition-colors"
-            >
-              Alle Immobilien anzeigen
-            </Link>
-          </div>
         </div>
       </section>
 
@@ -274,19 +254,62 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Referral Calculator Section */}
+      {/* Trustpilot Section */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <ReferralCalculator compact />
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Das sagen unsere Kunden</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Echte Erfahrungen und Bewertungen – transparent und nachvollziehbar.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+            <div className="lg:col-span-1 p-6">
+              <div className="text-xl font-semibold mb-2">Hervorragend</div>
+              <div className="flex items-center gap-3 mb-2">
+                <TrustpilotStars rating={5} />
+                <span className="text-sm text-muted-foreground">Trustpilot</span>
+              </div>
+              <p className="text-sm text-muted-foreground mb-4">Basierend auf Bewertungen unserer Kunden</p>
+              <Link
+                href="https://www.trustpilot.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm font-medium text-primary hover:underline"
+              >
+                Alle Bewertungen ansehen
+              </Link>
+            </div>
+
+            <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {trustpilotReviews.map((review) => (
+                <div key={review.title} className="bg-card border border-border rounded-lg p-5">
+                  <TrustpilotStars rating={5} />
+                  <h3 className="mt-3 font-semibold leading-snug">{review.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{review.text}</p>
+                  <div className="mt-4 text-xs text-muted-foreground">
+                    <span className="font-medium text-foreground/80">{review.author}</span> · {review.date}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary text-primary-foreground">
+      <section className="relative py-16 text-primary-foreground overflow-hidden">
+        <Image
+          src="/images/signature.webp"
+          alt=""
+          fill
+          className="object-cover object-top opacity-100"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-primary/80" aria-hidden="true" />
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center p-10 relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Bereit, Ihre Traumimmobilie zu finden?
             </h2>
@@ -310,6 +333,94 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured Properties */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Aktuelle Immobilien</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Unsere neuesten Highlights aus Berlin & Brandenburg direkt aus unserem Portfolio.
+            </p>
+          </div>
+
+          {/* Suche */}
+          <div className="max-w-4xl mx-auto mb-10">
+            <div className="bg-card border border-border rounded-lg p-6 shadow-sm">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Immobilientyp</label>
+                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                    <option>Alle</option>
+                    <option>Wohnung</option>
+                    <option>Haus</option>
+                    <option>Grundstück</option>
+                    <option>Gewerbe</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Ort</label>
+                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                    <option>Berlin & Brandenburg</option>
+                    <option>Berlin</option>
+                    <option>Brandenburg</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Preis bis</label>
+                  <select className="w-full px-4 py-2 rounded-md border border-input bg-background">
+                    <option>Unbegrenzt</option>
+                    <option>300.000 €</option>
+                    <option>500.000 €</option>
+                    <option>750.000 €</option>
+                    <option>1.000.000 €</option>
+                  </select>
+                </div>
+                <div className="flex items-end">
+                  <Link
+                    href="/immobilien"
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md font-medium transition-colors text-center"
+                  >
+                    Suchen
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {featuredListings.map((listing) => (
+              <ListingCard
+                key={listing.id}
+                listing={listing}
+                badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
+              />
+            ))}
+          </div>
+
+          <div className="text-center">
+            <Link
+              href="/immobilien"
+              className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-medium transition-colors"
+            >
+              Alle Immobilien anzeigen
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Referral Calculator Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <ReferralCalculator compact />
+          </div>
+        </div>
+      </section>
+
+      <BlogPreview />
+
+      <FaqSection />
     </main>
   );
 }

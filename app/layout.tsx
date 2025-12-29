@@ -1,12 +1,9 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { CookieBanner } from '@/components/cookie-banner';
 import { WhatsAppButton } from '@/components/whatsapp-button';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'immopal - Ihr Immobilienmakler in Berlin & Brandenburg',
@@ -31,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body className={`${inter.className} flex flex-col min-h-screen`}>
+      <body className="font-sans flex flex-col min-h-screen">
         <Navigation />
         <main className="flex-grow">{children}</main>
         <Footer />

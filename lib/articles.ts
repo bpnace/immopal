@@ -25,6 +25,16 @@ type DrupalTextWithSummary = {
   summary?: unknown;
 };
 
+function normalizeDrupalTextField(value: unknown): DrupalTextWithSummary | null {
+  if (!value) return null;
+  if (Array.isArray(value)) {
+    const first = value.find((v) => v && typeof v === 'object');
+    return first && typeof first === 'object' ? (first as DrupalTextWithSummary) : null;
+  }
+  if (typeof value === 'object') return value as DrupalTextWithSummary;
+  return null;
+}
+
 export type Article = {
   id: string;
   nid: number | null;
@@ -61,14 +71,16 @@ function getNumber(value: unknown): number | null {
 }
 
 function getProcessedHtml(value: unknown): string {
-  if (!value || typeof value !== 'object') return '';
-  const processed = (value as DrupalTextWithSummary).processed;
+  const text = normalizeDrupalTextField(value);
+  if (!text) return '';
+  const processed = text.processed;
   return typeof processed === 'string' ? processed : '';
 }
 
 function getSummaryText(value: unknown): string {
-  if (!value || typeof value !== 'object') return '';
-  const summary = (value as DrupalTextWithSummary).summary;
+  const text = normalizeDrupalTextField(value);
+  if (!text) return '';
+  const summary = text.summary;
   const raw = typeof summary === 'string' ? summary : '';
   return raw.replace(/<[^>]+>/g, '').trim();
 }
@@ -128,14 +140,17 @@ function mapArticle(item: JsonApiResource, included?: JsonApiResource[]): Articl
 
   const rawTitle = getString(a.field_title) ?? getString(a.title) ?? '';
   const slug = deriveSlug(a) || item.id;
+  const bodyHtml = getProcessedHtml(a.body);
+  const summaryText =
+    getSummaryText(a.body) || bodyHtml.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().slice(0, 240);
 
   return {
     id: item.id,
     nid: getNumber(a.drupal_internal__nid),
     title: rawTitle,
     slug,
-    bodyHtml: getProcessedHtml(a.body),
-    summaryText: getSummaryText(a.body),
+    bodyHtml,
+    summaryText,
     imageUrl: extractFileUrl(included, item.relationships?.field_image?.data ?? null),
     tags: extractTagNames(included, item.relationships?.field_tags?.data ?? null),
     createdAt: getString(a.created) ?? '',
