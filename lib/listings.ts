@@ -7,6 +7,7 @@ export type Listing = {
   id: string;
   title: string;
   slug: string;
+  type: string;
   location: string;
   livingArea: number | null;
   plotArea: number | null;
@@ -40,6 +41,7 @@ type JsonApiResource = {
 type ListingAttributes = {
   title?: unknown;
   field_slug?: unknown;
+  field_type?: unknown;
   field_location?: unknown;
   field_living_area?: unknown;
   field_plot_area?: unknown;
@@ -147,6 +149,7 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
     id: item.id,
     title: getString(a.title) ?? '',
     slug: getString(a.field_slug) ?? '',
+    type: getString(a.field_type) ?? '',
     location: getString(a.field_location) ?? '',
     livingArea: firstNumber(a.field_living_area),
     plotArea: firstNumber(a.field_plot_area),

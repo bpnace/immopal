@@ -58,7 +58,7 @@ export function ListingCard({ listing, badge, className }: ListingCardProps) {
 
       <div className="bg-muted/30 p-6">
         <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground mb-3">
-          <span className="font-medium text-muted-foreground">Immobilie</span>
+          <span className="font-medium text-muted-foreground">{listing.type || 'Immobilie'}</span>
           {dot()}
           <span className="line-clamp-1">{listing.location}</span>
         </div>
