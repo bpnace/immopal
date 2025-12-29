@@ -44,7 +44,7 @@ export function Navigation() {
               href="/kontakt"
               className="bg-accent text-accent-foreground hover:bg-accent/90 px-8 py-3 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg"
             >
-              Kostenlose Beratung
+              Kostenlose Immobilienbewertung
             </Link>
             {/* WhatsApp Icon */}
             <a
@@ -119,7 +119,7 @@ export function Navigation() {
               className="bg-accent text-accent-foreground hover:bg-accent/90 block px-3 py-2 rounded-md text-base font-semibold mt-4 text-center shadow-md"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Kostenlose Beratung
+              Kostenlose Immobilienbewertung
             </Link>
           </div>
         </div>

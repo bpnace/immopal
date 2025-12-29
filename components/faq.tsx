@@ -88,7 +88,7 @@ export function FaqSection() {
             href="/kontakt"
             className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            Kostenlos beraten lassen
+            Kostenlose Immobilienbewertung
           </Link>
         </div>
 
@@ -101,4 +101,3 @@ export function FaqSection() {
     </section>
   );
 }
-

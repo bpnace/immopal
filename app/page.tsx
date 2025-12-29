@@ -98,7 +98,7 @@ export default async function Home() {
                 href="/kontakt"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 border-1 border rounded-lg text-lg font-medium transition-colors inline-block"
               >
-                Kostenlos beraten lassen
+                Kostenlose Immobilienbewertung
               </Link>
             </div>
 
