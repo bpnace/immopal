@@ -14,10 +14,74 @@ export default function UeberUnsPage() {
       <section className="bg-primary/5 py-12 min-h-[220px] flex items-center">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Über immopal</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Wir sind Immopal</h1>
             <p className="text-xl text-muted-foreground">
-              Ihr vertrauensvoller Partner für Immobilien in Berlin und Brandenburg seit 2020
+              Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026
             </p>
+          </div>
+        </div>
+      </section>
+
+            {/* Team Section */}
+      <section className="py-16 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+                    alt="Max Mustermann"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">Kya Bayat</h3>
+                  <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
+                  <p className="text-sm text-muted-foreground">
+                    Immobilienmakler seit 15 Jahren mit Spezialisierung auf Wohnimmobilien
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"
+                    alt="Anna Schmidt"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">Dennis Darwiche</h3>
+                  <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
+                  <p className="text-sm text-muted-foreground">
+                    Experte für Luxusimmobilien und Vermietung mit 10 Jahren Berufserfahrung
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg"
+                    alt="Thomas Weber"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">Tarik Marshall</h3>
+                  <p className="text-primary font-medium mb-3">Full Stack Developer</p>
+                  <p className="text-sm text-muted-foreground">
+                    Verantwortlich für die technische Entwicklung unserer Plattform mit Fokus auf Nutzerfreundlichkeit
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -30,24 +94,25 @@ export default function UeberUnsPage() {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Unsere Geschichte</h2>
                 <p className="text-muted-foreground mb-4">
-                  immopal wurde 2020 mit der Vision gegründet, den Immobilienkauf in Berlin und Brandenburg zu
-                  revolutionieren. Wir glauben daran, dass der Kauf oder Verkauf einer Immobilie mehr ist als nur
-                  eine Transaktion – es ist ein wichtiger Lebensschritt, der professionelle Begleitung und
-                  persönliche Betreuung verdient.
+                  Wir sind Freunde seit der Grundschule und teilen seit vielen Jahren die Begeisterung für Immobilien.
+                  Jung, motiviert und fachlich fundiert begleiten wir Eigentümer und Interessenten bei der Vermittlung
+                  von Immobilien in Berlin und Brandenburg.
                 </p>
                 <p className="text-muted-foreground mb-4">
-                  Mit unserem engagierten Team aus erfahrenen Immobilienexperten haben wir bereits über 200 Familien
-                  dabei geholfen, ihre Traumimmobilie zu finden. Dabei legen wir besonderen Wert auf Transparenz,
-                  Ehrlichkeit und individuelle Beratung.
+                  Aus unserer beruflichen Laufbahn bringen wir vielseitige Erfahrungen aus Konzern, Mittelstand und
+                  eigener Unternehmensgründung mit – insbesondere in der Immobilienbewertung und Vermarktung. Als
+                  gebürtige Berliner kennen wir den regionalen Markt genau. Transparenz, Offenheit und ein Miteinander
+                  auf Augenhöhe stehen für uns im Mittelpunkt.
                 </p>
                 <p className="text-muted-foreground">
-                  Unsere tiefe Kenntnis des Berliner und Brandenburger Immobilienmarktes sowie unser großes Netzwerk
-                  ermöglichen es uns, Ihnen exklusive Angebote und erstklassigen Service zu bieten.
+                  Denn: <strong>Jeder Kunde ist so individuell wie die passende Immobilie dazu.</strong> Genau darauf
+                  gehen wir ein – offen, ehrlich und mit dem klaren Ziel, die bestmögliche Lösung für Sie zu finden.
+                  Wir freuen uns auf Ihre Kontaktaufnahme.
                 </p>
               </div>
               <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
                 <Image
-                  src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
+                  src="/images/gruender.webp"
                   alt="Unser Team"
                   fill
                   className="object-cover"
@@ -155,76 +220,6 @@ export default function UeberUnsPage() {
               <div className="text-center">
                 <div className="text-5xl font-bold text-primary mb-2">98%</div>
                 <p className="text-muted-foreground">Kundenzufriedenheit</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Unser Team</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Lernen Sie die Menschen kennen, die sich täglich für Ihren Erfolg einsetzen
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-card border border-border rounded-lg overflow-hidden">
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
-                    alt="Max Mustermann"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Max Mustermann</h3>
-                  <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
-                  <p className="text-sm text-muted-foreground">
-                    Immobilienmakler seit 15 Jahren mit Spezialisierung auf Wohnimmobilien in Berlin
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-card border border-border rounded-lg overflow-hidden">
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"
-                    alt="Anna Schmidt"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Anna Schmidt</h3>
-                  <p className="text-primary font-medium mb-3">Senior Maklerin</p>
-                  <p className="text-sm text-muted-foreground">
-                    Expertin für Luxusimmobilien und Neubauprojekte mit 10 Jahren Berufserfahrung
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-card border border-border rounded-lg overflow-hidden">
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg"
-                    alt="Thomas Weber"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Thomas Weber</h3>
-                  <p className="text-primary font-medium mb-3">Immobilienmakler</p>
-                  <p className="text-sm text-muted-foreground">
-                    Spezialist für Brandenburg und ländliche Immobilien mit fundierter Marktkenntnis
-                  </p>
-                </div>
               </div>
             </div>
           </div>
