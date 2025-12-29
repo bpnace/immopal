@@ -14,20 +14,20 @@ export interface Consultant {
  * Consultant for Verkaufen (Selling) funnel
  */
 export const VERKAUFEN_CONSULTANT: Consultant = {
-  name: 'Dennis Darrrr',
+  name: 'Dennis Darwiche',
   role: 'Immobilienberater',
   initials: 'DD',
-  // photo: '/images/consultants/max-mueller.jpg', // Uncomment when real photo is available
+  // photo: '/images/consultants/berater1.jpg', // Uncomment when real photo is available
 };
 
 /**
  * Consultant for Kaufen (Buying) funnel
  */
 export const KAUFEN_CONSULTANT: Consultant = {
-  name: 'Lisa Schmidt',
-  role: 'Kundenberaterin',
-  initials: 'LS',
-  // photo: '/images/consultants/lisa-schmidt.jpg', // Uncomment when real photo is available
+  name: 'Kya Bayat',
+  role: 'Immobilienberater',
+  initials: 'KB',
+  // photo: '/images/consultants/berater.jpg', // Uncomment when real photo is available
 };
 
 /**
