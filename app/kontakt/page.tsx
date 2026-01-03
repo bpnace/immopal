@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { ContactForm } from '@/components/contact-form';
 import { DsgvoGoogleMaps } from '@/components/dsgvo-google-maps';
 
 export const metadata: Metadata = {
@@ -25,123 +26,7 @@ export default function KontaktPage() {
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
-          <div className="bg-card border border-border rounded-lg p-8">
-            <h2 className="text-2xl font-semibold mb-6">Kontaktformular</h2>
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium mb-2">
-                    Vorname *
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    required
-                    className="w-full px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium mb-2">
-                    Nachname *
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    required
-                    className="w-full px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  E-Mail *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                  Telefon
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2">
-                  Betreff *
-                </label>
-                <select
-                  id="subject"
-                  name="subject"
-                  required
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  <option value="">Bitte wählen...</option>
-                  <option value="purchase">Kaufinteresse</option>
-                  <option value="valuation">Immobilienbewertung</option>
-                  <option value="viewing">Besichtigungstermin</option>
-                  <option value="general">Allgemeine Anfrage</option>
-                  <option value="other">Sonstiges</option>
-                </select>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Nachricht *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={6}
-                  required
-                  placeholder="Beschreiben Sie hier Ihr Anliegen..."
-                  className="w-full px-4 py-2 rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
-                ></textarea>
-              </div>
-
-              <div className="flex items-start gap-2">
-                <input
-                  type="checkbox"
-                  id="privacy"
-                  name="privacy"
-                  required
-                  className="mt-1"
-                />
-                <label htmlFor="privacy" className="text-sm text-muted-foreground">
-                  Ich habe die{' '}
-                  <a href="/datenschutz" className="text-primary hover:underline">
-                    Datenschutzerklärung
-                  </a>{' '}
-                  gelesen und bin damit einverstanden, dass meine Daten zur Bearbeitung meiner Anfrage gespeichert werden. *
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-medium transition-colors"
-              >
-                Nachricht senden
-              </button>
-
-              <p className="text-xs text-muted-foreground">
-                * Pflichtfelder
-              </p>
-            </form>
-          </div>
+          <ContactForm />
 
           {/* Contact Information */}
           <div>
