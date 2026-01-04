@@ -49,7 +49,8 @@ export function ConsultantAvatar({
       {/* Avatar Circle */}
       <div
         className={cn(
-          'mb-4 flex items-center justify-center rounded-full bg-primary',
+          'mb-4 flex items-center justify-center rounded-full overflow-hidden',
+          photo ? '' : 'bg-primary',
           sizeClasses[size]
         )}
       >
@@ -59,7 +60,7 @@ export function ConsultantAvatar({
             alt={name}
             width={size === 'sm' ? 64 : size === 'md' ? 96 : 128}
             height={size === 'sm' ? 64 : size === 'md' ? 96 : 128}
-            className="rounded-full object-cover"
+            className="w-full h-full object-cover"
           />
         ) : (
           <span className="font-bold text-primary-foreground">{initials}</span>

@@ -57,7 +57,7 @@ export function ContactForm() {
       } else {
         setMessage({ type: 'error', text: result.error || result.message || 'Ein Fehler ist aufgetreten' });
       }
-    } catch (error) {
+    } catch {
       setMessage({
         type: 'error',
         text: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.',

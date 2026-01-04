@@ -31,8 +31,8 @@ export default function UeberUnsPage() {
               <div className="bg-card border border-border rounded-lg overflow-hidden">
                 <div className="relative h-64 bg-muted">
                   <Image
-                    src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
-                    alt="Max Mustermann"
+                    src="/images/kyaProfil.webp"
+                    alt="Kya Bayat"
                     fill
                     className="object-cover"
                   />
@@ -49,8 +49,8 @@ export default function UeberUnsPage() {
               <div className="bg-card border border-border rounded-lg overflow-hidden">
                 <div className="relative h-64 bg-muted">
                   <Image
-                    src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"
-                    alt="Anna Schmidt"
+                    src="/images/dennisProfil.webp"
+                    alt="Dennis Darwiche"
                     fill
                     className="object-cover"
                   />

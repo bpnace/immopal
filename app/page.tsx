@@ -53,7 +53,11 @@ function TrustpilotStars({ rating = 5 }: { rating?: 1 | 2 | 3 | 4 | 5 }) {
             }`}
             aria-hidden="true"
           >
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill={filled ? 'white' : 'currentColor'}>
+            <svg
+              viewBox="0 0 24 24"
+              className="h-3.5 w-3.5"
+              fill={filled ? 'white' : 'currentColor'}
+            >
               <path d="M12 17.27l5.18 3.13-1.64-5.81L20 9.75l-5.97-.51L12 3.75 9.97 9.24 4 9.75l4.46 4.84-1.64 5.81z" />
             </svg>
           </span>
@@ -76,16 +80,27 @@ export default async function Home() {
     <main>
       {/* Hero Section */}
       <section className="relative min-h-[calc(100svh-4rem)] pt-20 pb-14 md:pt-28 md:pb-16 overflow-hidden bg-gradient-to-b from-primary/5 to-background">
-        <Image src="/images/hero1.webp" alt="" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40" aria-hidden="true" />
+        <Image
+          src="/images/hero1.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40"
+          aria-hidden="true"
+        />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-12 text-white">
-              Ihre Traumimmobilie in <span className="text-primary-foreground">Berlin & Brandenburg</span>
+              Ihr vertrauensvoller Partner für{' '}
+              <span className="text-primary-foreground">Immobilien in Deutschland</span>
             </h1>
             <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
-              Professionelle Immobilienvermittlung mit persönlicher Beratung. Finden Sie Ihre perfekte Wohnung oder
-              Ihr Traumhaus.
+              Wohnung kaufen, Haus verkaufen oder Traumimmobilie finden. Deutschlandweit, mit
+              persönlicher Beratung und kostenloser Bewertung.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
@@ -101,7 +116,6 @@ export default async function Home() {
                 Kostenlose Immobilienbewertung
               </Link>
             </div>
-
           </div>
         </div>
       </section>
@@ -123,7 +137,12 @@ export default async function Home() {
               className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
             >
               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-10 h-10 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -146,7 +165,12 @@ export default async function Home() {
               className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
             >
               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-10 h-10 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -169,7 +193,12 @@ export default async function Home() {
               className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
             >
               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-10 h-10 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -195,14 +224,19 @@ export default async function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Warum immopal?</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Ihr zuverlässiger Partner für den Immobilienkauf in Berlin & Brandenburg
+              Ihr zuverlässiger Partner für Immobilien in ganz Deutschland
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-card p-8 rounded-lg border border-border text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -213,13 +247,19 @@ export default async function Home() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Geprüfte Immobilien</h3>
               <p className="text-muted-foreground">
-                Alle Objekte werden von uns persönlich geprüft und bewertet. Keine versteckten Mängel.
+                Alle Objekte werden von uns persönlich geprüft und bewertet. Keine versteckten
+                Mängel.
               </p>
             </div>
 
             <div className="bg-card p-8 rounded-lg border border-border text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -236,7 +276,12 @@ export default async function Home() {
 
             <div className="bg-card p-8 rounded-lg border border-border text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -271,7 +316,9 @@ export default async function Home() {
                 <TrustpilotStars rating={5} />
                 <span className="text-sm text-muted-foreground">Trustpilot</span>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">Basierend auf Bewertungen unserer Kunden</p>
+              <p className="text-sm text-muted-foreground mb-4">
+                Basierend auf Bewertungen unserer Kunden
+              </p>
               <Link
                 href="https://www.trustpilot.com/"
                 target="_blank"
@@ -289,7 +336,8 @@ export default async function Home() {
                   <h3 className="mt-3 font-semibold leading-snug">{review.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{review.text}</p>
                   <div className="mt-4 text-xs text-muted-foreground">
-                    <span className="font-medium text-foreground/80">{review.author}</span> · {review.date}
+                    <span className="font-medium text-foreground/80">{review.author}</span> ·{' '}
+                    {review.date}
                   </div>
                 </div>
               ))}
@@ -314,7 +362,8 @@ export default async function Home() {
               Bereit, Ihre Traumimmobilie zu finden?
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Vereinbaren Sie jetzt ein kostenloses Beratungsgespräch mit unseren Immobilienexperten.
+              Vereinbaren Sie jetzt ein kostenloses Beratungsgespräch mit unseren
+              Immobilienexperten.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -340,7 +389,7 @@ export default async function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Aktuelle Immobilien</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Unsere neuesten Highlights aus Berlin & Brandenburg direkt aus unserem Portfolio.
+              Unsere neuesten Highlights aus ganz Deutschland direkt aus unserem Portfolio.
             </p>
           </div>
 

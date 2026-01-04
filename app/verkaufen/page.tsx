@@ -178,17 +178,16 @@ export default function VerkaufenPage() {
     setIsSubmitting(true);
     setSubmitError('');
 
-    try {
-      await submitSellingForm(formData as SellingFormData);
-      setSubmitSuccess(true);
-    } catch (error) {
-      console.error('Submission error:', error);
-      setSubmitError(
-        'Es gab einen Fehler beim Absenden des Formulars. Bitte versuchen Sie es erneut.'
-      );
-    } finally {
+    const result = await submitSellingForm(formData as SellingFormData);
+
+    if (!result.success) {
+      setSubmitError(result.error || 'Es gab einen Fehler beim Absenden des Formulars.');
       setIsSubmitting(false);
+      return;
     }
+
+    setSubmitSuccess(true);
+    setIsSubmitting(false);
   };
 
   // Page transition variants

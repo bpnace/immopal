@@ -184,17 +184,16 @@ export default function KaufenPage() {
     setIsSubmitting(true);
     setSubmitError('');
 
-    try {
-      await submitBuyingForm(formData as BuyingFormData);
-      setSubmitSuccess(true);
-    } catch (error) {
-      console.error('Submission error:', error);
-      setSubmitError(
-        'Es gab einen Fehler beim Absenden des Formulars. Bitte versuchen Sie es erneut.'
-      );
-    } finally {
+    const result = await submitBuyingForm(formData as BuyingFormData);
+
+    if (!result.success) {
+      setSubmitError(result.error || 'Es gab einen Fehler beim Absenden des Formulars.');
       setIsSubmitting(false);
+      return;
     }
+
+    setSubmitSuccess(true);
+    setIsSubmitting(false);
   };
 
   // Page transition variants

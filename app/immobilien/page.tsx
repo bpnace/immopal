@@ -1,8 +1,22 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 
 import { fetchListings } from '@/lib/listings';
 import { ListingsGrid } from '@/components/listings-grid';
+
+export const metadata: Metadata = {
+  title: 'Immobilien kaufen in Deutschland - Aktuelle Angebote',
+  description:
+    'Aktuelle Immobilien in Berlin, Brandenburg und Deutschland kaufen. Wohnungen, Häuser, Grundstücke & Gewerbe. Geprüfte Objekte vom Makler. Jetzt finden!',
+  openGraph: {
+    title: 'Immobilien kaufen in Deutschland - immo-pal',
+    description: 'Aktuelle Immobilienangebote in Berlin, Brandenburg und ganz Deutschland.',
+  },
+  alternates: {
+    canonical: 'https://immopal.de/immobilien',
+  },
+};
 
 export default async function ImmobilienPage() {
   const listings = await fetchListings();

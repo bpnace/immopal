@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export function Navigation() {
@@ -20,12 +21,15 @@ export function Navigation() {
         <div className="flex justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center gap-2">
-              {/* Logo placeholder - replace with actual logo image */}
-              <div className="w-10 h-10 bg-primary rounded-md flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">IP</span>
-              </div>
-              <span className="text-xl font-bold text-primary">immopal</span>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/logo1.png"
+                alt="immopal Logo"
+                width={120}
+                height={40}
+                className="h-35 w-auto"
+                priority
+              />
             </Link>
           </div>
 

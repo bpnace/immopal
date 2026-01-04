@@ -1,8 +1,22 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { fetchArticles } from '@/lib/articles';
 import { formatDate } from '@/lib/utils';
+
+export const metadata: Metadata = {
+  title: 'Immobilien Blog - Tipps, News & Ratgeber',
+  description:
+    'Immobilien Blog mit wertvollen Tipps zu Kauf, Verkauf und Finanzierung. Aktuelle News aus dem deutschen Immobilienmarkt. Expertenwissen für Käufer und Verkäufer.',
+  openGraph: {
+    title: 'Immobilien Blog - immo-pal',
+    description: 'Tipps, News und Ratgeber rund um Immobilien in Deutschland.',
+  },
+  alternates: {
+    canonical: 'https://immopal.de/blog',
+  },
+};
 
 export default async function BlogPage() {
   const articles = await fetchArticles();

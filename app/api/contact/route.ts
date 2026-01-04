@@ -47,19 +47,44 @@ function checkRateLimit(identifier: string): boolean {
   return false;
 }
 
-async function sendToWebhook(payload: any, httpStatus: number) {
+async function sendToWebhook(payload: Record<string, unknown>, httpStatus: number) {
   const webhookPayload = {
     ...payload,
     httpStatus,
   };
 
-  await fetch(WEBHOOK_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(webhookPayload),
-  });
+  try {
+    console.log('Sending to webhook:', WEBHOOK_URL);
+    console.log('Payload:', JSON.stringify(webhookPayload, null, 2));
+
+    // Basic Auth credentials
+    const username = 'immoPalAdmin';
+    const password = 'Nepal2030=!';
+    const authHeader = 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64');
+
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: authHeader,
+      },
+      body: JSON.stringify(webhookPayload),
+    });
+
+    console.log('Webhook response status:', response.status);
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Webhook error response:', errorText);
+      throw new Error(`Webhook returned ${response.status}: ${errorText}`);
+    }
+
+    const responseData = await response.text();
+    console.log('Webhook response:', responseData);
+  } catch (error) {
+    console.error('Failed to send to webhook:', error);
+    // Don't throw - we don't want webhook failures to fail the user's submission
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -208,7 +233,7 @@ export async function POST(request: NextRequest) {
             phone: data.phone || null,
             subject: data.subject || 'Keine Angabe',
             message: data.message,
-            gdprConsent: data.privacy,
+            gdprConsent: data.privacy === 'on' || data.privacy === true,
             consentTimestamp: new Date().toISOString(),
           },
           metadata: {
@@ -236,7 +261,7 @@ export async function POST(request: NextRequest) {
         phone: data.phone || null,
         subject: data.subject || 'Keine Angabe',
         message: data.message,
-        gdprConsent: data.privacy,
+        gdprConsent: data.privacy === 'on' || data.privacy === true,
         consentTimestamp: new Date().toISOString(),
       },
       metadata: {

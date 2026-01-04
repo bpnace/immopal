@@ -17,7 +17,7 @@ export const VERKAUFEN_CONSULTANT: Consultant = {
   name: 'Dennis Darwiche',
   role: 'Immobilienberater',
   initials: 'DD',
-  // photo: '/images/consultants/berater1.jpg', // Uncomment when real photo is available
+  photo: '/images/dennisProfil.webp',
 };
 
 /**
@@ -27,7 +27,7 @@ export const KAUFEN_CONSULTANT: Consultant = {
   name: 'Kya Bayat',
   role: 'Immobilienberater',
   initials: 'KB',
-  // photo: '/images/consultants/berater.jpg', // Uncomment when real photo is available
+  photo: '/images/KyaProfil.webp',
 };
 
 /**

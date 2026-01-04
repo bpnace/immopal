@@ -1,15 +1,20 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="bg-muted border-t border-border mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1">
-            <h3 className="text-lg font-bold text-foreground mb-4">immopal</h3>
+            <Image
+              src="/images/logo1.png"
+              alt="immopal Logo"
+              width={120}
+              height={40}
+              className="h-30x w-auto mb-4"
+            />
             <p className="text-muted-foreground text-sm">
               Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026
             </p>
