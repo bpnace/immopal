@@ -1,42 +1,21 @@
 import { MetadataRoute } from 'next';
-import configPromise from '@payload-config';
-import { getPayload } from 'payload';
+import { fetchArticles } from '@/lib/articles';
+import { fetchListings } from '@/lib/listings';
 
 export const dynamic = 'force-dynamic';
-
-type SitemapDoc = {
-  slug?: unknown;
-  updatedAt?: unknown;
-} & Record<string, unknown>;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://immopal.de';
 
-  // Try to fetch dynamic content, but fallback to static sitemap if DB is unavailable
-  let propertyDocs: SitemapDoc[] = [];
-  let blogDocs: SitemapDoc[] = [];
+  // Try to fetch dynamic content, but fallback to static sitemap if the CMS is unavailable
+  let listings: Array<{ slug: string; createdAt?: string }> = [];
+  let articles: Array<{ slug: string; createdAt?: string }> = [];
 
   try {
-    const payload = await getPayload({ config: configPromise });
-
-    // Fetch all available properties
-    const properties = await payload.find({
-      collection: 'properties',
-      where: { status: { equals: 'available' } },
-      limit: 1000,
-    });
-    propertyDocs = properties.docs;
-
-    // Fetch all published blog posts
-    const blogPosts = await payload.find({
-      collection: 'blog',
-      where: { status: { equals: 'published' } },
-      limit: 1000,
-    });
-    blogDocs = blogPosts.docs;
+    listings = await fetchListings();
+    articles = await fetchArticles(200);
   } catch {
-    // Database not available during build - return static sitemap only
-    console.log('Database not available for sitemap generation, using static pages only');
+    console.log('CMS not available for sitemap generation, using static pages only');
   }
 
   return [
@@ -114,17 +93,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.3,
     },
 
-    // Dynamic property pages
-    ...propertyDocs.flatMap((property) => {
-      const slug = typeof property.slug === 'string' ? property.slug : null;
-      if (!slug) return [];
-
-      const updatedAt = property.updatedAt;
-      const lastModified = updatedAt instanceof Date ? updatedAt : new Date(typeof updatedAt === 'string' ? updatedAt : Date.now());
+    // Dynamic listing pages
+    ...listings.flatMap((listing) => {
+      if (!listing?.slug) return [];
+      const lastModified =
+        typeof listing.createdAt === 'string' && listing.createdAt.length > 0 ? new Date(listing.createdAt) : new Date();
 
       return [
         {
-          url: `${baseUrl}/immobilien/${slug}`,
+          url: `${baseUrl}/immobilien/${listing.slug}`,
           lastModified,
           changeFrequency: 'weekly' as const,
           priority: 0.8,
@@ -133,16 +110,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
 
     // Dynamic blog pages
-    ...blogDocs.flatMap((post) => {
-      const slug = typeof post.slug === 'string' ? post.slug : null;
-      if (!slug) return [];
-
-      const updatedAt = post.updatedAt;
-      const lastModified = updatedAt instanceof Date ? updatedAt : new Date(typeof updatedAt === 'string' ? updatedAt : Date.now());
+    ...articles.flatMap((article) => {
+      if (!article?.slug) return [];
+      const lastModified =
+        typeof article.createdAt === 'string' && article.createdAt.length > 0 ? new Date(article.createdAt) : new Date();
 
       return [
         {
-          url: `${baseUrl}/blog/${slug}`,
+          url: `${baseUrl}/blog/${article.slug}`,
           lastModified,
           changeFrequency: 'monthly' as const,
           priority: 0.6,

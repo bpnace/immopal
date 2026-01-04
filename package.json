@@ -10,14 +10,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "^3.64.0",
-    "@payloadcms/next": "^3.64.0",
-    "@payloadcms/richtext-lexical": "^3.64.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.25",
     "graphql": "^16.12.0",
     "next": "^15.5.7",
-    "payload": "^3.64.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "sharp": "^0.34.5",
