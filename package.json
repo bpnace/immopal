@@ -6,6 +6,9 @@
     "clean": "node -e \"require('fs').rmSync('.next',{ recursive:true, force:true })\"",
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "node scripts/write-htaccess.mjs",
+    "export": "next build",
+    "postexport": "node scripts/write-htaccess.mjs",
     "start": "next start",
     "lint": "next lint"
   },

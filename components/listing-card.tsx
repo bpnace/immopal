@@ -20,7 +20,7 @@ export function ListingCard({ listing, badge, className }: ListingCardProps) {
 
   return (
     <Link
-      href={`/immobilien/${listing.slug}`}
+      href={{ pathname: '/angebote', query: { slug: listing.slug } }}
       className={[
         'group block overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md',
         className,

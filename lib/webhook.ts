@@ -9,34 +9,49 @@ export interface WebhookResponse {
 }
 
 const WEBHOOK_ENDPOINTS = {
+  funnel: process.env.NEXT_PUBLIC_FUNNEL_WEBHOOK_URL || '',
   referral: process.env.NEXT_PUBLIC_N8N_REFERRAL_WEBHOOK || '/api/webhook/referral',
 };
 
 /**
- * Submit selling funnel data to API route (which then forwards to N8N webhook)
+ * Submit selling funnel data directly to N8N webhook (client-side for static export)
  */
 export const submitSellingForm = async (data: SellingFormData): Promise<WebhookResponse> => {
   try {
-    const response = await fetch('/api/funnel', {
+    const webhookUrl = WEBHOOK_ENDPOINTS.funnel;
+
+    if (!webhookUrl) {
+      throw new Error('Webhook URL not configured');
+    }
+
+    const payload = {
+      type: 'verkaufen',
+      timestamp: new Date().toISOString(),
+      ...data,
+    };
+
+    const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        type: 'selling',
-        ...data,
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Webhook request failed');
+      throw new Error('Webhook request failed');
     }
 
-    const result = await response.json();
+    // Try to parse response, but don't fail if it's not JSON
+    try {
+      await response.json();
+    } catch {
+      // Response might not be JSON, which is fine
+    }
+
     return {
       success: true,
-      message: result.message || 'Ihre Anfrage wurde erfolgreich übermittelt',
+      message: 'Ihre Anfrage wurde erfolgreich übermittelt',
     };
   } catch (error) {
     console.error('Error submitting selling form:', error);
@@ -48,30 +63,44 @@ export const submitSellingForm = async (data: SellingFormData): Promise<WebhookR
 };
 
 /**
- * Submit buying funnel data to API route (which then forwards to N8N webhook)
+ * Submit buying funnel data directly to N8N webhook (client-side for static export)
  */
 export const submitBuyingForm = async (data: BuyingFormData): Promise<WebhookResponse> => {
   try {
-    const response = await fetch('/api/funnel', {
+    const webhookUrl = WEBHOOK_ENDPOINTS.funnel;
+
+    if (!webhookUrl) {
+      throw new Error('Webhook URL not configured');
+    }
+
+    const payload = {
+      type: 'kaufen',
+      timestamp: new Date().toISOString(),
+      ...data,
+    };
+
+    const response = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        type: 'buying',
-        ...data,
-      }),
+      body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Webhook request failed');
+      throw new Error('Webhook request failed');
     }
 
-    const result = await response.json();
+    // Try to parse response, but don't fail if it's not JSON
+    try {
+      await response.json();
+    } catch {
+      // Response might not be JSON, which is fine
+    }
+
     return {
       success: true,
-      message: result.message || 'Ihr Suchauftrag wurde erfolgreich erstellt',
+      message: 'Ihr Suchauftrag wurde erfolgreich erstellt',
     };
   } catch (error) {
     console.error('Error submitting buying form:', error);

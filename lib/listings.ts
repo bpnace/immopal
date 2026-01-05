@@ -1,7 +1,4 @@
-function getDrupalApiBase(): string | null {
-  const base = process.env.DRUPAL_API_BASE;
-  return typeof base === 'string' && base.length > 0 ? base : null;
-}
+import { absolutizeDrupalUrl, fetchDrupal, getDrupalApiBase } from './drupal';
 
 export type Listing = {
   id: string;
@@ -68,16 +65,6 @@ function coerceNumber(value: unknown): number | null {
 function firstNumber(value: unknown): number | null {
   if (Array.isArray(value)) return coerceNumber(value[0]);
   return coerceNumber(value);
-}
-
-function absolutizeDrupalUrl(url: string): string {
-  const base = getDrupalApiBase();
-  if (!base) return url;
-  try {
-    return new URL(url, base).toString();
-  } catch {
-    return url;
-  }
 }
 
 function getString(value: unknown): string | null {
@@ -168,12 +155,11 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
 export async function fetchListings(): Promise<Listing[]> {
   const base = getDrupalApiBase();
   if (!base) return [];
-  const res = await fetch(`${base}/jsonapi/node/listing?include=field_main_image`, {
-    cache: 'no-store',
-  });
+  const url = `${base}/jsonapi/node/listing?include=field_main_image`;
+  const res = await fetchDrupal(url, { cache: 'no-store' });
 
   if (!res.ok) {
-    throw new Error('Fehler beim Laden der Listings');
+    throw new Error(`Fehler beim Laden der Listings (${res.status} ${res.statusText})`);
   }
 
   const json = (await res.json()) as { data?: unknown; included?: unknown };
@@ -190,10 +176,10 @@ export async function fetchListingBySlug(slug: string): Promise<Listing | null> 
     `?filter[field_slug]=${encodeURIComponent(slug)}` +
     `&include=field_main_image`;
 
-  const res = await fetch(url, { cache: 'no-store' });
+  const res = await fetchDrupal(url, { cache: 'no-store' });
 
   if (!res.ok) {
-    throw new Error('Fehler beim Laden des Listings');
+    throw new Error(`Fehler beim Laden des Listings (${res.status} ${res.statusText})`);
   }
 
   const json = (await res.json()) as { data?: unknown; included?: unknown };

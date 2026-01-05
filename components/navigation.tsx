@@ -8,7 +8,7 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Angebote', href: '/immobilien' },
+    { name: 'Angebote', href: '/angebote' },
     { name: 'Verkaufen', href: '/verkaufen' },
     { name: 'Über uns', href: '/ueber-uns' },
     { name: 'Blog', href: '/blog' },
@@ -16,46 +16,48 @@ export function Navigation() {
   ];
 
   return (
-    <nav className="bg-background border-b border-border sticky top-0 z-[999]">
+    <nav className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-[999] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center flex-shrink-0">
             <Link href="/" className="flex items-center">
               <Image
                 src="/images/logo1.png"
                 alt="immopal Logo"
-                width={120}
-                height={40}
-                className="h-35 w-auto"
+                width={140}
+                height={46}
+                className="h-20 w-auto"
                 priority
               />
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-primary transition-colors px-3 py-2 text-sm font-medium"
-              >
-                {item.name}
-              </Link>
-            ))}
+          <div className="hidden lg:flex lg:items-center lg:gap-8">
+            <div className="flex items-center gap-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-foreground hover:text-primary transition-colors text-sm font-medium"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
             <Link
               href="/kontakt"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 px-8 py-3 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg whitespace-nowrap"
             >
-              Kostenlose Immobilienbewertung
+              Kostenlose Bewertung
             </Link>
             {/* WhatsApp Icon */}
             <a
               href="https://wa.me/493046690542"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-primary hover:text-primary/80 transition-colors"
+              className="text-primary hover:text-primary/80 transition-colors flex-shrink-0"
               aria-label="WhatsApp kontaktieren"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -65,7 +67,7 @@ export function Navigation() {
           </div>
 
           {/* Mobile menu button and WhatsApp */}
-          <div className="flex items-center gap-4 md:hidden">
+          <div className="flex items-center gap-4 lg:hidden">
             {/* WhatsApp Icon */}
             <a
               href="https://wa.me/493046690542"
@@ -80,7 +82,7 @@ export function Navigation() {
             </a>
             <button
               type="button"
-              className="text-foreground hover:text-primary"
+              className="text-foreground hover:text-primary transition-colors p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -106,13 +108,13 @@ export function Navigation() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="lg:hidden border-t border-border bg-background">
+          <div className="px-4 pt-3 pb-4 space-y-2">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-foreground hover:text-primary hover:bg-accent block px-3 py-2 rounded-md text-base font-medium"
+                className="text-foreground hover:text-primary hover:bg-accent/10 block px-4 py-3 rounded-lg text-base font-medium transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.name}
@@ -120,10 +122,10 @@ export function Navigation() {
             ))}
             <Link
               href="/kontakt"
-              className="bg-accent text-accent-foreground hover:bg-accent/90 block px-3 py-2 rounded-md text-base font-semibold mt-4 text-center shadow-md"
+              className="bg-accent text-accent-foreground hover:bg-accent/90 block px-4 py-3 rounded-lg text-base font-semibold mt-4 text-center shadow-md"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Kostenlose Immobilienbewertung
+              Kostenlose Bewertung
             </Link>
           </div>
         </div>

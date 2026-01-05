@@ -1,12 +1,15 @@
+import { getSiteUrl } from '@/lib/site';
+
 export function OrganizationSchema() {
+  const siteUrl = getSiteUrl();
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
     name: 'immo-pal',
     description: 'Professioneller Immobilienmakler für Deutschland',
-    url: 'https://immopal.de',
-    logo: 'https://immopal.de/images/logo1.png',
-    image: 'https://immopal.de/api/og',
+    url: siteUrl,
+    logo: `${siteUrl}/images/logo1.png`,
+    image: `${siteUrl}/images/hero1.webp`,
     telephone: '+493046690542',
     email: 'info@immo-pal.de',
     address: {

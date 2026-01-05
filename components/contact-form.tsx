@@ -2,6 +2,14 @@
 
 import { useState } from 'react';
 
+function getContactWebhookUrl(): string {
+  const url =
+    process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL ||
+    process.env.NEXT_PUBLIC_FUNNEL_WEBHOOK_URL ||
+    '';
+  return url.trim();
+}
+
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -13,6 +21,7 @@ export function ContactForm() {
 
     const formData = new FormData(e.currentTarget);
     const nowIso = new Date().toISOString();
+    const webhookUrl = getContactWebhookUrl();
 
     const data = {
       type: 'contact',
@@ -41,7 +50,18 @@ export function ContactForm() {
     };
 
     try {
-      const response = await fetch('/api/contact', {
+      if (!webhookUrl) {
+        throw new Error('Webhook URL not configured');
+      }
+
+      // Honeypot: silently accept without sending.
+      if (typeof data.contact.website === 'string' && data.contact.website.trim().length > 0) {
+        setMessage({ type: 'success', text: 'Vielen Dank! Ihre Nachricht wurde übermittelt.' });
+        (e.target as HTMLFormElement).reset();
+        return;
+      }
+
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,15 +69,14 @@ export function ContactForm() {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
       if (response.ok) {
-        setMessage({ type: 'success', text: result.message });
+        setMessage({ type: 'success', text: 'Vielen Dank! Ihre Nachricht wurde übermittelt.' });
         (e.target as HTMLFormElement).reset();
       } else {
-        setMessage({ type: 'error', text: result.error || result.message || 'Ein Fehler ist aufgetreten' });
+        setMessage({ type: 'error', text: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.' });
       }
-    } catch {
+    } catch (err) {
+      console.error('Failed to submit contact form:', err);
       setMessage({
         type: 'error',
         text: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.',

@@ -1,25 +1,52 @@
-import type { Metadata } from 'next';
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
-import { fetchListings } from '@/lib/listings';
+import { fetchListings, type Listing } from '@/lib/listings';
 import { ListingsGrid } from '@/components/listings-grid';
+import { ListingDetailClient } from './listing-detail-client';
 
-export const metadata: Metadata = {
-  title: 'Immobilien kaufen in Deutschland - Aktuelle Angebote',
-  description:
-    'Aktuelle Immobilien in Berlin, Brandenburg und Deutschland kaufen. Wohnungen, Häuser, Grundstücke & Gewerbe. Geprüfte Objekte vom Makler. Jetzt finden!',
-  openGraph: {
-    title: 'Immobilien kaufen in Deutschland - immo-pal',
-    description: 'Aktuelle Immobilienangebote in Berlin, Brandenburg und ganz Deutschland.',
-  },
-  alternates: {
-    canonical: 'https://immopal.de/immobilien',
-  },
-};
+export function AngebotePageClient() {
+  const searchParams = useSearchParams();
+  const slug = searchParams.get('slug');
 
-export default async function ImmobilienPage() {
-  const listings = await fetchListings();
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (slug) return;
+    async function loadListings() {
+      try {
+        setLoading(true);
+        const data = await fetchListings();
+        setListings(data);
+      } catch (err) {
+        console.error('Failed to fetch listings:', err);
+        setError('Fehler beim Laden der Immobilien');
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadListings();
+  }, [slug]);
+
+  if (slug) {
+    return <ListingDetailClient slug={slug} />;
+  }
+
+  if (error) {
+    return (
+      <main className="container mx-auto px-4 py-20">
+        <div className="text-center text-red-500">
+          <p>{error}</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -28,8 +55,10 @@ export default async function ImmobilienPage() {
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Unsere Immobilien</h1>
             <p className="text-lg text-muted-foreground max-w-5xl mx-auto mb-6">
-              Wir bestimmen den Marktwert Ihrer Immobilie auf Basis tagesaktueller Vergleichsdaten sowie datenbasierter Bewertungsverfahren, um eine objektive und nachvollziehbare Preiseinschätzung zu gewährleisten.<br/>
-              Entdecken Sie {listings.length} verfügbare Immobilien in Berlin und Brandenburg
+              Wir bestimmen den Marktwert Ihrer Immobilie auf Basis tagesaktueller Vergleichsdaten sowie datenbasierter
+              Bewertungsverfahren, um eine objektive und nachvollziehbare Preiseinschätzung zu gewährleisten.
+              <br />
+              {listings.length > 0 && `Entdecken Sie ${listings.length} verfügbare Immobilien in Berlin und Brandenburg`}
             </p>
             <Link
               href="/kaufen"
@@ -50,7 +79,13 @@ export default async function ImmobilienPage() {
       </section>
 
       <div className="container mx-auto px-4 py-8">
-        <ListingsGrid listings={listings} />
+        {loading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Lade Immobilien...</p>
+          </div>
+        ) : (
+          <ListingsGrid listings={listings} />
+        )}
 
         <div className="mt-10 flex justify-center">
           <Link
@@ -67,9 +102,7 @@ export default async function ImmobilienPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-background border border-border rounded-xl overflow-hidden">
               <div className="p-8 text-center">
-                <div className="text-xs font-semibold tracking-[0.22em] text-muted-foreground italic">
-                  DER DIREKTE DRAHT
-                </div>
+                <div className="text-xs font-semibold tracking-[0.22em] text-muted-foreground italic">DER DIREKTE DRAHT</div>
                 <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
                   Du willst persönlich mit uns sprechen, schließlich ist der Grund warum du hier bist ein sehr
                   persönlicher. Ruf uns einfach unverzüglich an!
@@ -91,9 +124,7 @@ export default async function ImmobilienPage() {
 
             <div className="bg-background border border-border rounded-xl overflow-hidden">
               <div className="p-8 text-center">
-                <div className="text-xs font-semibold tracking-[0.22em] text-muted-foreground italic">
-                  AUF DIE SUCHE, FERTIG, LOS
-                </div>
+                <div className="text-xs font-semibold tracking-[0.22em] text-muted-foreground italic">AUF DIE SUCHE, FERTIG, LOS</div>
                 <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
                   Keine Kompromisse, dafür mit Geduld. Mit etwas Zeit und Deinen konkreten Wünschen, suchen und finden
                   wir die passende Wohnung oder das perfekte Haus.

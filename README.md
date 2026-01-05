@@ -34,7 +34,7 @@ immopal/
 ├── app/                       # Next.js App Router
 │   ├── kaufen/               # 🆕 Buying funnel (10-step McMakler flow)
 │   ├── verkaufen/            # 🆕 Selling funnel (10-step McMakler flow)
-│   ├── immobilien/           # Property listings
+│   ├── angebote/             # Property listings
 │   ├── tippgeberprovision/   # Referral program
 │   ├── globals.css           # Global styles
 │   ├── layout.tsx            # Root layout

@@ -1,7 +1,4 @@
-function getDrupalApiBase(): string | null {
-  const base = process.env.DRUPAL_API_BASE;
-  return typeof base === 'string' && base.length > 0 ? base : null;
-}
+import { absolutizeDrupalUrl, fetchDrupal, getDrupalApiBase } from './drupal';
 
 type JsonApiResourceIdentifier = {
   id: string;
@@ -46,16 +43,6 @@ export type Article = {
   tags: string[];
   createdAt: string;
 };
-
-function absolutizeDrupalUrl(url: string): string {
-  const base = getDrupalApiBase();
-  if (!base) return url;
-  try {
-    return new URL(url, base).toString();
-  } catch {
-    return url;
-  }
-}
 
 function getString(value: unknown): string | null {
   return typeof value === 'string' ? value : null;
@@ -158,9 +145,9 @@ function mapArticle(item: JsonApiResource, included?: JsonApiResource[]): Articl
 }
 
 async function fetchJsonApi(url: string): Promise<{ data: JsonApiResource[]; included?: JsonApiResource[] }> {
-  const res = await fetch(url, { cache: 'no-store' });
+  const res = await fetchDrupal(url, { cache: 'no-store' });
   if (!res.ok) {
-    throw new Error('Fehler beim Laden der Artikel');
+    throw new Error(`Fehler beim Laden der Artikel (${res.status} ${res.statusText})`);
   }
 
   const json = (await res.json()) as { data?: unknown; included?: unknown };

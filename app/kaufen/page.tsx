@@ -260,7 +260,7 @@ export default function KaufenPage() {
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
-              href="/immobilien"
+              href="/angebote"
               className="inline-block bg-primary px-6 sm:px-8 py-3 sm:py-4 font-semibold text-primary-foreground shadow-md transition-all hover:bg-primary/90 whitespace-nowrap"
             >
               Angebote durchsuchen

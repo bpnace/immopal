@@ -1,10 +1,14 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { getSiteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Immobilien Tippgeber Berlin – 20% Provision sichern - immopal',
   description:
     'Immobilien Tippgeber werden und 20% der Netto-Maklerprovision erhalten – diskret, fair und ohne Aufwand.',
+  alternates: {
+    canonical: `${getSiteUrl()}/tippgeber-immobilien-berlin`,
+  },
 };
 
 const faq = [

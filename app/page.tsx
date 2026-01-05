@@ -1,9 +1,12 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ReferralCalculator } from '@/components/referral-calculator';
 import { BlogPreview } from '@/components/blog-preview';
 import { FaqSection } from '@/components/faq';
-import { fetchListings } from '@/lib/listings';
+import { fetchListings, type Listing } from '@/lib/listings';
 import { ListingCard } from '@/components/listing-card';
 
 type TrustpilotReview = {
@@ -67,14 +70,45 @@ function TrustpilotStars({ rating = 5 }: { rating?: 1 | 2 | 3 | 4 | 5 }) {
   );
 }
 
-export default async function Home() {
-  const listings = await fetchListings();
+export default function Home() {
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadListings() {
+      try {
+        setLoading(true);
+        const data = await fetchListings();
+        setListings(data);
+      } catch (err) {
+        console.error('Failed to fetch listings:', err);
+        const message =
+          err instanceof Error ? err.message : typeof err === 'string' ? err : 'Unknown error while fetching listings';
+        setError(process.env.NODE_ENV === 'production' ? 'Fehler beim Laden der Immobilien' : message);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadListings();
+  }, []);
+
   const featuredListings = [...listings]
     .sort((a, b) => {
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     })
     .slice(0, 4);
+
+  if (error) {
+    return (
+      <main className="container mx-auto px-4 py-20">
+        <div className="text-center text-red-500">
+          <p>{error}</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main>
@@ -94,9 +128,8 @@ export default async function Home() {
         />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-12 text-white">
-              Ihr vertrauensvoller Partner für{' '}
-              <span className="text-primary-foreground">Immobilien in Deutschland</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-12 text-gray-100">
+              Ihr vertrauensvoller Partner für Immobilien in Deutschland
             </h1>
             <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
               Wohnung kaufen, Haus verkaufen oder Traumimmobilie finden. Deutschlandweit, mit
@@ -104,7 +137,7 @@ export default async function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
-                href="/immobilien"
+                href="/angebote"
                 className="bg-white/95 text-foreground border-2 border-white/20 hover:bg-white px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien entdecken
@@ -373,7 +406,7 @@ export default async function Home() {
                 Jetzt Kontakt aufnehmen
               </Link>
               <Link
-                href="/immobilien"
+                href="/angebote"
                 className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 border-2 border-primary-foreground/20 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien durchstöbern
@@ -427,7 +460,7 @@ export default async function Home() {
                 </div>
                 <div className="flex items-end">
                   <Link
-                    href="/immobilien"
+                    href="/angebote"
                     className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md font-medium transition-colors text-center"
                   >
                     Suchen
@@ -437,19 +470,25 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredListings.map((listing) => (
-              <ListingCard
-                key={listing.id}
-                listing={listing}
-                badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">Lade Immobilien...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {featuredListings.map((listing) => (
+                <ListingCard
+                  key={listing.id}
+                  listing={listing}
+                  badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="text-center">
             <Link
-              href="/immobilien"
+              href="/angebote"
               className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-medium transition-colors"
             >
               Alle Immobilien anzeigen

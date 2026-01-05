@@ -1,6 +1,11 @@
 import { MetadataRoute } from 'next';
+import { getSiteUrl } from '@/lib/site';
+
+// Static robots.txt for static export compatibility
+export const dynamic = 'force-static';
 
 export default function robots(): MetadataRoute.Robots {
+  const siteUrl = getSiteUrl();
   return {
     rules: [
       {
@@ -9,6 +14,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/admin/', '/_next/'],
       },
     ],
-    sitemap: 'https://immopal.de/sitemap.xml',
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

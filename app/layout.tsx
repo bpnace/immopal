@@ -5,9 +5,10 @@ import { Footer } from '@/components/footer';
 import { CookieBanner } from '@/components/cookie-banner';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 import { OrganizationSchema } from '@/components/structured-data';
+import { getSiteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://immopal.de'),
+  metadataBase: new URL(getSiteUrl()),
   title: {
     default: 'immo-pal - Immobilien in Deutschland kaufen & verkaufen',
     template: '%s - immo-pal',
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
     'Immobilienmakler Brandenburg',
     'Immobilienbewertung kostenlos',
   ],
-  authors: [{ name: 'immo-pal', url: 'https://immopal.de' }],
+  authors: [{ name: 'immo-pal', url: getSiteUrl() }],
   creator: 'immo-pal',
   publisher: 'immo-pal',
   robots: {
@@ -40,15 +41,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'de_DE',
-    url: 'https://immopal.de',
+    url: getSiteUrl(),
     title: 'immo-pal - Immobilien in Deutschland kaufen & verkaufen',
     description: 'Professioneller Immobilienmakler für Deutschland. Kostenlose Beratung & Bewertung.',
     siteName: 'immo-pal',
     images: [
       {
-        url: '/api/og',
-        width: 1200,
-        height: 630,
+        url: '/images/logo1.png',
         alt: 'immo-pal - Ihr Immobilienmakler in Deutschland',
       },
     ],
@@ -57,11 +56,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'immo-pal - Immobilien in Deutschland kaufen & verkaufen',
     description: 'Professioneller Immobilienmakler für Deutschland. Kostenlose Beratung & Bewertung.',
-    images: ['/api/og'],
+    images: ['/images/logo1.png'],
     creator: '@immopal',
-  },
-  alternates: {
-    canonical: 'https://immopal.de',
   },
 };
 

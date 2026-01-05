@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { getSiteUrl } from '@/lib/site';
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   title: 'Immobilie verkaufen - Kostenlose Bewertung in 48h',
@@ -9,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Kostenlose Immobilienbewertung in 48 Stunden. Professionelle Verkaufsberatung.',
   },
   alternates: {
-    canonical: 'https://immopal.de/verkaufen',
+    canonical: `${siteUrl}/verkaufen`,
   },
 };
 

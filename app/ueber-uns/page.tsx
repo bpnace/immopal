@@ -4,12 +4,13 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Über uns - immopal',
-  description: 'Erfahren Sie mehr über immopal, Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026',
+  description:
+    'Erfahren Sie mehr über immopal, Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026',
 };
 
 export default function UeberUnsPage() {
   return (
-      <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="bg-primary/5 py-12 min-h-[220px] flex items-center">
         <div className="container mx-auto px-4">
@@ -22,16 +23,15 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-            {/* Team Section */}
+      {/* Team Section */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-card border border-border rounded-lg overflow-hidden">
                 <div className="relative h-64 bg-muted">
                   <Image
-                    src="/images/kyaProfil.webp"
+                    src="/images/KyaProfil.webp"
                     alt="Kya Bayat"
                     fill
                     className="object-cover"
@@ -77,7 +77,8 @@ export default function UeberUnsPage() {
                   <h3 className="text-xl font-semibold mb-1">Tarik Marshall</h3>
                   <p className="text-primary font-medium mb-3">Full Stack Developer</p>
                   <p className="text-sm text-muted-foreground">
-                    Verantwortlich für die technische Entwicklung unserer Plattform mit Fokus auf Nutzerfreundlichkeit
+                    Verantwortlich für die technische Entwicklung unserer Plattform mit Fokus auf
+                    Nutzerfreundlichkeit
                   </p>
                 </div>
               </div>
@@ -94,29 +95,27 @@ export default function UeberUnsPage() {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Unsere Geschichte</h2>
                 <p className="text-muted-foreground mb-4">
-                  Wir sind Freunde seit der Grundschule und teilen seit vielen Jahren die Begeisterung für Immobilien.
-                  Jung, motiviert und fachlich fundiert begleiten wir Eigentümer und Interessenten bei der Vermittlung
-                  von Immobilien in Berlin und Brandenburg.
+                  Wir sind Freunde seit der Grundschule und teilen seit vielen Jahren die
+                  Begeisterung für Immobilien. Jung, motiviert und fachlich fundiert begleiten wir
+                  Eigentümer und Interessenten bei der Vermittlung von Immobilien in Berlin und
+                  Brandenburg.
                 </p>
                 <p className="text-muted-foreground mb-4">
-                  Aus unserer beruflichen Laufbahn bringen wir vielseitige Erfahrungen aus Konzern, Mittelstand und
-                  eigener Unternehmensgründung mit – insbesondere in der Immobilienbewertung und Vermarktung. Als
-                  gebürtige Berliner kennen wir den regionalen Markt genau. Transparenz, Offenheit und ein Miteinander
-                  auf Augenhöhe stehen für uns im Mittelpunkt.
+                  Aus unserer beruflichen Laufbahn bringen wir vielseitige Erfahrungen aus Konzern,
+                  Mittelstand und eigener Unternehmensgründung mit – insbesondere in der
+                  Immobilienbewertung und Vermarktung. Als gebürtige Berliner kennen wir den
+                  regionalen Markt genau. Transparenz, Offenheit und ein Miteinander auf Augenhöhe
+                  stehen für uns im Mittelpunkt.
                 </p>
                 <p className="text-muted-foreground">
-                  Denn: <strong>Jeder Kunde ist so individuell wie die passende Immobilie dazu.</strong> Genau darauf
-                  gehen wir ein – offen, ehrlich und mit dem klaren Ziel, die bestmögliche Lösung für Sie zu finden.
-                  Wir freuen uns auf Ihre Kontaktaufnahme.
+                  Denn:{' '}
+                  <strong>Jeder Kunde ist so individuell wie die passende Immobilie dazu.</strong>{' '}
+                  Genau darauf gehen wir ein – offen, ehrlich und mit dem klaren Ziel, die
+                  bestmögliche Lösung für Sie zu finden. Wir freuen uns auf Ihre Kontaktaufnahme.
                 </p>
               </div>
               <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
-                <Image
-                  src="/images/gruender.webp"
-                  alt="Unser Team"
-                  fill
-                  className="object-cover"
-                />
+                <Image src="/images/gruender.webp" alt="Unser Team" fill className="object-cover" />
               </div>
             </div>
           </div>
@@ -137,7 +136,12 @@ export default function UeberUnsPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-card border border-border rounded-lg p-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -148,14 +152,19 @@ export default function UeberUnsPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Vertrauen</h3>
                 <p className="text-muted-foreground">
-                  Transparenz und Ehrlichkeit stehen bei uns an erster Stelle. Wir beraten Sie objektiv und zeigen
-                  auch die Schwächen einer Immobilie auf.
+                  Transparenz und Ehrlichkeit stehen bei uns an erster Stelle. Wir beraten Sie
+                  objektiv und zeigen auch die Schwächen einer Immobilie auf.
                 </p>
               </div>
 
               <div className="bg-card border border-border rounded-lg p-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -166,14 +175,19 @@ export default function UeberUnsPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Professionalität</h3>
                 <p className="text-muted-foreground">
-                  Jahrelange Erfahrung und kontinuierliche Weiterbildung garantieren Ihnen höchste fachliche
-                  Kompetenz in allen Bereichen.
+                  Jahrelange Erfahrung und kontinuierliche Weiterbildung garantieren Ihnen höchste
+                  fachliche Kompetenz in allen Bereichen.
                 </p>
               </div>
 
               <div className="bg-card border border-border rounded-lg p-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -184,8 +198,8 @@ export default function UeberUnsPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Leidenschaft</h3>
                 <p className="text-muted-foreground">
-                  Wir lieben Immobilien und brennen für unsere Arbeit. Diese Begeisterung spüren Sie in jeder Phase
-                  unserer Zusammenarbeit.
+                  Wir lieben Immobilien und brennen für unsere Arbeit. Diese Begeisterung spüren Sie
+                  in jeder Phase unserer Zusammenarbeit.
                 </p>
               </div>
             </div>
@@ -193,7 +207,7 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* Numbers Section */}
+      {/* Numbers Section
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -224,7 +238,7 @@ export default function UeberUnsPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section>*/}
 
       {/* CTA Section */}
       <section className="py-16 bg-primary text-primary-foreground">
@@ -244,7 +258,7 @@ export default function UeberUnsPage() {
                 Jetzt Kontakt aufnehmen
               </Link>
               <Link
-                href="/immobilien"
+                href="/angebote"
                 className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 border-2 border-primary-foreground/20 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien ansehen

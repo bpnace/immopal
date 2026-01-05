@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { getSiteUrl } from '@/lib/site';
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
   title: 'Immobilie kaufen in Deutschland - Kostenloser Suchauftrag',
@@ -9,7 +12,7 @@ export const metadata: Metadata = {
     description: 'Kostenloser Suchauftrag-Service für Ihre Traumimmobilie in ganz Deutschland.',
   },
   alternates: {
-    canonical: 'https://immopal.de/kaufen',
+    canonical: `${siteUrl}/kaufen`,
   },
 };
 

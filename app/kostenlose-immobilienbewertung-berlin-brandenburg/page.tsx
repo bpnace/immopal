@@ -1,10 +1,14 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { getSiteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Kostenlose Immobilienbewertung Berlin & Brandenburg - immopal',
   description:
     'Kostenlose Immobilienbewertung für Wohnungen und Häuser in Berlin und Brandenburg. Persönlich, nachvollziehbar und ohne Verpflichtungen.',
+  alternates: {
+    canonical: `${getSiteUrl()}/kostenlose-immobilienbewertung-berlin-brandenburg`,
+  },
 };
 
 export default function KostenloseImmobilienbewertungLandingPage() {
