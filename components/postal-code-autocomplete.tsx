@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { POSTAL_CODE_MIN_QUERY_LENGTH, searchPostalCodes, type PostalCodeData } from '@/lib/postal-codes';
+import { fetchPostalCodeSuggestions, POSTAL_CODE_MIN_QUERY_LENGTH, type PostalCodeData } from '@/lib/postal-codes';
 
 interface PostalCodeAutocompleteProps {
   value: string;
@@ -43,12 +43,13 @@ export function PostalCodeAutocomplete({
       return;
     }
 
+    const controller = new AbortController();
     const debounceId = window.setTimeout(async () => {
       setIsLoading(true);
       setFetchError(null);
 
       try {
-        const results = searchPostalCodes(trimmed, 10);
+        const results = await fetchPostalCodeSuggestions(trimmed, 10, { signal: controller.signal });
         setSuggestions(results);
         setShowSuggestions(true);
       } catch {
@@ -60,6 +61,7 @@ export function PostalCodeAutocomplete({
     }, 250);
 
     return () => {
+      controller.abort();
       window.clearTimeout(debounceId);
     };
   }, [value]);
