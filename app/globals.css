@@ -123,3 +123,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .home-section-divider {
+    @apply relative border-b border-primary/10;
+  }
+  .home-section-divider::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 10px;
+    background: linear-gradient(to bottom, transparent, hsl(var(--primary) / 0.08));
+    pointer-events: none;
+  }
+}

@@ -32,7 +32,7 @@ export function BlogPreview({ limit = 3 }: Props) {
 
   if (loading) {
     return (
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background home-section-divider">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit immopal</h2>
@@ -49,7 +49,7 @@ export function BlogPreview({ limit = 3 }: Props) {
   }
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-16 bg-background home-section-divider">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit immopal</h2>

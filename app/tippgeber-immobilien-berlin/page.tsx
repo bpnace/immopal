@@ -46,7 +46,7 @@ export default function TippgeberLandingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-8 space-y-10">
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-semibold">Einleitung</h2>
+              <h2 className="text-2xl md:text-3xl font-semibold">Was ist ein Tippgeber?</h2>
               <p className="text-muted-foreground leading-relaxed">
                 <em>
                   Fast jeder kennt jemanden, der überlegt, eine Immobilie zu verkaufen. Was viele nicht wissen: Ein guter

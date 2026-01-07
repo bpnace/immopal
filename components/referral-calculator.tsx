@@ -29,7 +29,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
 
   if (compact) {
     return (
-      <div className="bg-card border border-border rounded-lg p-6">
+      <div className="rounded-lg border border-border bg-card p-6">
         <h3 className="text-xl font-bold mb-4">Tippgeberprovision Rechner</h3>
         <p className="text-sm text-muted-foreground mb-4">
           Empfehlen Sie uns eine Immobilie und erhalten Sie 20% der Netto-Courtage
