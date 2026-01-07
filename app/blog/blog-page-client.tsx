@@ -82,7 +82,7 @@ export function BlogPageClient() {
               >
                 <div className="relative h-56 bg-muted">
                   <Image
-                    src={article.imageUrl ?? '/images/spacejoy.jpg'}
+                    src={article.imageUrl!}
                     alt={article.title}
                     fill
                     className="object-cover"
@@ -118,4 +118,3 @@ export function BlogPageClient() {
     </main>
   );
 }
-

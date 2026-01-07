@@ -34,6 +34,7 @@ export function CookieBanner() {
     setConsent(newConsent);
     setShowBanner(false);
     setShowSettings(false);
+    window.dispatchEvent(new CustomEvent('cookie-consent-updated', { detail: newConsent }));
 
     // Apply consent settings
     if (newConsent.analytics) {

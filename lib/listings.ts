@@ -104,9 +104,12 @@ function extractFileUrls(
 
       if (resource.type === 'file--file') {
         const uri = resource.attributes?.uri;
-        const uriUrl = typeof uri === 'object' && uri ? (uri as { url?: unknown }).url : null;
-        if (typeof uriUrl === 'string' && uriUrl.length > 0) return absolutizeDrupalUrl(uriUrl);
-        return null;
+        const uriUrl = typeof uri === 'object' && uri ? (uri as { url?: unknown; value?: unknown }).url : null;
+        const uriValue = typeof uri === 'object' && uri ? (uri as { url?: unknown; value?: unknown }).value : null;
+        const raw =
+          (typeof uriUrl === 'string' && uriUrl.length > 0 ? uriUrl : null) ??
+          (typeof uriValue === 'string' ? uriValue : null);
+        return raw ? absolutizeDrupalUrl(raw) : null;
       }
 
       if (String(resource.type).startsWith('media--')) {

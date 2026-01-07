@@ -19,6 +19,7 @@ raw_images/
 # Production
 /build
 dist
+*.md
 
 # Misc
 .DS_Store

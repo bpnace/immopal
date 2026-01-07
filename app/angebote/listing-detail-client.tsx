@@ -80,7 +80,7 @@ export function ListingDetailClient({ slug }: Props) {
     );
   }
 
-  const heroImage = listing.images?.[0] ?? '/images/spacejoy.jpg';
+  const heroImage = listing.images[0]!;
   const price = listing.price !== null ? formatPrice(listing.price) : 'Auf Anfrage';
 
   return (

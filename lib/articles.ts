@@ -83,8 +83,10 @@ function extractFileUrl(included: JsonApiResource[] | undefined, relData: JsonAp
   // For image fields, Drupal commonly relates directly to file--file
   if (resource.type === 'file--file') {
     const uri = resource.attributes?.uri;
-    const url = typeof uri === 'object' && uri ? (uri as { url?: unknown }).url : null;
-    return typeof url === 'string' && url.length > 0 ? absolutizeDrupalUrl(url) : null;
+    const url = typeof uri === 'object' && uri ? (uri as { url?: unknown; value?: unknown }).url : null;
+    const value = typeof uri === 'object' && uri ? (uri as { url?: unknown; value?: unknown }).value : null;
+    const raw = (typeof url === 'string' && url.length > 0 ? url : null) ?? (typeof value === 'string' ? value : null);
+    return raw ? absolutizeDrupalUrl(raw) : null;
   }
 
   return null;

@@ -64,10 +64,6 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
             <span className="text-muted-foreground">Immobilienwert:</span>
             <span className="font-semibold">{formatPrice(propertyValue)}</span>
           </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Provision:</span>
-            <span className="font-semibold">{formatPrice(grossCommission)}</span>
-          </div>
           <div className="pt-2 border-t border-border">
             <div className="flex justify-between">
               <span className="font-medium">Ihre Tippgeberprovision (20%):</span>
@@ -77,7 +73,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
         </div>
 
         <a
-          href="/tippgeberprovision"
+          href="/kontakt"
           className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors"
         >
           Jetzt Immobilie empfehlen

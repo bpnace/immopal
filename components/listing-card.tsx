@@ -30,7 +30,7 @@ export function ListingCard({ listing, badge, className }: ListingCardProps) {
     >
       <div className="relative aspect-[16/9] bg-muted">
         <Image
-          src={listing.images?.[0] ?? '/images/spacejoy.jpg'}
+          src={listing.images[0]!}
           alt={listing.title}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"

@@ -75,7 +75,7 @@ export function BlogPreview({ limit = 3 }: Props) {
                 <Link href={{ pathname: '/blog', query: { slug: article.slug } }} className="block">
                   <div className="relative aspect-[16/9] bg-muted">
                     <Image
-                      src={article.imageUrl ?? '/images/spacejoy.jpg'}
+                      src={article.imageUrl!}
                       alt={article.title}
                       fill
                       className="object-cover"
