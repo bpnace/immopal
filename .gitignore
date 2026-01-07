@@ -10,6 +10,7 @@
 /playwright-report/
 /playwright/.cache/
 raw_images/
+.playwright-mcp/
 
 # Next.js
 /.next/

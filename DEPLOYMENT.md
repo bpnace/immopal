@@ -140,27 +140,6 @@ Vor dem Live-Gang:
 
 ---
 
-## Alternative: Netlify
-
-### Setup-Schritte
-
-1. **Repository zu Netlify verbinden:**
-   - Gehe zu [netlify.com](https://netlify.com)
-   - "New site from Git" → Repository auswählen
-
-2. **Build Settings:**
-   - Build command: `npm run export`
-   - Publish directory: `out`
-
-3. **Environment Variables:**
-   - Site Settings → Environment Variables
-   - Gleiche wie bei Vercel (siehe oben)
-
-4. **Deploy:**
-   - Automatisch bei git push
-
----
-
 ## Lokaler Test des Static Exports
 
 Vor dem Hochladen zu IONOS testen:
@@ -226,15 +205,3 @@ Für noch bessere Performance:
 2. DNS auf CloudFlare umstellen
 3. Automatisches Caching + CDN weltweit
 
----
-
-## Kosten-Vergleich
-
-| Hosting | Kosten/Monat | Node.js Server | Auto-Deploy | CDN |
-|---------|--------------|----------------|-------------|-----|
-| **IONOS Webhosting Plus** | ~€8-12 | ❌ Nicht nötig | ❌ Manuell | ➕ Optional (CloudFlare) |
-| **IONOS VPS** | ~€20-50 | ✅ Nötig | ❌ Manuell | ❌ |
-| **Vercel** | €0 (Hobby) | ✅ Inkl. | ✅ Automatisch | ✅ Global |
-| **Netlify** | €0 (Starter) | ✅ Inkl. | ✅ Automatisch | ✅ Global |
-
-**Empfehlung:** Nutze IONOS Webhosting Plus für statischen Export (günstig) oder Vercel für automatisches Deployment (einfacher).
