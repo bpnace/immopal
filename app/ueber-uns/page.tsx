@@ -34,7 +34,7 @@ export default function UeberUnsPage() {
                     src="/images/KyaProfil.webp"
                     alt="Kya Bayat"
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="p-6 text-center">
@@ -52,7 +52,7 @@ export default function UeberUnsPage() {
                     src="/images/dennisProfil.webp"
                     alt="Dennis Darwiche"
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="p-6 text-center">
@@ -70,7 +70,7 @@ export default function UeberUnsPage() {
                     src="/images/tarik.webp"
                     alt="Thomas Weber"
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="p-6 text-center">
@@ -79,6 +79,42 @@ export default function UeberUnsPage() {
                   <p className="text-sm text-muted-foreground">
                     Verantwortlich für die technische Entwicklung unserer Plattform mit Fokus auf
                     Nutzerfreundlichkeit
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="/images/feelGood.webp"
+                    alt="Feelgood Manager Dog"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">Feelgood Manager</h3>
+                  <p className="text-primary font-medium mb-3">Bürohund</p>
+                  <p className="text-sm text-muted-foreground">
+                    Sorgt für gute Laune, Pausen und ein bisschen extra Motivation im Team
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="/images/MaraKoenig.webp"
+                    alt="Mara Koenig"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">Mara Koenig</h3>
+                  <p className="text-primary font-medium mb-3">Digital Assistant</p>
+                  <p className="text-sm text-muted-foreground">
+                    Unterstützt bei Organisation, Recherche und digitaler Kommunikation
                   </p>
                 </div>
               </div>

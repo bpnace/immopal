@@ -104,8 +104,8 @@ export function AngebotePageClient() {
               <div className="p-8 text-center">
                 <div className="text-xs font-semibold tracking-[0.22em] text-muted-foreground italic">DER DIREKTE DRAHT</div>
                 <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                  Du willst persönlich mit uns sprechen, schließlich ist der Grund warum du hier bist ein sehr
-                  persönlicher. Ruf uns einfach unverzüglich an!
+                  Sie haben Fragen zu unseren Angeboten oder möchten eine individuelle Beratung? Kontaktieren Sie uns
+                  gerne direkt.
                 </p>
                 <Link href="/kontakt" className="mt-5 inline-block text-sm font-semibold text-primary hover:underline">
                   zum Kontakt →
@@ -126,8 +126,8 @@ export function AngebotePageClient() {
               <div className="p-8 text-center">
                 <div className="text-xs font-semibold tracking-[0.22em] text-muted-foreground italic">AUF DIE SUCHE, FERTIG, LOS</div>
                 <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-                  Keine Kompromisse, dafür mit Geduld. Mit etwas Zeit und Deinen konkreten Wünschen, suchen und finden
-                  wir die passende Wohnung oder das perfekte Haus.
+                  Keine passende Immobilie gefunden? Erstellen Sie einen Suchauftrag und wir informieren Sie, sobald
+                  neue Objekte verfügbar sind, die Ihren Kriterien entsprechen.
                 </p>
                 <Link href="/kaufen" className="mt-5 inline-block text-sm font-semibold text-primary hover:underline">
                   zum Suchauftrag →

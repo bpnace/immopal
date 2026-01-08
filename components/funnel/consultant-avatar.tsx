@@ -60,7 +60,7 @@ export function ConsultantAvatar({
             alt={name}
             width={size === 'sm' ? 64 : size === 'md' ? 96 : 128}
             height={size === 'sm' ? 64 : size === 'md' ? 96 : 128}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-top"
           />
         ) : (
           <span className="font-bold text-primary-foreground">{initials}</span>
