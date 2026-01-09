@@ -21,7 +21,7 @@ export function Navigation() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <Link href="/" className="flex items-center">
+            <Link href="/" className="flex items-center cursor-default">
               <Image
                 src="/images/logo1.png"
                 alt="immopal Logo"
