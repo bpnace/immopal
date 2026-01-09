@@ -72,12 +72,24 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
           </div>
         </div>
 
-        <a
-          href="/kontakt"
-          className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors"
-        >
-          Jetzt Immobilie empfehlen
-        </a>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <a
+            href="/kontakt"
+            className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors sm:flex-1"
+          >
+            Jetzt Immobilie empfehlen
+          </a>
+          <a
+            href={`https://wa.me/493046690542?text=${encodeURIComponent(
+              'Hallo! Ich möchte eine Immobilie empfehlen.'
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full bg-[#25D366] text-white hover:bg-[#1EBE57] px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors sm:flex-1"
+          >
+            Per WhatsApp empfehlen
+          </a>
+        </div>
       </div>
     );
   }
@@ -154,12 +166,22 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
               href="/kontakt"
-              className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md"
+              className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md sm:flex-1"
             >
               Jetzt Immobilie empfehlen
+            </a>
+            <a
+              href={`https://wa.me/493046690542?text=${encodeURIComponent(
+                'Hallo! Ich möchte eine Immobilie empfehlen.'
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-[#25D366] text-white hover:bg-[#1EBE57] px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md sm:flex-1"
+            >
+              Per WhatsApp empfehlen
             </a>
           </div>
         </div>

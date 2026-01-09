@@ -13,22 +13,20 @@ export const metadata: Metadata = {
 
 export default function KostenloseImmobilienbewertungLandingPage() {
   return (
-    <main className="min-h-screen bg-background">
-      <section className="bg-primary/5 py-12 min-h-[220px] flex items-center">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Kostenlose Immobilienbewertung Berlin & Brandenburg</h1>
-            <p className="text-lg text-muted-foreground">
-              Persönlich, nachvollziehbar und ohne Verpflichtungen – für Wohnungen und Häuser.
-            </p>
-          </div>
-        </div>
-      </section>
+    <main className="min-h-screen bg-background py-16 px-4">
+      <div className="max-w-6xl mx-auto space-y-12">
+        <header className="text-center space-y-4">
+          <h1 className="text-4xl md:text-5xl font-bold">
+            Kostenlose Immobilienbewertung Berlin &amp; Brandenburg
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            Persönlich, nachvollziehbar und ohne Verpflichtungen – für Wohnungen und Häuser.
+          </p>
+        </header>
 
-      <section className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-8 space-y-10">
-            <div className="space-y-4">
+          <div className="lg:col-span-8 space-y-6">
+            <section className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4">
               <h2 className="text-2xl md:text-3xl font-semibold">Einleitung</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Wenn man eine Immobilie besitzt, kommt irgendwann die Frage auf: <em>Was ist sie heute eigentlich wert?</em>{' '}
@@ -39,9 +37,9 @@ export default function KostenloseImmobilienbewertungLandingPage() {
                 Wir bieten Ihnen eine <strong>kostenlose Immobilienbewertung</strong> für Wohnungen und Häuser in{' '}
                 <strong>Berlin und Brandenburg</strong>. Persönlich, nachvollziehbar und ohne Verpflichtungen.
               </p>
-            </div>
+            </section>
 
-            <div className="space-y-4">
+            <section className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4">
               <h2 className="text-2xl md:text-3xl font-semibold">Wie wir den Immobilienwert ermitteln</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Eine seriöse Bewertung besteht nicht aus einem Online-Rechner mit Fantasiezahlen. Wir schauen uns Ihre
@@ -56,9 +54,9 @@ export default function KostenloseImmobilienbewertungLandingPage() {
               <p className="text-muted-foreground leading-relaxed">
                 So entsteht ein Wert, der <strong>realistisch und am Markt durchsetzbar</strong> ist.
               </p>
-            </div>
+            </section>
 
-            <div className="space-y-4">
+            <section className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4">
               <h2 className="text-2xl md:text-3xl font-semibold">Für wen ist die Bewertung sinnvoll?</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Unsere kostenlose Immobilienbewertung richtet sich an:
@@ -73,9 +71,9 @@ export default function KostenloseImmobilienbewertungLandingPage() {
               <p className="text-muted-foreground leading-relaxed">
                 Ganz gleich, ob Sie sofort verkaufen möchten oder nicht.
               </p>
-            </div>
+            </section>
 
-            <div className="space-y-4">
+            <section className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4">
               <h2 className="text-2xl md:text-3xl font-semibold">Was Sie von uns erwarten können</h2>
               <ul className="list-disc pl-5 space-y-2 text-muted-foreground">
                 <li>Keine automatisierte Massenbewertung</li>
@@ -86,9 +84,9 @@ export default function KostenloseImmobilienbewertungLandingPage() {
               <p className="text-muted-foreground leading-relaxed">
                 Wir sagen auch dann offen unsere Meinung, wenn ein Verkauf <strong>gerade keinen Sinn ergibt</strong>.
               </p>
-            </div>
+            </section>
 
-            <div className="space-y-4">
+            <section className="bg-card border border-border rounded-xl p-6 md:p-8 space-y-4">
               <h2 className="text-2xl md:text-3xl font-semibold">Ablauf der kostenlosen Bewertung</h2>
               <ol className="list-decimal pl-5 space-y-2 text-muted-foreground">
                 <li>Sie geben die wichtigsten Eckdaten Ihrer Immobilie an</li>
@@ -97,31 +95,43 @@ export default function KostenloseImmobilienbewertungLandingPage() {
                 <li>Sie erhalten eine fundierte Wertermittlung</li>
               </ol>
               <p className="text-muted-foreground leading-relaxed">Unkompliziert, transparent und auf Augenhöhe.</p>
-            </div>
+            </section>
           </div>
 
-          <aside className="lg:col-span-4 space-y-4 lg:sticky lg:top-24">
-            <div className="bg-card border border-border rounded-xl p-6">
-              <h2 className="text-xl font-semibold mb-2">Jetzt Immobilienwert kostenlos ermitteln</h2>
-              <p className="text-sm text-muted-foreground mb-5">
+          <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
+            <div className="bg-card border border-border rounded-2xl p-8 md:p-10 shadow-lg">
+              <h2 className="text-2xl font-semibold mb-3">Jetzt Immobilienwert kostenlos ermitteln</h2>
+              <p className="text-base text-muted-foreground mb-6">
                 Klarheit über den aktuellen Marktwert – persönlich &amp; nachvollziehbar.
               </p>
-              <ul className="space-y-2 text-sm text-muted-foreground mb-6">
+              <ul className="space-y-3 text-sm text-muted-foreground mb-8">
                 <li>• Keine Verkaufspflicht</li>
                 <li>• Keine Weitergabe Ihrer Daten</li>
                 <li>• Ehrliche Einschätzung</li>
-                <li>• Berlin &amp; Brandenburg</li>
+                <li>• Berlin, Brandenburg &amp; Umgebung</li>
               </ul>
-              <Link
-                href="/kontakt"
-                className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Jetzt kostenlose Immobilienbewertung anfordern
-              </Link>
+              <div className="flex flex-col gap-3">
+                <Link
+                  href="/kontakt"
+                  className="inline-flex w-full items-center text-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+                >
+                  Jetzt kostenlose Immobilienbewertung anfordern
+                </Link>
+                <Link
+                  href={`https://wa.me/493046690542?text=${encodeURIComponent(
+                    'Hallo! Ich interessiere mich für eine kostenlose Immobilienbewertung.'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-lg bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#1EBE57] transition-colors"
+                >
+                  DIrekt per WhatsApp schreiben
+                </Link>
+              </div>
             </div>
           </aside>
         </div>
-      </section>
+      </div>
     </main>
   );
 }
