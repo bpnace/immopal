@@ -49,7 +49,7 @@ export default function UeberUnsPage() {
               <div className="bg-card border border-border rounded-lg overflow-hidden">
                 <div className="relative h-64 bg-muted">
                   <Image
-                    src="/images/dennisProfil.webp"
+                    src="/images/dennisUeber.webp"
                     alt="Dennis Darwiche"
                     fill
                     className="object-cover object-top"
@@ -111,7 +111,7 @@ export default function UeberUnsPage() {
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Mara Koenig</h3>
+                  <h3 className="text-xl font-semibold mb-1">Mara König</h3>
                   <p className="text-primary font-medium mb-3">Digital Assistant</p>
                   <p className="text-sm text-muted-foreground">
                     Unterstützt bei Organisation, Recherche und digitaler Kommunikation
