@@ -38,10 +38,30 @@ export default function UeberUnsPage() {
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Kya Bayat</h3>
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="inline-flex items-center gap-2">
+                      Kya Bayat
+                      <Link
+                        href="https://wa.me/493046690542"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Kya Bayat auf WhatsApp kontaktieren"
+                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100"
+                      >
+                        <Image
+                          src="/images/WhatsApp.svg"
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="h-6 w-6"
+                        />
+                      </Link>
+                    </span>
+                  </h3>
                   <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
                   <p className="text-sm text-muted-foreground">
-                    Immobilienmakler seit 15 Jahren mit Spezialisierung auf Wohnimmobilien
+                    Jurist mit Schwerpunkt Immobilienrecht und langjähriger Erfahrung in der
+                    Immobilienbewertung
                   </p>
                 </div>
               </div>
@@ -56,10 +76,29 @@ export default function UeberUnsPage() {
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Dennis Darwiche</h3>
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="inline-flex items-center gap-2">
+                      Dennis Darwiche
+                      <Link
+                        href="https://wa.me/493046690542"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Dennis Darwiche auf WhatsApp kontaktieren"
+                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100"
+                      >
+                        <Image
+                          src="/images/WhatsApp.svg"
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="h-6 w-6"
+                        />
+                      </Link>
+                    </span>
+                  </h3>
                   <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
                   <p className="text-sm text-muted-foreground">
-                    Experte für Luxusimmobilien und Vermietung mit 10 Jahren Berufserfahrung
+                    Immobilienberater mit Schwerpunkt auf Wohnimmobilien und langjähriger Erfahrung
                   </p>
                 </div>
               </div>
@@ -131,7 +170,7 @@ export default function UeberUnsPage() {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">Mara König</h3>
-                  <p className="text-primary font-medium mb-3">Digital Assistant</p>
+                  <p className="text-primary font-medium mb-3">Assistenz der Geschäftsführer</p>
                   <p className="text-sm text-muted-foreground">
                     Unterstützt bei Organisation, Recherche und digitaler Kommunikation
                   </p>
