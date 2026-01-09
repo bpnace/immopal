@@ -74,7 +74,26 @@ export default function UeberUnsPage() {
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Tarik Marshall</h3>
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="inline-flex items-center gap-2">
+                      Tarik Marshall
+                      <Link
+                        href="https://www.linkedin.com/in/tarik-arthur-marshall-6112b2239"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Tarik Marshall auf LinkedIn"
+                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100"
+                      >
+                        <Image
+                          src="/images/LinkedIn_icon.svg"
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="h-4 w-4"
+                        />
+                      </Link>
+                    </span>
+                  </h3>
                   <p className="text-primary font-medium mb-3">Full Stack Developer</p>
                   <p className="text-sm text-muted-foreground">
                     Verantwortlich für die technische Entwicklung unserer Plattform mit Fokus auf
