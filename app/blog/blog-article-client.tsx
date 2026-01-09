@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import DOMPurify from 'dompurify';
 
 import { fetchArticleBySlug, type Article } from '@/lib/articles';
 import { formatDate } from '@/lib/utils';
@@ -116,7 +117,20 @@ export function BlogArticleClient({ slug }: Props) {
           />
         </div>
 
-        <article className="prose prose-gray max-w-none" dangerouslySetInnerHTML={{ __html: article.bodyHtml }} />
+        <article
+          className="prose prose-gray max-w-none"
+          dangerouslySetInnerHTML={{
+            __html: DOMPurify.sanitize(article.bodyHtml, {
+              ALLOWED_TAGS: [
+                'p', 'br', 'strong', 'em', 'b', 'i', 'u', 'a', 'ul', 'ol', 'li',
+                'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre',
+                'img', 'figure', 'figcaption', 'table', 'thead', 'tbody', 'tr', 'th', 'td',
+                'div', 'span', 'hr'
+              ],
+              ALLOWED_ATTR: ['href', 'target', 'rel', 'src', 'alt', 'title', 'class', 'id'],
+            }),
+          }}
+        />
       </div>
     </main>
   );

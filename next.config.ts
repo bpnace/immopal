@@ -11,10 +11,6 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'cms.codariq.de',
       },
-      {
-        protocol: 'https',
-        hostname: 'images.pexels.com',
-      },
     ],
   },
 }

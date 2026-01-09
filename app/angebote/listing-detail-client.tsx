@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import DOMPurify from 'dompurify';
 
 import { fetchListingBySlug, type Listing } from '@/lib/listings';
 import { formatArea, formatPrice } from '@/lib/utils';
@@ -139,9 +140,25 @@ export function ListingDetailClient({ slug }: Props) {
         {(listing.shortDescription || listing.longDescription) && (
           <section className="prose prose-gray max-w-none">
             {listing.shortDescription && (
-              <div dangerouslySetInnerHTML={{ __html: listing.shortDescription }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(listing.shortDescription, {
+                    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'b', 'i', 'u', 'ul', 'ol', 'li', 'a'],
+                    ALLOWED_ATTR: ['href', 'target', 'rel'],
+                  }),
+                }}
+              />
             )}
-            {listing.longDescription && <div dangerouslySetInnerHTML={{ __html: listing.longDescription }} />}
+            {listing.longDescription && (
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(listing.longDescription, {
+                    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'b', 'i', 'u', 'ul', 'ol', 'li', 'a', 'h2', 'h3', 'h4'],
+                    ALLOWED_ATTR: ['href', 'target', 'rel'],
+                  }),
+                }}
+              />
+            )}
           </section>
         )}
 

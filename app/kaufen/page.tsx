@@ -14,6 +14,7 @@ import {
 } from '@/lib/form-validation';
 import { submitBuyingForm } from '@/lib/webhook';
 import { KAUFEN_CONSULTANT } from '@/lib/consultant-data';
+import { canSubmit, getRemainingCooldown } from '@/lib/rate-limit';
 import {
   propertyTypeOptions,
   purchaseReasonOptions,
@@ -180,6 +181,14 @@ export default function KaufenPage() {
   // Handle form submission
   const handleSubmit = async () => {
     if (!validateCurrentStep()) return;
+
+    // Rate limiting check
+    const identifier = `${formData.email}-${formData.phone}`;
+    if (!canSubmit(identifier)) {
+      const remaining = Math.ceil(getRemainingCooldown(identifier) / 1000);
+      setSubmitError(`Bitte warten Sie noch ${remaining} Sekunden, bevor Sie erneut absenden.`);
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitError('');

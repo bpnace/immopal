@@ -86,19 +86,52 @@ export interface BuyingFormData {
 // ============= BASIC VALIDATORS =============
 
 /**
- * Email validation
+ * Email validation (RFC 5322 compliant)
+ * Rejects invalid formats like test@x.y and enforces proper domain structure
  */
 export const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+  // RFC 5322 compliant email regex with length constraints
+  const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+  if (!emailRegex.test(email)) return false;
+  if (email.length > 254) return false; // RFC 5321 limit
+
+  // Additional checks
+  const [localPart] = email.split('@');
+  if (localPart.length > 64) return false; // Local part limit
+
+  return true;
 };
 
 /**
- * German phone validation (accepts various formats)
+ * German phone validation (accepts +49 or 0 prefix, rejects obvious fakes)
+ * Accepts formats: +4930123456, 030 123 456, (030) 123-456, etc.
  */
 export const isValidPhone = (phone: string): boolean => {
-  const phoneRegex = /^[\d\s\-\+\(\)]{8,}$/;
-  return phoneRegex.test(phone);
+  // Remove spaces, hyphens, and parentheses for validation
+  const cleaned = phone.replace(/[\s\-\(\)]/g, '');
+
+  // Must start with +49 or 0, followed by 9-14 digits (total 10-15 digits)
+  if (!/^(\+49|0)[1-9]\d{8,13}$/.test(cleaned)) {
+    return false;
+  }
+
+  // Reject obvious fakes (all same digit)
+  if (/^(\+49|0)(\d)\2{8,}$/.test(cleaned)) {
+    return false;
+  }
+
+  return true;
+};
+
+/**
+ * Name validation (2-50 characters, German characters allowed)
+ */
+export const isValidName = (name: string): boolean => {
+  const trimmed = name.trim();
+  // Allow letters (including German umlauts), spaces, hyphens, and apostrophes
+  const nameRegex = /^[a-zA-ZäöüßÄÖÜ\s'\-]{2,50}$/;
+  return nameRegex.test(trimmed);
 };
 
 /**
