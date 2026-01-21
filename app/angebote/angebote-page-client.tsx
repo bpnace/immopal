@@ -116,7 +116,7 @@ export function AngebotePageClient() {
                   src="/images/gruender.webp"
                   alt="gruender"
                   fill
-                  className="object-cover object-center"
+                  className="object-cover object-[center_35%]"
                   sizes="(min-width: 768px) 50vw, 100vw"
                 />
               </div>

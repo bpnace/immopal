@@ -7,34 +7,39 @@ type FaqItem = {
 
 const faqItems: FaqItem[] = [
   {
-    question: 'Warum einen Immobilienmakler in Berlin & Brandenburg beauftragen?',
+    question: 'Warum einen Immobilienmakler beauftragen?',
     answer:
-      'Ein erfahrener Immobilienmakler übernimmt Marktpreiseinschätzung, Exposé, Besichtigungen, Bonitätsprüfung und Verhandlungen. So verkaufen oder kaufen Sie Ihre Immobilie in Berlin & Brandenburg oft schneller und mit weniger Risiko.',
+      'Ein erfahrener Immobilienmakler übernimmt die realistische Marktpreiseinschätzung, erstellt ein professionelles Exposé, organisiert Besichtigungen, prüft die Bonität der Interessenten und führt die Verhandlungen. So verkaufen oder kaufen Sie Ihre Immobilie strukturiert, sicher und zum bestmöglichen Preis.',
+  },
+  {
+    question: 'In welchen Regionen sind Sie tätig?',
+    answer:
+      'Unser Schwerpunkt liegt in Berlin und Brandenburg. Darüber hinaus verfügen wir über ein deutschlandweites Netzwerk und begleiten ausgewählte Immobilienprojekte auch überregional.',
   },
   {
     question: 'Wie läuft eine kostenlose Immobilienbewertung ab?',
     answer:
-      'Wir analysieren Lage, Zustand, Wohnfläche, Vergleichspreise und Nachfrage. Danach erhalten Sie eine realistische Einschätzung zum Immobilienwert und eine Empfehlung für die optimale Verkaufsstrategie.',
+      'Bei der kostenlosen Immobilienbewertung analysieren wir Lage, Zustand, Wohnfläche, Vergleichspreise und die aktuelle Marktnachfrage. Sie erhalten eine realistische Einschätzung des Immobilienwerts sowie eine klare Empfehlung für das weitere Vorgehen.',
   },
   {
     question: 'Was ist die Maklerprovision und wer bezahlt sie?',
     answer:
-      'Die Maklerprovision (Courtage) ist die Vergütung für die Vermittlungsleistung. In vielen Fällen wird sie zwischen Käufer und Verkäufer geteilt – die konkrete Regelung hängt vom Objekt und dem Auftrag ab.',
+      'Die Maklerprovision (Courtage) ist die Vergütung für unsere Vermittlungsleistung. In vielen Fällen wird sie zwischen Käufer und Verkäufer geteilt. Die konkrete Regelung hängt vom Objekt und dem individuellen Auftrag ab.',
   },
   {
-    question: 'Welche Unterlagen brauche ich, um eine Wohnung oder ein Haus zu verkaufen?',
+    question: 'Welche Unterlagen benötige ich für den Verkauf einer Immobilie?',
     answer:
-      'Typisch sind Grundbuchauszug, Energieausweis, Grundrisse, Wohnflächenberechnung, Teilungserklärung (bei Eigentumswohnung), Protokolle der Eigentümerversammlungen sowie ggf. Baubeschreibung und Nachweise über Modernisierungen.',
+      'Typischerweise werden ein Grundbuchauszug, Energieausweis, Grundrisse, Wohnflächenberechnung sowie, bei Eigentumswohnungen, die Teilungserklärung und Protokolle der Eigentümerversammlungen benötigt. Wir unterstützen Sie bei der Beschaffung fehlender Unterlagen.',
   },
   {
     question: 'Wie lange dauert es, eine Immobilie zu verkaufen?',
     answer:
-      'Die Dauer hängt von Preis, Lage und Vermarktung ab. Mit professioneller Vorbereitung (Bewertung, Exposé, Zielgruppenansprache) sind oft wenige Wochen bis wenige Monate realistisch.',
+      'Die Dauer hängt von Lage, Preis und Vermarktungsstrategie ab. Mit professioneller Vorbereitung und gezielter Ansprache sind häufig wenige Wochen bis wenige Monate realistisch.',
   },
   {
     question: 'Bieten Sie auch einen Suchauftrag für Käufer an?',
     answer:
-      'Ja. Mit einem Suchauftrag erhalten Sie passende Immobilienangebote frühzeitig. Teilen Sie uns Ihre Wünsche mit – wir melden uns, sobald ein Objekt in Berlin oder Brandenburg passt.',
+      'Ja. Mit einem Suchauftrag informieren wir Sie frühzeitig über passende Immobilienangebote. Sobald ein Objekt Ihren Kriterien entspricht, nehmen wir direkt Kontakt mit Ihnen auf.',
   },
 ];
 

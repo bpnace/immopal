@@ -27,6 +27,9 @@ export const metadata: Metadata = {
   authors: [{ name: 'immo-pal', url: getSiteUrl() }],
   creator: 'immo-pal',
   publisher: 'immo-pal',
+  icons: {
+    icon: '/favicon.ico',
+  },
   robots: {
     index: true,
     follow: true,
@@ -68,6 +71,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
+      <head>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-G1WJQEH62V"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-G1WJQEH62V');
+            `,
+          }}
+        />
+      </head>
       <body className="font-sans flex flex-col min-h-screen">
         <OrganizationSchema />
         <Navigation />

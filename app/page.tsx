@@ -68,11 +68,10 @@ export default function Home() {
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-12 text-gray-100">
-              Ihr vertrauensvoller Partner für Immobilien in Deutschland
+              Ihr Immobilienmakler in Berlin & Brandenburg. Deutschlandweit vernetzt!
             </h1>
             <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
-              Wohnung kaufen, Haus verkaufen oder Traumimmobilie finden. Deutschlandweit, mit
-              persönlicher Beratung und kostenloser Bewertung.
+                Kaufen. Verkaufen. Vermitteln.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
@@ -195,8 +194,8 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Warum immopal?</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Ihr zuverlässiger Partner für Immobilien in ganz Deutschland
+            <p className="text-muted-foreground text-lg max-w-4xl mx-auto">
+              IMMOPAL ist Ihr Immobilienmakler für Berlin & Brandenburg mit deutschlandweitem Netzwerk. Wir unterstützen Eigentümer beim Verkauf von Wohnungen und Häusern sowie Käufer bei der Suche nach passenden Immobilien – transparent, effizient und persönlich.
             </p>
           </div>
 
