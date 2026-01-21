@@ -16,7 +16,7 @@ export function Footer() {
               className="h-30x w-auto mb-4"
             />
             <p className="text-muted-foreground text-sm">
-              Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026
+              Ihr vertrauensvoller Partner für Immobilien in Deutschland
             </p>
           </div>
 
@@ -104,7 +104,7 @@ export function Footer() {
                   030 46690542
                 </a>
               </li>
-              <li className="text-sm text-muted-foreground">Genfenbergstraße 23, 13595 Berlin</li>
+              <li className="text-sm text-muted-foreground">Kurfürstendamm 66, 10707 Berlin</li>
             </ul>
 
             <div className="mt-4 flex items-center gap-3">
@@ -147,7 +147,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border">
           <p className="text-center text-sm text-muted-foreground">
-             2026 ©immo-pal Alle Rechte vorbehalten.
+            ©immo-pal Alle Rechte vorbehalten.
           </p>
         </div>
       </div>

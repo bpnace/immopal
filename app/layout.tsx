@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: 'immo-pal - Immobilien in Deutschland kaufen & verkaufen',
     description: 'Professioneller Immobilienmakler für Deutschland. Kostenlose Beratung & Bewertung.',
     images: ['/images/logo1.png'],
-    creator: '@immopal',
+    creator: '@immo-pal',
   },
 };
 
@@ -72,10 +72,12 @@ export default function RootLayout({
   return (
     <html lang="de">
       <head>
+        {/* eslint-disable-next-line @next/next/next-script-for-ga */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-G1WJQEH62V"
         />
+        {/* eslint-disable-next-line @next/next/next-script-for-ga */}
         <script
           dangerouslySetInnerHTML={{
             __html: `

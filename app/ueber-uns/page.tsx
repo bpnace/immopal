@@ -5,7 +5,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Über uns - immopal',
   description:
-    'Erfahren Sie mehr über immopal, Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026',
+    'Erfahren Sie mehr über immopal, Ihr vertrauensvoller Partner für Immobilien in Deutschland',
 };
 
 export default function UeberUnsPage() {
@@ -17,7 +17,7 @@ export default function UeberUnsPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Wir sind Immopal</h1>
             <p className="text-xl text-muted-foreground">
-              Ihr vertrauensvoller Partner für Immobilien in Deutschland seit 2026
+              Ihr vertrauensvoller Partner für Immobilien in Deutschland
             </p>
           </div>
         </div>
@@ -60,8 +60,7 @@ export default function UeberUnsPage() {
                   </h3>
                   <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
                   <p className="text-sm text-muted-foreground">
-                    Jurist mit Schwerpunkt Immobilienrecht und langjähriger Erfahrung in der
-                    Immobilienbewertung
+                    Immobilienberater - Regionaler Experte in Berlin und Brandenburg
                   </p>
                 </div>
               </div>
@@ -96,9 +95,10 @@ export default function UeberUnsPage() {
                       </Link>
                     </span>
                   </h3>
-                  <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
+                  <p className="text-primary font-medium mb-3">Immobilienberater</p>
                   <p className="text-sm text-muted-foreground">
-                    Immobilienberater mit Schwerpunkt auf Wohnimmobilien und langjähriger Erfahrung
+                    Schwerpunkt im Bereich Wohnimmobilien und Gewerbe
+                    Miete und Kauf
                   </p>
                 </div>
               </div>
@@ -115,12 +115,12 @@ export default function UeberUnsPage() {
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">
                     <span className="inline-flex items-center gap-2">
-                      Tarik Marshall
+                      Arthur Marshall
                       <Link
                         href="https://www.linkedin.com/in/tarik-arthur-marshall-6112b2239"
                         target="_blank"
                         rel="noreferrer"
-                        aria-label="Tarik Marshall auf LinkedIn"
+                        aria-label="Arthur Marshall auf LinkedIn"
                         className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100"
                       >
                         <Image
@@ -135,8 +135,7 @@ export default function UeberUnsPage() {
                   </h3>
                   <p className="text-primary font-medium mb-3">Full Stack Developer</p>
                   <p className="text-sm text-muted-foreground">
-                    Verantwortlich für die technische Entwicklung unserer Plattform mit Fokus auf
-                    Nutzerfreundlichkeit
+                    Verantwortlich für die technische Entwicklung unserer Plattform
                   </p>
                 </div>
               </div>
@@ -153,9 +152,6 @@ export default function UeberUnsPage() {
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">Feelgood Manager</h3>
                   <p className="text-primary font-medium mb-3">Bürohund</p>
-                  <p className="text-sm text-muted-foreground">
-                    Sorgt für gute Laune, Pausen und ein bisschen extra Motivation im Team
-                  </p>
                 </div>
               </div>
 
@@ -170,10 +166,7 @@ export default function UeberUnsPage() {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">Mara König</h3>
-                  <p className="text-primary font-medium mb-3">Assistenz der Geschäftsführer</p>
-                  <p className="text-sm text-muted-foreground">
-                    Unterstützt bei Organisation, Recherche und digitaler Kommunikation
-                  </p>
+                  <p className="text-primary font-medium mb-3">Kundenservice</p>
                 </div>
               </div>
             </div>

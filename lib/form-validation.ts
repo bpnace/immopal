@@ -13,7 +13,7 @@ export interface SellingFormData {
   // Step 2: Property Type
   propertyType: 'wohnung' | 'haus' | 'gewerbe' | 'grundstueck' | '';
 
-  // Step 3: Property Subtype (conditional)
+  // Step 3: Property Subtype
   propertySubtype?: string;
 
   // Step 4: Construction Year
@@ -53,7 +53,7 @@ export interface BuyingFormData {
   // Step 2: Purchase Reason
   purchaseReason: 'eigennutzung' | 'kapitalanlage' | '';
 
-  // Step 3: Property Subtype (conditional)
+  // Step 3: Property Subtype
   propertySubtype?: string;
 
   // Step 4: Rooms
@@ -271,15 +271,12 @@ export const validateSellingStep = (
       );
 
     case 3:
-      // Step 3: Property Subtype (only if wohnung or haus)
-      if (data.propertyType === 'wohnung' || data.propertyType === 'haus') {
-        return validateTileSelection(
-          data.propertySubtype,
-          'propertySubtype',
-          'Bitte wählen Sie einen Untertyp aus'
-        );
-      }
-      return [];
+      // Step 3: Property Subtype
+      return validateTileSelection(
+        data.propertySubtype,
+        'propertySubtype',
+        'Bitte wählen Sie einen Untertyp aus'
+      );
 
     case 4:
       // Step 4: Construction Year
@@ -378,15 +375,12 @@ export const validateBuyingStep = (
       );
 
     case 3:
-      // Step 3: Property Subtype (only if wohnung or haus)
-      if (data.propertyType === 'wohnung' || data.propertyType === 'haus') {
-        return validateTileSelection(
-          data.propertySubtype,
-          'propertySubtype',
-          'Bitte wählen Sie einen Untertyp aus'
-        );
-      }
-      return [];
+      // Step 3: Property Subtype
+      return validateTileSelection(
+        data.propertySubtype,
+        'propertySubtype',
+        'Bitte wählen Sie einen Untertyp aus'
+      );
 
     case 4:
       // Step 4: Rooms

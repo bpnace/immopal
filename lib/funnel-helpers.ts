@@ -94,6 +94,18 @@ export const getSubtypeOptions = (
       { value: 'reihenhaus', label: 'Reihenhaus', icon: '🏘️' },
       { value: 'villa', label: 'Villa', icon: '🏰' },
     ],
+    gewerbe: [
+      { value: 'buero', label: 'Büro / Praxis', icon: '🏢' },
+      { value: 'einzelhandel', label: 'Einzelhandel', icon: '🛍️' },
+      { value: 'gastronomie', label: 'Gastronomie', icon: '🍽️' },
+      { value: 'lager', label: 'Lager / Produktion', icon: '🏭' },
+    ],
+    grundstueck: [
+      { value: 'baugrundstueck', label: 'Baugrundstück', icon: '🏗️' },
+      { value: 'gewerbegrundstueck', label: 'Gewerbegrundstück', icon: '🏢' },
+      { value: 'landwirtschaft', label: 'Landwirtschaftlich', icon: '🌾' },
+      { value: 'freizeit', label: 'Freizeit / Garten', icon: '🌳' },
+    ],
   };
 
   return subtypes[propertyType] || [];

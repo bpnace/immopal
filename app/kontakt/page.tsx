@@ -98,11 +98,11 @@ export default function KontaktPage() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Adresse</h3>
+                    <h3 className="font-semibold mb-1">Büro</h3>
                     <p className="text-muted-foreground">
-                      Genfenbergstraße 23
+                      Kurfürstendamm 66
                       <br />
-                      13595 Berlin
+                      10707 Berlin
                       <br />
                       Deutschland
                     </p>
@@ -111,7 +111,7 @@ export default function KontaktPage() {
               </div>
             </div>
 
-            <DsgvoGoogleMaps address="Genfenbergstraße 23, 13595 Berlin, Deutschland" />
+            <DsgvoGoogleMaps address="Kurfürstendamm 66, 10707 Berlin, Deutschland" />
 
             {/* Additional Info */}
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-6 mt-6">

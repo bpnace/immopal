@@ -38,3 +38,19 @@ export const getConsultantByFunnel = (
 ): Consultant => {
   return funnelType === 'verkaufen' ? VERKAUFEN_CONSULTANT : KAUFEN_CONSULTANT;
 };
+
+/**
+ * Get consultant by property type selection.
+ */
+export const getConsultantByPropertyType = (
+  propertyType: string
+): Consultant | null => {
+  if (!propertyType) return null;
+  if (propertyType === 'wohnung' || propertyType === 'gewerbe') {
+    return VERKAUFEN_CONSULTANT;
+  }
+  if (propertyType === 'haus' || propertyType === 'grundstueck') {
+    return KAUFEN_CONSULTANT;
+  }
+  return null;
+};

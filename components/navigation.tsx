@@ -47,7 +47,7 @@ export function Navigation() {
               ))}
             </div>
             <Link
-              href="/kontakt"
+              href="/verkaufen"
               className="bg-accent text-accent-foreground hover:bg-accent/90 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-md hover:shadow-lg whitespace-nowrap"
             >
               Kostenlose Bewertung
@@ -129,7 +129,7 @@ export function Navigation() {
               </Link>
             ))}
             <Link
-              href="/kontakt"
+              href="/verkaufen"
               className="bg-accent text-accent-foreground hover:bg-accent/90 block px-4 py-3 rounded-lg text-base font-semibold mt-4 text-center shadow-md"
               onClick={() => setMobileMenuOpen(false)}
             >

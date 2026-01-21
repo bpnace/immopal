@@ -81,7 +81,7 @@ export default function Home() {
                 Immobilien entdecken
               </Link>
               <Link
-                href="/kontakt"
+                href="/verkaufen"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 border-1 border rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Kostenlose Immobilienbewertung
@@ -193,9 +193,9 @@ export default function Home() {
       <section className="py-16 bg-muted home-section-divider">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Warum immopal?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Warum Immo-Pal?</h2>
             <p className="text-muted-foreground text-lg max-w-4xl mx-auto">
-              IMMOPAL ist Ihr Immobilienmakler für Berlin & Brandenburg mit deutschlandweitem Netzwerk. Wir unterstützen Eigentümer beim Verkauf von Wohnungen und Häusern sowie Käufer bei der Suche nach passenden Immobilien – transparent, effizient und persönlich.
+              Immo-Pal ist Ihr Immobilienmakler für Berlin & Brandenburg mit deutschlandweitem Netzwerk. Wir unterstützen Eigentümer beim Verkauf von Wohnungen und Häusern sowie Käufer bei der Suche nach passenden Immobilien – transparent, effizient und persönlich.
             </p>
           </div>
 

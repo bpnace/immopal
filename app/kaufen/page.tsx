@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FunnelLayout } from '@/components/funnel/funnel-layout';
 import { ConsultantAvatar } from '@/components/funnel/consultant-avatar';
@@ -13,13 +14,12 @@ import {
   validateBuyingStep,
 } from '@/lib/form-validation';
 import { submitBuyingForm } from '@/lib/webhook';
-import { KAUFEN_CONSULTANT } from '@/lib/consultant-data';
+import { KAUFEN_CONSULTANT, getConsultantByPropertyType } from '@/lib/consultant-data';
 import { canSubmit, getRemainingCooldown } from '@/lib/rate-limit';
 import {
   propertyTypeOptions,
   purchaseReasonOptions,
   getSubtypeOptions,
-  requiresSubtype,
   roomsOptions,
   livingAreaOptionsKaufen,
   budgetOptions,
@@ -30,6 +30,7 @@ import { cn } from '@/lib/utils';
 
 export default function KaufenPage() {
   // ...existing code...
+  const startStep = 1;
   const [currentStep, setCurrentStep] = useState(1); // Start at step 1 (property type)
   const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,6 +57,35 @@ export default function KaufenPage() {
     gdprConsent: false,
     newsletter: false,
   });
+
+  const selectedConsultant = getConsultantByPropertyType(formData.propertyType || '');
+  const successConsultant = selectedConsultant ?? KAUFEN_CONSULTANT;
+
+  const renderConsultantPanel = (size: 'sm' | 'md') => {
+    if (!selectedConsultant) {
+      return (
+        <div className="flex flex-col items-center justify-center border border-border bg-card p-8 text-center min-h-[320px]">
+          <Image
+            src="/images/logo2.png"
+            alt="immo-pal Logo"
+            width={200}
+            height={80}
+            className={size === 'sm' ? 'h-auto w-32' : 'h-auto w-40'}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <ConsultantAvatar
+        name={selectedConsultant.name}
+        role={selectedConsultant.role}
+        initials={selectedConsultant.initials}
+        photo={selectedConsultant.photo}
+        size={size}
+      />
+    );
+  };
 
   // Compute nextDisabled for the navigation button
   // Compute nextDisabled for the navigation button
@@ -91,7 +121,13 @@ export default function KaufenPage() {
 
   // Handle input change
   const handleInputChange = (field: keyof BuyingFormData, value: string | boolean | string[]) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => {
+      if (field === 'propertyType') {
+        const propertyTypeValue = value as BuyingFormData['propertyType'];
+        return { ...prev, propertyType: propertyTypeValue, propertySubtype: '' };
+      }
+      return { ...prev, [field]: value } as Partial<BuyingFormData>;
+    });
     setErrors([]);
     setSubmitError('');
   };
@@ -132,14 +168,6 @@ export default function KaufenPage() {
   const handleAutoAdvance = () => {
     setDirection(1);
 
-    // Skip step 3 (subtype) if property type is Gewerbe or Grundstück
-    if (currentStep === 2) {
-      if (!requiresSubtype(formData.propertyType || '')) {
-        setCurrentStep(4); // Jump to rooms
-        return;
-      }
-    }
-
     // Normal progression
     setCurrentStep((prev) => prev + 1);
   };
@@ -150,14 +178,6 @@ export default function KaufenPage() {
 
     setDirection(1);
 
-    // Skip step 3 (subtype) if property type is Gewerbe or Grundstück
-    if (currentStep === 2) {
-      if (!requiresSubtype(formData.propertyType || '')) {
-        setCurrentStep(4); // Jump to rooms
-        return;
-      }
-    }
-
     // Normal progression
     setCurrentStep((prev) => prev + 1);
   };
@@ -166,16 +186,22 @@ export default function KaufenPage() {
   const handleBack = () => {
     setDirection(-1);
 
-    // Skip step 3 (subtype) when going back
-    if (currentStep === 4) {
-      if (!requiresSubtype(formData.propertyType || '')) {
-        setCurrentStep(2); // Jump back to purchase reason
-        return;
-      }
+    if (currentStep <= startStep) {
+      return;
+    }
+
+    if (currentStep === 2) {
+      setFormData((prev) => ({
+        ...prev,
+        propertyType: '',
+        propertySubtype: '',
+      }));
+      setCurrentStep(startStep);
+      return;
     }
 
     // Normal back navigation
-    setCurrentStep((prev) => prev - 1);
+    setCurrentStep((prev) => Math.max(startStep, prev - 1));
   };
 
   // Handle form submission
@@ -259,13 +285,13 @@ export default function KaufenPage() {
           </p>
 
           {/* Consultant Info */}
-          <div className="mb-8 border border-border bg-card p-8 text-center min-h-[320px] flex flex-col items-center justify-center z-50">
-            <div className="mb-4 flex items-center justify-center rounded-full bg-primary w-16 h-16">
-              <span className="font-bold text-primary-foreground text-xl">{KAUFEN_CONSULTANT.initials}</span>
-            </div>
-            <h3 className="text-lg font-bold text-foreground">{KAUFEN_CONSULTANT.name}</h3>
-            <p className="text-sm text-muted-foreground">{KAUFEN_CONSULTANT.role}</p>
-          </div>
+          <ConsultantAvatar
+            name={successConsultant.name}
+            role={successConsultant.role}
+            initials={successConsultant.initials}
+            photo={successConsultant.photo}
+            className="mb-8 z-50"
+          />
 
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Link
@@ -343,15 +369,23 @@ export default function KaufenPage() {
         );
 
       case 3:
-        // Step 3: Property Subtype (conditional)
+        // Step 3: Property Subtype
         const subtypeOptions = getSubtypeOptions(formData.propertyType || '');
+        const subtypeLabel =
+          formData.propertyType === 'wohnung'
+            ? 'der Wohnung'
+            : formData.propertyType === 'haus'
+              ? 'des Hauses'
+              : formData.propertyType === 'gewerbe'
+                ? 'der Gewerbeimmobilie'
+                : formData.propertyType === 'grundstueck'
+                  ? 'des Grundstücks'
+                  : 'der Immobilie';
         return (
           <FunnelLayout
             consultant={KAUFEN_CONSULTANT}
             showConsultant={false}
-            question={`Bitte wählen Sie die Art ${
-              formData.propertyType === 'wohnung' ? 'der Wohnung' : 'des Hauses'
-            }`}
+            question={`Bitte wählen Sie die Art ${subtypeLabel}`}
             onBack={handleBack}
             onNext={handleNext}
             nextDisabled={!formData.propertySubtype}
@@ -698,23 +732,12 @@ export default function KaufenPage() {
           <>
             {/* Desktop Consultant - Absolute positioned next to content */}
             <div className="absolute left-4 top-8 w-64 z-40 hidden lg:block">
-              <ConsultantAvatar
-                name={KAUFEN_CONSULTANT.name}
-                role={KAUFEN_CONSULTANT.role}
-                initials={KAUFEN_CONSULTANT.initials}
-                photo={KAUFEN_CONSULTANT.photo}
-              />
+              {renderConsultantPanel('md')}
             </div>
 
             {/* Mobile Consultant - Inline at top */}
             <div className="mb-8 lg:hidden">
-              <ConsultantAvatar
-                name={KAUFEN_CONSULTANT.name}
-                role={KAUFEN_CONSULTANT.role}
-                initials={KAUFEN_CONSULTANT.initials}
-                photo={KAUFEN_CONSULTANT.photo}
-                size="sm"
-              />
+              {renderConsultantPanel('sm')}
             </div>
           </>
         )}
@@ -738,8 +761,8 @@ export default function KaufenPage() {
             <button
               type="button"
               onClick={handleBack}
-              className="flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-foreground px-4 sm:px-6 py-3 sm:py-4"
-              disabled={isSubmitting}
+              className="flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-foreground px-4 sm:px-6 py-3 sm:py-4 disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={isSubmitting || currentStep <= startStep}
             >
               <span>←</span>
               <span>Zurück</span>
