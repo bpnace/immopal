@@ -9,7 +9,7 @@ export function Footer() {
           {/* Company Info */}
           <div className="col-span-1">
             <Image
-              src="/images/logo1.png"
+              src="/images/logoBig.png"
               alt="immopal Logo"
               width={120}
               height={40}
