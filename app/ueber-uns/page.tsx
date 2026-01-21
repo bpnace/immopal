@@ -27,7 +27,7 @@ export default function UeberUnsPage() {
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="bg-card border border-border rounded-lg overflow-hidden">
                 <div className="relative h-64 bg-muted">
                   <Image
@@ -79,6 +79,19 @@ export default function UeberUnsPage() {
                     <span className="inline-flex items-center gap-2">
                       Dennis Darwiche
                       <Link
+                        href="mailto:info@immo-pal.de"
+                        aria-label="E-Mail an info@immo-pal.de senden"
+                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100"
+                      >
+                        <Image
+                          src="/images/gmail-neu.png"
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="h-6 w-6"
+                        />
+                      </Link>
+                      <Link
                         href="https://wa.me/493046690542"
                         target="_blank"
                         rel="noreferrer"
@@ -102,6 +115,8 @@ export default function UeberUnsPage() {
                   </p>
                 </div>
               </div>
+
+              <div className="hidden md:block" aria-hidden="true" />
 
               <div className="bg-card border border-border rounded-lg overflow-hidden">
                 <div className="relative h-64 bg-muted">

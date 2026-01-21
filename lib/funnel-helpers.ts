@@ -83,8 +83,8 @@ export const getSubtypeOptions = (
 ): TileSelectOption[] => {
   const subtypes: Record<string, TileSelectOption[]> = {
     wohnung: [
-      { value: 'erdgeschoss', label: 'Erdgeschosswohnung', icon: '🏢' },
-      { value: 'etage', label: 'Etagenwohnung', icon: '🏢' },
+      { value: 'erdgeschoss', label: 'Erdgeschoss', icon: '🏢' },
+      { value: 'etage', label: 'Etage', icon: '🏢' },
       { value: 'penthouse', label: 'Penthouse / Dachgeschoss', icon: '🏙️' },
       { value: 'maisonette', label: 'Maisonette', icon: '🏢' },
     ],
@@ -102,7 +102,7 @@ export const getSubtypeOptions = (
     ],
     grundstueck: [
       { value: 'baugrundstueck', label: 'Baugrundstück', icon: '🏗️' },
-      { value: 'gewerbegrundstueck', label: 'Gewerbegrundstück', icon: '🏢' },
+      { value: 'gewerbe', label: 'Gewerbe', icon: '🏢' },
       { value: 'landwirtschaft', label: 'Landwirtschaftlich', icon: '🌾' },
       { value: 'freizeit', label: 'Freizeit / Garten', icon: '🌳' },
     ],

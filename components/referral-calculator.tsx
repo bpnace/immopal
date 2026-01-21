@@ -161,7 +161,6 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
                   <p className="text-3xl md:text-4xl font-bold">{formatPrice(referralCommission)}</p>
                   <p className="text-xs opacity-75 mt-2">20% der Netto-Courtage</p>
                 </div>
-                <div className="text-6xl opacity-20">💰</div>
               </div>
             </div>
           </div>
