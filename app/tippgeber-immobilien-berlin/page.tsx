@@ -65,7 +65,46 @@ export default function TippgeberLandingPage() {
       <section className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-7 space-y-10">
-            <div className="space-y-4">
+            <div className="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/20 rounded-3xl p-10 md:p-12 shadow-xl">
+              <h3 className="text-3xl md:text-4xl font-bold mb-6">So einfach gehts</h3>
+              <div className="space-y-5">
+                <div className="flex items-start gap-5 rounded-2xl border-2 border-border bg-card p-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-bold">
+                    1
+                  </div>
+                  <div>
+                    <p className="font-semibold text-lg text-foreground">Tipp abgeben</p>
+                    <p className="text-sm text-muted-foreground">Tipp abgeben über Kontakt-Button</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-5 rounded-2xl border-2 border-border bg-card p-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-bold">
+                    2
+                  </div>
+                  <div>
+                    <p className="font-semibold text-lg text-foreground">Wir nehmen Kontakt auf</p>
+                    <p className="text-sm text-muted-foreground">Wir nehmen Kontakt auf und vermitteln die Immobilie</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-5 rounded-2xl border-2 border-border bg-card p-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-bold">
+                    3
+                  </div>
+                  <div>
+                    <p className="font-semibold text-lg text-foreground">Provision erhalten</p>
+                    <p className="text-sm text-muted-foreground">Sie erhalten Ihre Provision</p>
+                  </div>
+                </div>
+              </div>
+              <Link
+                href="/kontakt"
+                className="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Jetzt Tipp abgeben
+              </Link>
+            </div>
+
+                        <div className="space-y-4">
               <h2 className="text-2xl md:text-3xl font-semibold">Warum sich ein Tipp wirklich lohnt</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Fast jeder kennt jemanden, der überlegt, eine Immobilie zu verkaufen. Was viele nicht wissen: Ein guter
@@ -162,27 +201,6 @@ export default function TippgeberLandingPage() {
               </ul>
             </div>
 
-            <div className="bg-card border border-border rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold mb-6">So einfach gehts</h3>
-              <ol className="space-y-4 text-muted-foreground list-decimal pl-5">
-                <li>
-                  <span className="font-semibold text-foreground">Tipp abgeben</span> – Tipp abgeben über Kontakt-Button
-                </li>
-                <li>
-                  <span className="font-semibold text-foreground">Wir nehmen Kontakt auf</span> – Wir nehmen Kontakt auf und
-                  vermitteln die Immobilie
-                </li>
-                <li>
-                  <span className="font-semibold text-foreground">Provision erhalten</span> – Sie erhalten Ihre Provision
-                </li>
-              </ol>
-              <Link
-                href="/kontakt"
-                className="mt-8 inline-flex w-full items-center justify-center rounded-lg bg-primary px-6 py-4 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Jetzt Tipp abgeben
-              </Link>
-            </div>
           </aside>
         </div>
       </section>
