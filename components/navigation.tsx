@@ -24,7 +24,7 @@ export function Navigation() {
             <Link href="/" className="flex items-center cursor-default">
               <Image
                 src="/images/logo1.png"
-                alt="immopal Logo"
+                alt="ImmoPal Logo"
                 width={140}
                 height={46}
                 className="h-auto w-40 mix-blend-multiply"

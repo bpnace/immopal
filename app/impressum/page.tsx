@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Impressum - immopal',
-  description: 'Impressum und rechtliche Angaben von Immo-Pal UG (haftungsbeschränkt)',
+  title: 'Impressum - ImmoPal',
+  description: 'Impressum und rechtliche Angaben von ImmoPal UG (haftungsbeschränkt)',
 };
 
 export default function ImpressumPage() {
@@ -34,7 +34,7 @@ export default function ImpressumPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">Angaben gemäß § 5 TMG:</h2>
             <p>
-              Immo-Pal UG (haftungsbeschränkt)
+              ImmoPal UG (haftungsbeschränkt)
               <br />
               Genfenbergstraße 23
               <br />
@@ -44,7 +44,7 @@ export default function ImpressumPage() {
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">Vertreten durch:</h2>
-            <p>Immo-Pal UG vertreten durch den Geschäftsführer Herrn Kya Bayat</p>
+            <p>ImmoPal UG vertreten durch den Geschäftsführer Herrn Kya Bayat</p>
           </section>
 
           <section>
@@ -128,7 +128,7 @@ export default function ImpressumPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV:</h2>
             <p>
-              Immo-Pal UG (haftungsbeschränkt), Kya Bayat, Genfenbergstraße 23, 13595 Berlin
+              ImmoPal UG (haftungsbeschränkt), Kya Bayat, Genfenbergstraße 23, 13595 Berlin
             </p>
           </section>
 
@@ -191,7 +191,7 @@ export default function ImpressumPage() {
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">Markenrecht:</h2>
-            <p>Immo-Pal ist eine eingetragene Marke.</p>
+            <p>ImmoPal ist eine eingetragene Marke.</p>
           </section>
 
           <section>
@@ -228,4 +228,3 @@ export default function ImpressumPage() {
     </main>
   );
 }
-

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Immobilie verkaufen in Berlin, Brandenburg oder deutschlandweit. Kostenlose Immobilienbewertung in 48 Stunden. Professionelle Verkaufsberatung vom Makler. Jetzt bewerten lassen!',
   openGraph: {
-    title: 'Immobilie verkaufen - Kostenlose Bewertung - immo-pal',
+    title: 'Immobilie verkaufen - Kostenlose Bewertung - ImmoPal',
     description: 'Kostenlose Immobilienbewertung in 48 Stunden. Professionelle Verkaufsberatung.',
   },
   alternates: {

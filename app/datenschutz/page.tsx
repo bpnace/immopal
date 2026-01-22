@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Datenschutz - immopal',
-  description: 'Datenschutz und Informationen zur Datenverarbeitung von Immo-Pal UG (haftungsbeschränkt)',
+  title: 'Datenschutz - ImmoPal',
+  description: 'Datenschutz und Informationen zur Datenverarbeitung von ImmoPal UG (haftungsbeschränkt)',
 };
 
 export default function DatenschutzPage() {
@@ -111,7 +111,7 @@ export default function DatenschutzPage() {
             <h3 className="text-xl font-semibold mb-3 mt-6">Hinweis zur verantwortlichen Stelle</h3>
             <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
             <p>
-              Immo-Pal UG (haftungsbeschränkt)
+              ImmoPal UG (haftungsbeschränkt)
               <br />
               Genfenbergstraße 23
               <br />
@@ -500,4 +500,3 @@ export default function DatenschutzPage() {
     </main>
   );
 }
-

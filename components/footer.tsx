@@ -10,7 +10,7 @@ export function Footer() {
           <div className="col-span-1">
             <Image
               src="/images/logoBig.png"
-              alt="immopal Logo"
+              alt="ImmoPal Logo"
               width={120}
               height={40}
               className="h-30x w-auto mb-4"
@@ -147,7 +147,7 @@ export function Footer() {
 
         <div className="mt-8 border-t border-border">
           <p className="text-center text-sm text-muted-foreground">
-            ©immo-pal Alle Rechte vorbehalten.
+            ©ImmoPal Alle Rechte vorbehalten.
           </p>
         </div>
       </div>

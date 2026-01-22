@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { getSiteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Kostenlose Immobilienbewertung Berlin & Brandenburg - immopal',
+  title: 'Kostenlose Immobilienbewertung Berlin & Brandenburg - ImmoPal',
   description:
     'Kostenlose Immobilienbewertung für Wohnungen und Häuser in Berlin und Brandenburg. Persönlich, nachvollziehbar und ohne Verpflichtungen.',
   alternates: {

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Immobilie kaufen in Berlin, Brandenburg oder deutschlandweit. Nutzen Sie unseren kostenlosen Suchauftrag-Service und finden Sie Ihre Traumimmobilie. Jetzt starten!',
   openGraph: {
-    title: 'Immobilie kaufen in Deutschland - immo-pal',
+    title: 'Immobilie kaufen in Deutschland - ImmoPal',
     description: 'Kostenloser Suchauftrag-Service für Ihre Traumimmobilie in ganz Deutschland.',
   },
   alternates: {

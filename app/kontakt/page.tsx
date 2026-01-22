@@ -4,7 +4,7 @@ import { ContactForm } from '@/components/contact-form';
 import { DsgvoGoogleMaps } from '@/components/dsgvo-google-maps';
 
 export const metadata: Metadata = {
-  title: 'Kontakt - immopal',
+  title: 'Kontakt - ImmoPal',
   description: 'Kontaktieren Sie uns für eine kostenlose Beratung zu Ihrer Traumimmobilie in Berlin & Brandenburg',
 };
 

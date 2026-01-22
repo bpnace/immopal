@@ -62,7 +62,7 @@ export default function VerkaufenPage() {
         <div className="flex flex-col items-center justify-center border border-border bg-card p-8 text-center min-h-[320px]">
           <Image
             src="/images/logo2.png"
-            alt="immo-pal Logo"
+            alt="ImmoPal Logo"
             width={200}
             height={80}
             className={size === 'sm' ? 'h-auto w-32' : 'h-auto w-40'}

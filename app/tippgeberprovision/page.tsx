@@ -2,7 +2,7 @@ import { ReferralCalculator } from '@/components/referral-calculator';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Tippgeberprovision Rechner - immopal',
+  title: 'Tippgeberprovision Rechner - ImmoPal',
   description:
     'Empfehlen Sie uns eine Immobilie und erhalten Sie 20% der Netto-Courtage. Berechnen Sie jetzt Ihre potenzielle Provision.',
 };

@@ -35,7 +35,7 @@ export function BlogPreview({ limit = 3 }: Props) {
       <section className="py-16 bg-background home-section-divider">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit immopal</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit ImmoPal</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Aktuelle Beiträge, Markt-Insights und Tipps rund um Immobilien.
             </p>
@@ -52,7 +52,7 @@ export function BlogPreview({ limit = 3 }: Props) {
     <section className="py-16 bg-background home-section-divider">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit immopal</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit ImmoPal</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Aktuelle Beiträge, Markt-Insights und Tipps rund um Immobilien.
           </p>

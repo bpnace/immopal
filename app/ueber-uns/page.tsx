@@ -3,9 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Über uns - immopal',
+  title: 'Über uns - ImmoPal',
   description:
-    'Erfahren Sie mehr über immopal, Ihr vertrauensvoller Partner für Immobilien in Deutschland',
+    'Erfahren Sie mehr über ImmoPal, Ihr vertrauensvoller Partner für Immobilien in Deutschland',
 };
 
 export default function UeberUnsPage() {
@@ -313,7 +313,7 @@ export default function UeberUnsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">immopal in Zahlen</h2>
+              <h2 className="text-3xl font-bold mb-4">ImmoPal in Zahlen</h2>
               <p className="text-lg text-muted-foreground">
                 Zahlen, die für sich sprechen
               </p>

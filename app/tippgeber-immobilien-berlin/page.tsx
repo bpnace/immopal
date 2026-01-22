@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { getSiteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Immobilien Tippgeber Berlin – 20% Provision sichern - immopal',
+  title: 'Immobilien Tippgeber Berlin – 20% Provision sichern - ImmoPal',
   description:
     'Immobilien Tippgeber werden und 20% der Netto-Maklerprovision erhalten – diskret, fair und ohne Aufwand.',
   alternates: {
@@ -111,7 +111,7 @@ export default function TippgeberLandingPage() {
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-semibold">Warum immopal?</h2>
+              <h2 className="text-2xl md:text-3xl font-semibold">Warum ImmoPal?</h2>
               <p className="text-muted-foreground leading-relaxed">
                 <em>
                   Wir arbeiten lokal in <strong>Berlin und Brandenburg</strong> und kennen die Besonderheiten der einzelnen
