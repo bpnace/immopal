@@ -196,23 +196,27 @@ export default function UeberUnsPage() {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Unsere Geschichte</h2>
                 <p className="text-muted-foreground mb-4">
-                  Wir sind Freunde seit der Grundschule und teilen seit vielen Jahren die
-                  Begeisterung für Immobilien. Jung, motiviert und fachlich fundiert begleiten wir
-                  Eigentümer und Interessenten bei der Vermittlung von Immobilien in Berlin und
-                  Brandenburg.
+                  Wir sind Freunde seit der Grundschule und teilen seit vielen Jahren eine gemeinsame Leidenschaft: Immobilien.
+                  Was als persönliches Interesse begann, ist heute unser beruflicher Fokus.
+                  Als junges, engagiertes Team begleiten wir Eigentümer und Interessenten bei der
+                  Vermittlung von Immobilien in Berlin und Brandenburg – fachlich fundiert, strukturiert
+                  und mit einem klaren Blick für den Markt.
                 </p>
                 <p className="text-muted-foreground mb-4">
-                  Aus unserer beruflichen Laufbahn bringen wir vielseitige Erfahrungen aus Konzern,
-                  Mittelstand und eigener Unternehmensgründung mit – insbesondere in der
-                  Immobilienbewertung und Vermarktung. Als gebürtige Berliner kennen wir den
-                  regionalen Markt genau. Transparenz, Offenheit und ein Miteinander auf Augenhöhe
-                  stehen für uns im Mittelpunkt.
+                  Aus unserer beruflichen Laufbahn bringen wir Erfahrungen aus Konzernstrukturen,
+                  dem Mittelstand sowie aus der Unternehmensgründung mit. Dieses Zusammenspiel hilft
+                  uns insbesondere bei der Immobilienbewertung, der marktgerechten Preisfindung und einer
+                  zielgerichteten Vermarktung. Als gebürtige Berliner kennen wir die Besonderheiten der
+                  einzelnen Stadtteile ebenso wie den Markt im Brandenburger Umland.
                 </p>
                 <p className="text-muted-foreground">
-                  Denn:{' '}
-                  <strong>Jeder Kunde ist so individuell wie die passende Immobilie dazu.</strong>{' '}
-                  Genau darauf gehen wir ein – offen, ehrlich und mit dem klaren Ziel, die
-                  bestmögliche Lösung für Sie zu finden. Wir freuen uns auf Ihre Kontaktaufnahme.
+                  Transparenz, Offenheit und ein respektvolles Miteinander auf Augenhöhe sind für uns keine Schlagwörter,
+                  sondern die Grundlage unserer Arbeit. Denn jede Immobilie – und jeder Kunde – ist
+                  individuell. Genau darauf gehen wir ein: ehrlich, verbindlich und mit dem Anspruch, für
+                  Sie die bestmögliche Lösung zu finden.
+                </p>
+                <p className="text-muted-foreground"> Wenn Sie Wert auf persönliche Beratung, realistische Einschätzungen und
+                  eine vertrauensvolle Zusammenarbeit legen, freuen wir uns auf Ihre Kontaktaufnahme.
                 </p>
               </div>
               <div className="relative h-96 bg-muted rounded-lg overflow-hidden">

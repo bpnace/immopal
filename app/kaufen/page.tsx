@@ -20,6 +20,7 @@ import {
   propertyTypeOptions,
   purchaseReasonOptions,
   getSubtypeOptions,
+  requiresSubtype,
   roomsOptions,
   livingAreaOptionsKaufen,
   budgetOptions,
@@ -87,7 +88,6 @@ export default function KaufenPage() {
     );
   };
 
-  // Compute nextDisabled for the navigation button
   // Compute nextDisabled for the navigation button
   let nextDisabled = false;
   switch (currentStep) {
@@ -168,6 +168,12 @@ export default function KaufenPage() {
   const handleAutoAdvance = () => {
     setDirection(1);
 
+    // Skip step 3 (subtype) if property type is not Haus
+    if (currentStep === 2 && !requiresSubtype(formData.propertyType || '')) {
+      setCurrentStep(4); // Jump to rooms
+      return;
+    }
+
     // Normal progression
     setCurrentStep((prev) => prev + 1);
   };
@@ -178,6 +184,12 @@ export default function KaufenPage() {
 
     setDirection(1);
 
+    // Skip step 3 (subtype) if property type is not Haus
+    if (currentStep === 2 && !requiresSubtype(formData.propertyType || '')) {
+      setCurrentStep(4); // Jump to rooms
+      return;
+    }
+
     // Normal progression
     setCurrentStep((prev) => prev + 1);
   };
@@ -187,6 +199,17 @@ export default function KaufenPage() {
     setDirection(-1);
 
     if (currentStep <= startStep) {
+      return;
+    }
+
+    // Skip step 3 (subtype) when going back
+    if (currentStep === 4 && !requiresSubtype(formData.propertyType || '')) {
+      setFormData((prev) => ({
+        ...prev,
+        propertyType: '',
+        propertySubtype: '',
+      }));
+      setCurrentStep(startStep); // Jump back to property type
       return;
     }
 

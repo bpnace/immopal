@@ -271,12 +271,15 @@ export const validateSellingStep = (
       );
 
     case 3:
-      // Step 3: Property Subtype
-      return validateTileSelection(
-        data.propertySubtype,
-        'propertySubtype',
-        'Bitte wählen Sie einen Untertyp aus'
-      );
+      // Step 3: Property Subtype (only for haus)
+      if (data.propertyType === 'haus') {
+        return validateTileSelection(
+          data.propertySubtype,
+          'propertySubtype',
+          'Bitte wählen Sie einen Untertyp aus'
+        );
+      }
+      return [];
 
     case 4:
       // Step 4: Construction Year
@@ -375,12 +378,15 @@ export const validateBuyingStep = (
       );
 
     case 3:
-      // Step 3: Property Subtype
-      return validateTileSelection(
-        data.propertySubtype,
-        'propertySubtype',
-        'Bitte wählen Sie einen Untertyp aus'
-      );
+      // Step 3: Property Subtype (only for haus)
+      if (data.propertyType === 'haus') {
+        return validateTileSelection(
+          data.propertySubtype,
+          'propertySubtype',
+          'Bitte wählen Sie einen Untertyp aus'
+        );
+      }
+      return [];
 
     case 4:
       // Step 4: Rooms

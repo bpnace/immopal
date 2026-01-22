@@ -82,29 +82,11 @@ export const getSubtypeOptions = (
   propertyType: string
 ): TileSelectOption[] => {
   const subtypes: Record<string, TileSelectOption[]> = {
-    wohnung: [
-      { value: 'erdgeschoss', label: 'Erdgeschoss', icon: '🏢' },
-      { value: 'etage', label: 'Etage', icon: '🏢' },
-      { value: 'penthouse', label: 'Penthouse / Dachgeschoss', icon: '🏙️' },
-      { value: 'maisonette', label: 'Maisonette', icon: '🏢' },
-    ],
     haus: [
       { value: 'einfamilienhaus', label: 'Einfamilienhaus', icon: '🏠' },
       { value: 'doppelhaushaelfte', label: 'Doppelhaushälfte', icon: '🏠' },
       { value: 'reihenhaus', label: 'Reihenhaus', icon: '🏘️' },
       { value: 'villa', label: 'Villa', icon: '🏰' },
-    ],
-    gewerbe: [
-      { value: 'buero', label: 'Büro / Praxis', icon: '🏢' },
-      { value: 'einzelhandel', label: 'Einzelhandel', icon: '🛍️' },
-      { value: 'gastronomie', label: 'Gastronomie', icon: '🍽️' },
-      { value: 'lager', label: 'Lager / Produktion', icon: '🏭' },
-    ],
-    grundstueck: [
-      { value: 'baugrundstueck', label: 'Baugrundstück', icon: '🏗️' },
-      { value: 'gewerbe', label: 'Gewerbe', icon: '🏢' },
-      { value: 'landwirtschaft', label: 'Landwirtschaftlich', icon: '🌾' },
-      { value: 'freizeit', label: 'Freizeit / Garten', icon: '🌳' },
     ],
   };
 
@@ -115,7 +97,7 @@ export const getSubtypeOptions = (
  * Check if property type requires subtype selection
  */
 export const requiresSubtype = (propertyType: string): boolean => {
-  return propertyType === 'wohnung' || propertyType === 'haus';
+  return propertyType === 'haus';
 };
 
 // ============= STEP CALCULATION =============
@@ -144,10 +126,10 @@ export const getBuyingStepCount = (propertyType: string): number => {
  * Property type options
  */
 export const propertyTypeOptions: TileSelectOption[] = [
-  { value: 'wohnung', label: 'Wohnung', icon: '🏢' },
-  { value: 'haus', label: 'Haus', icon: '🏠' },
-  { value: 'gewerbe', label: 'Gewerbe', icon: '🏪' },
-  { value: 'grundstueck', label: 'Grundstück', icon: '🏞️' },
+  { value: 'wohnung', label: 'Wohnung', icon: { type: 'image', src: '/images/wohnung.png', alt: 'Wohnung' } },
+  { value: 'haus', label: 'Haus', icon: { type: 'image', src: '/images/haus.png', alt: 'Haus' } },
+  { value: 'gewerbe', label: 'Gewerbe', icon: { type: 'image', src: '/images/gewerbe.png', alt: 'Gewerbe' } },
+  { value: 'grundstueck', label: 'Grundstück', icon: { type: 'image', src: '/images/grundstueck.png', alt: 'Grundstück' } },
 ];
 
 /**

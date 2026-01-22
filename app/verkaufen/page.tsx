@@ -19,6 +19,7 @@ import { canSubmit, getRemainingCooldown } from '@/lib/rate-limit';
 import {
   propertyTypeOptions,
   getSubtypeOptions,
+  requiresSubtype,
   constructionYearOptions,
   roomsOptions,
   livingAreaOptionsVerkaufen,
@@ -159,8 +160,23 @@ export default function VerkaufenPage() {
   };
 
   // Handle auto-advance (no validation - user clicked a tile)
-  const handleAutoAdvance = () => {
+  const handleAutoAdvance = (selectedValue?: string | string[]) => {
     setDirection(1);
+
+    // Skip step 3 (subtype) if property type is not Haus
+    if (currentStep === 2) {
+      const isPropertyTypeValue =
+        typeof selectedValue === 'string' &&
+        propertyTypeOptions.some((option) => option.value === selectedValue);
+      const propertyTypeValue = isPropertyTypeValue
+        ? selectedValue
+        : formData.propertyType || '';
+
+      if (!requiresSubtype(propertyTypeValue)) {
+        setCurrentStep(4); // Jump to construction year
+        return;
+      }
+    }
 
     // Normal progression
     setCurrentStep((prev) => prev + 1);
@@ -172,6 +188,12 @@ export default function VerkaufenPage() {
 
     setDirection(1);
 
+    // Skip step 3 (subtype) if property type is not Haus
+    if (currentStep === 2 && !requiresSubtype(formData.propertyType || '')) {
+      setCurrentStep(4); // Jump to construction year
+      return;
+    }
+
     // Normal progression
     setCurrentStep((prev) => prev + 1);
   };
@@ -181,6 +203,17 @@ export default function VerkaufenPage() {
     setDirection(-1);
 
     if (currentStep <= startStep) {
+      return;
+    }
+
+    // Skip step 3 (subtype) when going back
+    if (currentStep === 4 && !requiresSubtype(formData.propertyType || '')) {
+      setFormData((prev) => ({
+        ...prev,
+        propertyType: '',
+        propertySubtype: '',
+      }));
+      setCurrentStep(startStep); // Jump back to property type
       return;
     }
 
@@ -667,8 +700,11 @@ export default function VerkaufenPage() {
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 Kostenlose Immobilienbewertung
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Erfahren Sie in wenigen Minuten, was Ihre Immobilie wert ist
+              <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
+                Wir ermitteln den Marktwert Ihrer Immobilie auf Grundlage aktueller Vergleichsdaten und real
+                erzielter Verkaufspreise. Dabei berücksichtigen wir Lage, Zustand, Ausstattung und die aktuelle Nachfrage,
+                um einen Preis zu bestimmen, der nachvollziehbar ist und am Markt realistisch durchsetzbar bleibt.
+                Unser Ziel ist eine ehrliche Einschätzung, die Ihnen eine sichere Entscheidungsgrundlage für den Verkauf bietet.
               </p>
             </div>
           </div>

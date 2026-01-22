@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 export interface TileSelectOption {
   label: string;
   value: string;
-  icon?: string;
+  icon?: string | { type: 'image'; src: string; alt?: string };
 }
 
 export interface MultiTileSelectProps {

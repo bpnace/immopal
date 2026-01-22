@@ -190,11 +190,6 @@ export default function ImpressumPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">Markenrecht:</h2>
-            <p>ImmoPal ist eine eingetragene Marke.</p>
-          </section>
-
-          <section>
             <h2 className="text-2xl font-semibold mb-4">Fotos und Film:</h2>
             <p>Dennis Darwiche, Kya Bayat</p>
           </section>
