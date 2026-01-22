@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Script from 'next/script';
 import type { Metadata } from 'next';
 import { getSiteUrl } from '@/lib/site';
 
@@ -47,8 +48,28 @@ const faq = [
 ];
 
 export default function TippgeberLandingPage() {
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.a,
+      },
+    })),
+  };
+
   return (
-    <main className="min-h-screen bg-background">
+    <>
+      <Script
+        id="faq-schema-tippgeber"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <main className="min-h-screen bg-background">
       <section className="bg-primary/5 py-12 min-h-[220px] flex items-center">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -96,12 +117,24 @@ export default function TippgeberLandingPage() {
                   </div>
                 </div>
               </div>
-              <Link
-                href="/kontakt"
-                className="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Jetzt Tipp abgeben
-              </Link>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link
+                  href="/kontakt"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-colors sm:flex-1"
+                >
+                  Jetzt Tipp abgeben
+                </Link>
+                <a
+                  href={`https://wa.me/493046690542?text=${encodeURIComponent(
+                    'Hallo! Ich möchte eine Immobilie empfehlen.'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-[#25D366] px-6 py-4 text-base font-semibold text-white hover:bg-[#1EBE57] transition-colors sm:flex-1"
+                >
+                  Per WhatsApp empfehlen
+                </a>
+              </div>
             </div>
 
                         <div className="space-y-4">
@@ -223,6 +256,7 @@ export default function TippgeberLandingPage() {
           </div>
         </div>
       </section>
-    </main>
+      </main>
+    </>
   );
 }
