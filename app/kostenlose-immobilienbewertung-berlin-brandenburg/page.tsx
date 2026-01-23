@@ -128,12 +128,12 @@ export default function KostenloseImmobilienbewertungLandingPage() {
                   <span>Persönliche Einschätzung statt Online-Rechner</span>
                 </li>
               </ul>
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row">
                 <Link
                   href="/kontakt"
-                  className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-6 py-4 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+                  className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-6 py-4 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-colors text-center sm:w-auto sm:flex-1"
                 >
-                  Jetzt kostenlose Immobilienbewertung starten
+                  Jetzt Immobilienbewertung starten
                 </Link>
                 <Link
                   href={`https://wa.me/493046690542?text=${encodeURIComponent(
@@ -141,7 +141,7 @@ export default function KostenloseImmobilienbewertungLandingPage() {
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center rounded-lg bg-[#25D366] px-6 py-4 text-base font-semibold text-white shadow-sm hover:bg-[#1EBE57] transition-colors"
+                  className="inline-flex w-full items-center justify-center rounded-lg bg-[#25D366] px-6 py-4 text-base font-semibold text-white shadow-sm hover:bg-[#1EBE57] transition-colors text-center sm:w-auto sm:flex-1"
                 >
                   Direkt per WhatsApp schreiben
                 </Link>

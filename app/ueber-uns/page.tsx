@@ -39,14 +39,14 @@ export default function UeberUnsPage() {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">
-                    <span className="inline-flex items-center gap-2 before:inline-block before:h-6 before:w-6 before:opacity-0 before:content-['']">
-                      Kya Bayat
+                    <span className="relative inline-block">
+                      <span className="block text-center">Kya Bayat</span>
                       <Link
                         href="https://wa.me/493046690542"
                         target="_blank"
                         rel="noreferrer"
                         aria-label="Kya Bayat auf WhatsApp kontaktieren"
-                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100"
+                        className="absolute left-full top-1/2 ml-2 inline-flex -translate-y-1/2 items-center opacity-70 transition-opacity hover:opacity-100"
                       >
                         <Image
                           src="/images/WhatsApp.svg"
@@ -76,14 +76,14 @@ export default function UeberUnsPage() {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">
-                    <span className="inline-flex items-center gap-2 before:inline-block before:h-6 before:w-6 before:opacity-0 before:content-['']">
-                      Dennis Darwiche
+                    <span className="relative inline-block">
+                      <span className="block text-center">Dennis Darwiche</span>
                       <Link
                         href="https://wa.me/493046690542"
                         target="_blank"
                         rel="noreferrer"
                         aria-label="Dennis Darwiche auf WhatsApp kontaktieren"
-                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100"
+                        className="absolute left-full top-1/2 ml-2 inline-flex -translate-y-1/2 items-center opacity-70 transition-opacity hover:opacity-100"
                       >
                         <Image
                           src="/images/WhatsApp.svg"
@@ -116,14 +116,14 @@ export default function UeberUnsPage() {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">
-                    <span className="inline-flex items-center gap-2 before:inline-block before:h-4 before:w-4 before:opacity-0 before:content-['']">
-                      Arthur Marshall
+                    <span className="relative inline-block">
+                      <span className="block text-center">Arthur Marshall</span>
                       <Link
                         href="https://www.linkedin.com/in/tarik-arthur-marshall-6112b2239"
                         target="_blank"
                         rel="noreferrer"
                         aria-label="Arthur Marshall auf LinkedIn"
-                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100"
+                        className="absolute left-full top-1/2 ml-2 inline-flex -translate-y-1/2 items-center opacity-70 transition-opacity hover:opacity-100"
                       >
                         <Image
                           src="/images/LinkedIn_icon.svg"
@@ -152,7 +152,9 @@ export default function UeberUnsPage() {
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Bonnie</h3>
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="inline-block text-center">Bonnie</span>
+                  </h3>
                   <p className="text-primary font-medium mb-3">Bürohund</p>
                 </div>
               </div>
@@ -167,7 +169,9 @@ export default function UeberUnsPage() {
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Mara König</h3>
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="inline-block text-center">Mara König</span>
+                  </h3>
                   <p className="text-primary font-medium mb-3">Kundenservice</p>
                       <Link
                         href="mailto:info@immo-pal.de"
