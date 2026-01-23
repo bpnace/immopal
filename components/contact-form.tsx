@@ -81,18 +81,6 @@ export function ContactForm() {
     <div className="bg-card border border-border rounded-lg p-8">
       <h2 className="text-2xl font-semibold mb-6">Kontaktformular</h2>
 
-      {message && (
-        <div
-          className={`mb-6 p-4 rounded-lg ${
-            message.type === 'success'
-              ? 'bg-green-50 border border-green-200 text-green-800'
-              : 'bg-red-50 border border-red-200 text-red-800'
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
-
       <form className="space-y-6" onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -221,6 +209,18 @@ export function ContactForm() {
         >
           {isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
         </button>
+
+        {message && (
+          <div
+            className={`p-4 rounded-lg ${
+              message.type === 'success'
+                ? 'bg-green-50 border border-green-200 text-green-800'
+                : 'bg-red-50 border border-red-200 text-red-800'
+            }`}
+          >
+            {message.text}
+          </div>
+        )}
 
         <p className="text-xs text-muted-foreground">* Pflichtfelder</p>
       </form>
