@@ -29,7 +29,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
 
   if (compact) {
     return (
-      <div className="bg-card border border-border rounded-lg p-6">
+      <div className="rounded-lg border border-border bg-card p-6">
         <h3 className="text-xl font-bold mb-4">Tippgeberprovision Rechner</h3>
         <p className="text-sm text-muted-foreground mb-4">
           Empfehlen Sie uns eine Immobilie und erhalten Sie 20% der Netto-Courtage
@@ -64,10 +64,6 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
             <span className="text-muted-foreground">Immobilienwert:</span>
             <span className="font-semibold">{formatPrice(propertyValue)}</span>
           </div>
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Provision (6%):</span>
-            <span className="font-semibold">{formatPrice(grossCommission)}</span>
-          </div>
           <div className="pt-2 border-t border-border">
             <div className="flex justify-between">
               <span className="font-medium">Ihre Tippgeberprovision (20%):</span>
@@ -76,12 +72,24 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
           </div>
         </div>
 
-        <a
-          href="/tippgeberprovision"
-          className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors"
-        >
-          Jetzt Immobilie empfehlen
-        </a>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <a
+            href="/verkaufen"
+            className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors sm:flex-1"
+          >
+            Jetzt Immobilie empfehlen
+          </a>
+          <a
+            href={`https://wa.me/493046690542?text=${encodeURIComponent(
+              'Hallo! Ich möchte eine Immobilie empfehlen.'
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full bg-[#25D366] text-white hover:bg-[#1EBE57] px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors sm:flex-1"
+          >
+            Per WhatsApp empfehlen
+          </a>
+        </div>
       </div>
     );
   }
@@ -90,17 +98,20 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
     <div>
       {/* Hero Section */}
       <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-5xl font-bold mb-6">Tippgeberprovision berechnen</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">Immobilie empfehlen &amp; 20% Provision sichern</h1>
         <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Kennen Sie jemanden, der eine Immobilie verkaufen möchte? <br />
-          Empfehlen Sie uns und profitieren Sie von <span className="text-primary font-bold">20% der Netto-Courtage</span>!
+          Kennen Sie jemanden, der eine Immobilie verkaufen möchte?
+          <br />
+          Ein Tipp genügt, wir übernehmen den Verkauf, Sie erhalten Ihre Provision.
         </p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-12 mb-16">
         {/* Calculator Section */}
         <div className="bg-card border-2 border-border rounded-2xl p-8 md:p-10 shadow-lg">
-          <h2 className="text-2xl font-bold mb-6">Ihre potenzielle Provision</h2>
+          <h2 className="text-2xl font-bold mb-6">
+            Schätzen Sie den Immobilienwert, wir zeigen Ihnen Ihre mögliche Provision.
+          </h2>
 
           {/* Value Display */}
           <div className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-6 mb-8 text-center border border-primary/20">
@@ -141,7 +152,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
             <div className="flex justify-between items-center py-4 border-b border-border">
               <div>
                 <p className="font-medium text-foreground">Maklerprovision</p>
-                <p className="text-xs text-muted-foreground mt-1">6% vom Verkaufspreis</p>
+                <p className="text-xs text-muted-foreground mt-1">Vom Verkaufspreis</p>
               </div>
               <p className="text-2xl font-bold text-foreground">{formatPrice(grossCommission)}</p>
             </div>
@@ -153,35 +164,74 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
                   <p className="text-3xl md:text-4xl font-bold">{formatPrice(referralCommission)}</p>
                   <p className="text-xs opacity-75 mt-2">20% der Netto-Courtage</p>
                 </div>
-                <div className="text-6xl opacity-20">💰</div>
               </div>
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
-              href="/kontakt"
-              className="block w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md"
+              href="/verkaufen"
+              className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md sm:flex-1"
             >
               Jetzt Immobilie empfehlen
+            </a>
+            <a
+              href={`https://wa.me/493046690542?text=${encodeURIComponent(
+                'Hallo! Ich möchte eine Immobilie empfehlen.'
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full bg-[#25D366] text-white hover:bg-[#1EBE57] px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md sm:flex-1"
+            >
+              Per WhatsApp empfehlen
             </a>
           </div>
         </div>
 
         {/* Info Section */}
         <div className="space-y-8">
+          <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-8">
+            <h3 className="text-xl font-bold mb-4">Ihre Vorteile</h3>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-muted-foreground">Garantierte 20 % unserer Netto-Maklerprovision für Sie</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-muted-foreground">Auszahlung nach dem Notartermin</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-muted-foreground">
+                  Kein Aufwand für Sie – wir kümmern uns um Bewertung, Vermarktung &amp; Verkauf
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span className="text-muted-foreground">Diskret &amp; auf Wunsch anonym</span>
+              </li>
+            </ul>
+          </div>
+
           <div className="bg-card border border-border rounded-2xl p-8">
-            <h3 className="text-2xl font-bold mb-6">So einfach geht's</h3>
+            <h3 className="text-2xl font-bold mb-6">So einfach gehts</h3>
             <div className="space-y-6">
               <div className="flex gap-4">
                 <div className="flex-shrink-0 w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold">
                   1
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg mb-2">Immobilie empfehlen</h4>
-                  <p className="text-muted-foreground">
-                    Kennen Sie jemanden, der verkaufen möchte? Stellen Sie uns den Kontakt her oder empfehlen Sie uns direkt.
-                  </p>
+                  <h4 className="font-bold text-lg mb-2">Tipp abgeben</h4>
+                  <p className="text-muted-foreground">Tipp abgeben über Kontakt-Button</p>
                 </div>
               </div>
 
@@ -190,10 +240,8 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
                   2
                 </div>
                 <div>
-                  <h4 className="font-bold text-lg mb-2">Wir übernehmen alles</h4>
-                  <p className="text-muted-foreground">
-                    Von der Bewertung über die Vermarktung bis zum Notartermin – wir kümmern uns um den gesamten Verkaufsprozess.
-                  </p>
+                  <h4 className="font-bold text-lg mb-2">Wir nehmen Kontakt auf</h4>
+                  <p className="text-muted-foreground">Wir nehmen Kontakt auf und vermitteln die Immobilie</p>
                 </div>
               </div>
 
@@ -203,42 +251,10 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
                 </div>
                 <div>
                   <h4 className="font-bold text-lg mb-2">Provision erhalten</h4>
-                  <p className="text-muted-foreground">
-                    Nach erfolgreichem Verkauf erhalten Sie automatisch 20% unserer Netto-Provision – ganz ohne Aufwand.
-                  </p>
+                  <p className="text-muted-foreground">Sie erhalten Ihre Provision</p>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 rounded-2xl p-8">
-            <h3 className="text-xl font-bold mb-4">Ihre Vorteile</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span className="text-muted-foreground">Garantierte 20% Provision bei jedem erfolgreichen Verkauf</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span className="text-muted-foreground">Kein Aufwand für Sie – wir erledigen die gesamte Arbeit</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span className="text-muted-foreground">Schnelle Auszahlung nach Verkaufsabschluss</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <svg className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span className="text-muted-foreground">Unbegrenzte Anzahl an Empfehlungen möglich</span>
-              </li>
-            </ul>
           </div>
         </div>
       </div>

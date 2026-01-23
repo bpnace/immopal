@@ -1,7 +1,4 @@
-function getDrupalApiBase(): string | null {
-  const base = process.env.DRUPAL_API_BASE;
-  return typeof base === 'string' && base.length > 0 ? base : null;
-}
+import { absolutizeDrupalUrl, fetchDrupal, getDrupalApiBase } from './drupal';
 
 type JsonApiResourceIdentifier = {
   id: string;
@@ -47,16 +44,6 @@ export type Article = {
   createdAt: string;
 };
 
-function absolutizeDrupalUrl(url: string): string {
-  const base = getDrupalApiBase();
-  if (!base) return url;
-  try {
-    return new URL(url, base).toString();
-  } catch {
-    return url;
-  }
-}
-
 function getString(value: unknown): string | null {
   return typeof value === 'string' ? value : null;
 }
@@ -96,8 +83,10 @@ function extractFileUrl(included: JsonApiResource[] | undefined, relData: JsonAp
   // For image fields, Drupal commonly relates directly to file--file
   if (resource.type === 'file--file') {
     const uri = resource.attributes?.uri;
-    const url = typeof uri === 'object' && uri ? (uri as { url?: unknown }).url : null;
-    return typeof url === 'string' && url.length > 0 ? absolutizeDrupalUrl(url) : null;
+    const url = typeof uri === 'object' && uri ? (uri as { url?: unknown; value?: unknown }).url : null;
+    const value = typeof uri === 'object' && uri ? (uri as { url?: unknown; value?: unknown }).value : null;
+    const raw = (typeof url === 'string' && url.length > 0 ? url : null) ?? (typeof value === 'string' ? value : null);
+    return raw ? absolutizeDrupalUrl(raw) : null;
   }
 
   return null;
@@ -158,9 +147,9 @@ function mapArticle(item: JsonApiResource, included?: JsonApiResource[]): Articl
 }
 
 async function fetchJsonApi(url: string): Promise<{ data: JsonApiResource[]; included?: JsonApiResource[] }> {
-  const res = await fetch(url, { cache: 'no-store' });
+  const res = await fetchDrupal(url, { cache: 'no-store' });
   if (!res.ok) {
-    throw new Error('Fehler beim Laden der Artikel');
+    throw new Error(`Fehler beim Laden der Artikel (${res.status} ${res.statusText})`);
   }
 
   const json = (await res.json()) as { data?: unknown; included?: unknown };

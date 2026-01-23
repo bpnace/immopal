@@ -22,9 +22,9 @@ export function ConsultantAvatar({
   className,
 }: ConsultantAvatarProps) {
   const sizeClasses = {
-    sm: 'w-16 h-16 text-xl',
-    md: 'w-24 h-24 text-3xl',
-    lg: 'w-32 h-32 text-4xl',
+    sm: 'w-20 h-20 text-2xl',
+    md: 'w-32 h-32 text-4xl',
+    lg: 'w-40 h-40 text-5xl',
   };
 
   const avatarVariants = {
@@ -49,7 +49,8 @@ export function ConsultantAvatar({
       {/* Avatar Circle */}
       <div
         className={cn(
-          'mb-4 flex items-center justify-center rounded-full bg-primary',
+          'mb-4 flex items-center justify-center rounded-full overflow-hidden',
+          photo ? '' : 'bg-primary',
           sizeClasses[size]
         )}
       >
@@ -57,9 +58,9 @@ export function ConsultantAvatar({
           <Image
             src={photo}
             alt={name}
-            width={size === 'sm' ? 64 : size === 'md' ? 96 : 128}
-            height={size === 'sm' ? 64 : size === 'md' ? 96 : 128}
-            className="rounded-full object-cover"
+            width={size === 'sm' ? 80 : size === 'md' ? 128 : 160}
+            height={size === 'sm' ? 80 : size === 'md' ? 128 : 160}
+            className="w-full h-full object-cover object-top"
           />
         ) : (
           <span className="font-bold text-primary-foreground">{initials}</span>

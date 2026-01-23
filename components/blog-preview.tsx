@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -7,20 +10,49 @@ type Props = {
   limit?: number;
 };
 
-export async function BlogPreview({ limit = 3 }: Props) {
-  let articles: Article[] = [];
+export function BlogPreview({ limit = 3 }: Props) {
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  try {
-    articles = await fetchArticles(limit);
-  } catch {
-    articles = [];
+  useEffect(() => {
+    async function loadArticles() {
+      try {
+        setLoading(true);
+        const data = await fetchArticles(limit);
+        setArticles(data);
+      } catch (error) {
+        console.error('Failed to fetch articles:', error);
+        setArticles([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadArticles();
+  }, [limit]);
+
+  if (loading) {
+    return (
+      <section className="py-16 bg-background home-section-divider">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit ImmoPal</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Aktuelle Beiträge, Markt-Insights und Tipps rund um Immobilien.
+            </p>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Lade Blog-Beiträge...</p>
+          </div>
+        </div>
+      </section>
+    );
   }
 
   return (
-    <section className="py-16 bg-background">
+    <section className="py-16 bg-background home-section-divider">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit immopal</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Bestens informiert mit ImmoPal</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Aktuelle Beiträge, Markt-Insights und Tipps rund um Immobilien.
           </p>
@@ -40,10 +72,10 @@ export async function BlogPreview({ limit = 3 }: Props) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {articles.slice(0, limit).map((article) => (
               <div key={article.id} className="bg-card border border-border rounded-lg overflow-hidden flex flex-col">
-                <Link href={`/blog/${article.slug}`} className="block">
+                <Link href={{ pathname: '/blog', query: { slug: article.slug } }} className="block">
                   <div className="relative aspect-[16/9] bg-muted">
                     <Image
-                      src={article.imageUrl ?? '/images/spacejoy.jpg'}
+                      src={article.imageUrl!}
                       alt={article.title}
                       fill
                       className="object-cover"
@@ -53,7 +85,10 @@ export async function BlogPreview({ limit = 3 }: Props) {
 
                 <div className="p-6 flex flex-col grow">
                   <h3 className="text-lg font-semibold leading-snug mb-2">
-                    <Link href={`/blog/${article.slug}`} className="hover:text-primary transition-colors">
+                    <Link
+                      href={{ pathname: '/blog', query: { slug: article.slug } }}
+                      className="hover:text-primary transition-colors"
+                    >
                       {article.title}
                     </Link>
                   </h3>
@@ -61,7 +96,7 @@ export async function BlogPreview({ limit = 3 }: Props) {
                     <p className="text-sm text-muted-foreground leading-relaxed line-clamp-4">{article.summaryText}</p>
                   )}
                   <Link
-                    href={`/blog/${article.slug}`}
+                    href={{ pathname: '/blog', query: { slug: article.slug } }}
                     className="mt-6 w-full inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-medium hover:bg-muted transition-colors"
                   >
                     Lesen

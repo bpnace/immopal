@@ -7,6 +7,7 @@ type CookieConsent = {
   necessary: boolean;
   analytics: boolean;
   marketing: boolean;
+  timestamp?: number; // Unix timestamp of consent
 };
 
 export function CookieBanner() {
@@ -20,27 +21,76 @@ export function CookieBanner() {
 
   useEffect(() => {
     // Check if user has already made a choice
-    const savedConsent = localStorage.getItem('cookie-consent');
-    if (!savedConsent) {
+    try {
+      const savedConsent = localStorage.getItem('cookie-consent');
+      if (!savedConsent) {
+        setShowBanner(true);
+        return;
+      }
+
+      const parsed = JSON.parse(savedConsent);
+
+      // Validate structure and types
+      if (
+        parsed &&
+        typeof parsed === 'object' &&
+        typeof parsed.necessary === 'boolean' &&
+        typeof parsed.analytics === 'boolean' &&
+        typeof parsed.marketing === 'boolean'
+      ) {
+        // Check if consent is stale (>1 year old per GDPR)
+        const ONE_YEAR = 365 * 24 * 60 * 60 * 1000;
+        if (parsed.timestamp && typeof parsed.timestamp === 'number') {
+          if (Date.now() - parsed.timestamp < ONE_YEAR) {
+            setConsent(parsed);
+            setShowBanner(false);
+          } else {
+            // Consent expired, clear and show banner again
+            localStorage.removeItem('cookie-consent');
+            localStorage.removeItem('cookie-consent-date');
+            setShowBanner(true);
+          }
+        } else {
+          // Old format without timestamp, still accept but show banner for re-consent
+          setConsent(parsed);
+          setShowBanner(true);
+        }
+      } else {
+        // Invalid format, clear it
+        console.warn('Invalid cookie consent format, clearing');
+        localStorage.removeItem('cookie-consent');
+        localStorage.removeItem('cookie-consent-date');
+        setShowBanner(true);
+      }
+    } catch (error) {
+      // JSON parse error or other error
+      console.error('Error reading cookie consent:', error);
+      localStorage.removeItem('cookie-consent');
+      localStorage.removeItem('cookie-consent-date');
       setShowBanner(true);
-    } else {
-      setConsent(JSON.parse(savedConsent));
     }
   }, []);
 
   const saveConsent = (newConsent: CookieConsent) => {
-    localStorage.setItem('cookie-consent', JSON.stringify(newConsent));
+    // Add timestamp to consent
+    const consentWithTimestamp = {
+      ...newConsent,
+      timestamp: Date.now(),
+    };
+
+    localStorage.setItem('cookie-consent', JSON.stringify(consentWithTimestamp));
     localStorage.setItem('cookie-consent-date', new Date().toISOString());
-    setConsent(newConsent);
+    setConsent(consentWithTimestamp);
     setShowBanner(false);
     setShowSettings(false);
+    window.dispatchEvent(new CustomEvent('cookie-consent-updated', { detail: consentWithTimestamp }));
 
     // Apply consent settings
-    if (newConsent.analytics) {
+    if (consentWithTimestamp.analytics) {
       // Enable analytics (e.g., Plausible)
       console.log('Analytics enabled');
     }
-    if (newConsent.marketing) {
+    if (consentWithTimestamp.marketing) {
       // Enable marketing cookies
       console.log('Marketing enabled');
     }

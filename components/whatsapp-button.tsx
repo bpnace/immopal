@@ -2,7 +2,7 @@
 
 export function WhatsAppButton() {
   // Update this with the actual WhatsApp number
-  const whatsappNumber = '4930123456789';
+  const whatsappNumber = '493046690542';
   const defaultMessage = 'Hallo! Ich interessiere mich für Ihre Immobiliendienstleistungen.';
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`;
 

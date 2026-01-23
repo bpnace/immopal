@@ -1,12 +1,15 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+
+type TileIcon = string | { type: 'image'; src: string; alt?: string };
 
 export interface TileOptionProps {
   label: string;
   value: string;
-  icon?: string;
+  icon?: TileIcon;
   selected: boolean;
   onClick: () => void;
   disabled?: boolean;
@@ -40,8 +43,24 @@ export function TileOption({
       aria-label={label}
     >
       {icon && (
-        <div className="mb-3 text-4xl" aria-hidden="true">
-          {icon}
+        <div
+          className={cn(
+            'mb-3',
+            typeof icon === 'string' ? 'text-4xl' : 'flex justify-center'
+          )}
+          aria-hidden={typeof icon === 'string' ? 'true' : undefined}
+        >
+          {typeof icon === 'string' ? (
+            icon
+          ) : (
+            <Image
+              src={icon.src}
+              alt={icon.alt ?? ''}
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain"
+            />
+          )}
         </div>
       )}
       <div

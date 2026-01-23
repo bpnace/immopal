@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FunnelLayout } from '@/components/funnel/funnel-layout';
 import { ConsultantAvatar } from '@/components/funnel/consultant-avatar';
@@ -13,11 +14,10 @@ import {
   validateSellingStep,
 } from '@/lib/form-validation';
 import { submitSellingForm } from '@/lib/webhook';
-import { VERKAUFEN_CONSULTANT } from '@/lib/consultant-data';
+import { VERKAUFEN_CONSULTANT, getConsultantByPropertyType } from '@/lib/consultant-data';
+import { canSubmit, getRemainingCooldown } from '@/lib/rate-limit';
 import {
   propertyTypeOptions,
-  getSubtypeOptions,
-  requiresSubtype,
   constructionYearOptions,
   roomsOptions,
   livingAreaOptionsVerkaufen,
@@ -27,6 +27,7 @@ import type { PostalCodeData } from '@/lib/postal-codes';
 import { cn } from '@/lib/utils';
 
 export default function VerkaufenPage() {
+  const startStep = 2;
   const [currentStep, setCurrentStep] = useState(2); // Start at step 2 (property type)
   const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,14 +52,40 @@ export default function VerkaufenPage() {
     newsletter: false,
   });
 
+  const selectedConsultant = getConsultantByPropertyType(formData.propertyType || '');
+  const successConsultant = selectedConsultant ?? VERKAUFEN_CONSULTANT;
+
+  const renderConsultantPanel = (size: 'sm' | 'md') => {
+    if (!selectedConsultant) {
+      return (
+        <div className="flex flex-col items-center justify-center border border-border bg-card p-8 text-center min-h-[320px]">
+          <Image
+            src="/images/logo2.png"
+            alt="ImmoPal Logo"
+            width={200}
+            height={80}
+            className={size === 'sm' ? 'h-auto w-32' : 'h-auto w-40'}
+          />
+        </div>
+      );
+    }
+
+    return (
+      <ConsultantAvatar
+        name={selectedConsultant.name}
+        role={selectedConsultant.role}
+        initials={selectedConsultant.initials}
+        photo={selectedConsultant.photo}
+        size={size}
+      />
+    );
+  };
+
   // Compute nextDisabled for the navigation button
   let nextDisabled = false;
   switch (currentStep) {
     case 2:
       nextDisabled = !formData.propertyType;
-      break;
-    case 3:
-      nextDisabled = !formData.propertySubtype;
       break;
     case 4:
       nextDisabled = !formData.constructionYear;
@@ -84,7 +111,13 @@ export default function VerkaufenPage() {
 
   // Handle input change
   const handleInputChange = (field: keyof SellingFormData, value: string | boolean) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => {
+      if (field === 'propertyType') {
+        const propertyTypeValue = value as SellingFormData['propertyType'];
+        return { ...prev, propertyType: propertyTypeValue };
+      }
+      return { ...prev, [field]: value } as Partial<SellingFormData>;
+    });
     setErrors([]);
     setSubmitError('');
   };
@@ -122,15 +155,13 @@ export default function VerkaufenPage() {
   };
 
   // Handle auto-advance (no validation - user clicked a tile)
-  const handleAutoAdvance = () => {
+  const handleAutoAdvance = (_selectedValue?: string | string[]) => {
     setDirection(1);
 
-    // Skip step 3 (subtype) if property type is Gewerbe or Grundstück
+    // Skip subtype step
     if (currentStep === 2) {
-      if (!requiresSubtype(formData.propertyType || '')) {
-        setCurrentStep(4); // Jump to construction year
-        return;
-      }
+      setCurrentStep(4); // Jump to construction year
+      return;
     }
 
     // Normal progression
@@ -143,12 +174,10 @@ export default function VerkaufenPage() {
 
     setDirection(1);
 
-    // Skip step 3 (subtype) if property type is Gewerbe or Grundstück
+    // Skip subtype step
     if (currentStep === 2) {
-      if (!requiresSubtype(formData.propertyType || '')) {
-        setCurrentStep(4); // Jump to construction year
-        return;
-      }
+      setCurrentStep(4); // Jump to construction year
+      return;
     }
 
     // Normal progression
@@ -159,36 +188,44 @@ export default function VerkaufenPage() {
   const handleBack = () => {
     setDirection(-1);
 
-    // Skip step 3 (subtype) when going back
+    if (currentStep <= startStep) {
+      return;
+    }
+
     if (currentStep === 4) {
-      if (!requiresSubtype(formData.propertyType || '')) {
-        setCurrentStep(2); // Jump back to property type
-        return;
-      }
+      setCurrentStep(2);
+      return;
     }
 
     // Normal back navigation
-    setCurrentStep((prev) => prev - 1);
+    setCurrentStep((prev) => Math.max(startStep, prev - 1));
   };
 
   // Handle form submission
   const handleSubmit = async () => {
     if (!validateCurrentStep()) return;
 
+    // Rate limiting check
+    const identifier = `${formData.email}-${formData.phone}`;
+    if (!canSubmit(identifier)) {
+      const remaining = Math.ceil(getRemainingCooldown(identifier) / 1000);
+      setSubmitError(`Bitte warten Sie noch ${remaining} Sekunden, bevor Sie erneut absenden.`);
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitError('');
 
-    try {
-      await submitSellingForm(formData as SellingFormData);
-      setSubmitSuccess(true);
-    } catch (error) {
-      console.error('Submission error:', error);
-      setSubmitError(
-        'Es gab einen Fehler beim Absenden des Formulars. Bitte versuchen Sie es erneut.'
-      );
-    } finally {
+    const result = await submitSellingForm(formData as SellingFormData);
+
+    if (!result.success) {
+      setSubmitError(result.error || 'Es gab einen Fehler beim Absenden des Formulars.');
       setIsSubmitting(false);
+      return;
     }
+
+    setSubmitSuccess(true);
+    setIsSubmitting(false);
   };
 
   // Page transition variants
@@ -246,13 +283,13 @@ export default function VerkaufenPage() {
           </p>
 
           {/* Consultant Info */}
-          <div className="mb-8 border border-border bg-card p-8 text-center min-h-[320px] flex flex-col items-center justify-center z-50">
-            <div className="mb-4 flex items-center justify-center rounded-full bg-primary w-16 h-16">
-              <span className="font-bold text-primary-foreground text-xl">{VERKAUFEN_CONSULTANT.initials}</span>
-            </div>
-            <h3 className="text-lg font-bold text-foreground">{VERKAUFEN_CONSULTANT.name}</h3>
-            <p className="text-sm text-muted-foreground">{VERKAUFEN_CONSULTANT.role}</p>
-          </div>
+          <ConsultantAvatar
+            name={successConsultant.name}
+            role={successConsultant.role}
+            initials={successConsultant.initials}
+            photo={successConsultant.photo}
+            className="mb-8 z-50"
+          />
 
           <Link
             href="/"
@@ -289,34 +326,6 @@ export default function VerkaufenPage() {
             />
             {getError('propertyType') && (
               <p className="mt-4 text-sm text-destructive">{getError('propertyType')}</p>
-            )}
-          </FunnelLayout>
-        );
-
-      case 3:
-        // Step 3: Property Subtype (conditional)
-        const subtypeOptions = getSubtypeOptions(formData.propertyType || '');
-        return (
-          <FunnelLayout
-            consultant={VERKAUFEN_CONSULTANT}
-            showConsultant={false}
-            question={`Bitte wählen Sie die Art ${
-              formData.propertyType === 'wohnung' ? 'Ihrer Wohnung' : 'Ihres Hauses'
-            }`}
-            onBack={handleBack}
-            onNext={handleNext}
-            nextDisabled={!formData.propertySubtype}
-          >
-            <MultiTileSelect
-              options={subtypeOptions}
-              value={formData.propertySubtype || ''}
-              onChange={(value) => handleInputChange('propertySubtype', value as string)}
-              onAutoAdvance={handleAutoAdvance}
-              autoAdvanceDelay={300}
-              columns={4}
-            />
-            {getError('propertySubtype') && (
-              <p className="mt-4 text-sm text-destructive">{getError('propertySubtype')}</p>
             )}
           </FunnelLayout>
         );
@@ -625,8 +634,11 @@ export default function VerkaufenPage() {
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 Kostenlose Immobilienbewertung
               </h1>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Erfahren Sie in wenigen Minuten, was Ihre Immobilie wert ist
+              <p className="text-lg text-muted-foreground max-w-5xl mx-auto">
+                Wir ermitteln den Marktwert Ihrer Immobilie auf Grundlage aktueller Vergleichsdaten und real
+                erzielter Verkaufspreise. Dabei berücksichtigen wir Lage, Zustand, Ausstattung und die aktuelle Nachfrage,
+                um einen Preis zu bestimmen, der nachvollziehbar ist und am Markt realistisch durchsetzbar bleibt.
+                Unser Ziel ist eine ehrliche Einschätzung, die Ihnen eine sichere Entscheidungsgrundlage für den Verkauf bietet.
               </p>
             </div>
           </div>
@@ -637,25 +649,14 @@ export default function VerkaufenPage() {
         {/* Desktop Consultant - Absolute positioning */}
         {!submitSuccess && (
           <div className="absolute left-4 top-8 w-64 z-40 hidden lg:block">
-            <ConsultantAvatar
-              name={VERKAUFEN_CONSULTANT.name}
-              role={VERKAUFEN_CONSULTANT.role}
-              initials={VERKAUFEN_CONSULTANT.initials}
-              photo={VERKAUFEN_CONSULTANT.photo}
-            />
+            {renderConsultantPanel('md')}
           </div>
         )}
 
         {/* Mobile Consultant - Inline at top */}
         {!submitSuccess && (
           <div className="mb-8 lg:hidden">
-            <ConsultantAvatar
-              name={VERKAUFEN_CONSULTANT.name}
-              role={VERKAUFEN_CONSULTANT.role}
-              initials={VERKAUFEN_CONSULTANT.initials}
-              photo={VERKAUFEN_CONSULTANT.photo}
-              size="sm"
-            />
+            {renderConsultantPanel('sm')}
           </div>
         )}
 
@@ -674,16 +675,16 @@ export default function VerkaufenPage() {
                 {renderStep()}
               </motion.div>
             </AnimatePresence>
-            <div className="flex flex-wrap justify-center gap-3 sm:gap-4 pt-16 mt-16">
-              <button
-                type="button"
-                onClick={handleBack}
-                className="flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-foreground px-4 sm:px-6 py-3 sm:py-4"
-                disabled={isSubmitting}
-              >
-                <span>←</span>
-                <span>Zurück</span>
-              </button>
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4 pt-16 mt-16">
+            <button
+              type="button"
+              onClick={handleBack}
+              className="flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-foreground px-4 sm:px-6 py-3 sm:py-4 disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={isSubmitting || currentStep <= startStep}
+            >
+              <span>←</span>
+              <span>Zurück</span>
+            </button>
               {currentStep >= 9 && (
                 <button
                   type="button"

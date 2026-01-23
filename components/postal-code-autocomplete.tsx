@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { POSTAL_CODE_MIN_QUERY_LENGTH, type PostalCodeData } from '@/lib/postal-codes';
+import { fetchPostalCodeSuggestions, POSTAL_CODE_MIN_QUERY_LENGTH, type PostalCodeData } from '@/lib/postal-codes';
 
 interface PostalCodeAutocompleteProps {
   value: string;
@@ -49,23 +49,11 @@ export function PostalCodeAutocomplete({
       setFetchError(null);
 
       try {
-        const params = new URLSearchParams({
-          q: trimmed,
-          limit: '10',
-        });
-        const response = await fetch(`/api/postal-codes?${params.toString()}`, {
-          signal: controller.signal,
-        });
-        if (!response.ok) {
-          throw new Error('Failed to load postal code suggestions');
-        }
-        const data = await response.json();
-        setSuggestions(data.suggestions ?? []);
+        const results = await fetchPostalCodeSuggestions(trimmed, 10, { signal: controller.signal });
+        setSuggestions(results);
         setShowSuggestions(true);
-      } catch (error) {
-        if ((error as Error).name !== 'AbortError') {
-          setFetchError('Postleitzahlen konnten nicht geladen werden. Bitte versuchen Sie es erneut.');
-        }
+      } catch {
+        setFetchError('Postleitzahlen konnten nicht geladen werden. Bitte versuchen Sie es erneut.');
       } finally {
         setIsLoading(false);
         setSelectedIndex(-1);

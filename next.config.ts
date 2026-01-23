@@ -1,20 +1,18 @@
 import type { NextConfig } from 'next'
-import { withPayload } from '@payloadcms/next/withPayload'
 
 const nextConfig: NextConfig = {
+  output: 'export', // Enable static export for IONOS Webhosting Plus compatibility
   reactStrictMode: true,
+  trailingSlash: true,
   images: {
+    unoptimized: true, // Required for static export
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
-      },
-      {
-        protocol: 'http',
-        hostname: '**',
+        hostname: 'cms.codariq.de',
       },
     ],
   },
 }
 
-export default withPayload(nextConfig)
+export default nextConfig

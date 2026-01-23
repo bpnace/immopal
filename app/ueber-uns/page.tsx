@@ -3,21 +3,191 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Über uns - immopal',
-  description: 'Erfahren Sie mehr über immopal, Ihren vertrauensvollen Immobilienmakler in Berlin & Brandenburg',
+  title: 'Über uns - ImmoPal',
+  description:
+    'Erfahren Sie mehr über ImmoPal, Ihr vertrauensvoller Partner für Immobilien in Deutschland',
 };
 
 export default function UeberUnsPage() {
   return (
-      <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="bg-primary/5 py-12 min-h-[220px] flex items-center">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">Über immopal</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">Wir sind Immopal</h1>
             <p className="text-xl text-muted-foreground">
-              Ihr vertrauensvoller Partner für Immobilien in Berlin und Brandenburg seit 2020
+              Ihr vertrauensvoller Partner für Immobilien in Deutschland
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-16 bg-muted">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="/images/KyaProfil.webp"
+                    alt="Kya Bayat"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="relative inline-block">
+                      <span className="block text-center">Kya Bayat</span>
+                      <Link
+                        href="https://wa.me/493046690542"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Kya Bayat auf WhatsApp kontaktieren"
+                        className="absolute left-full top-1/2 ml-2 inline-flex -translate-y-1/2 items-center opacity-70 transition-opacity hover:opacity-100"
+                      >
+                        <Image
+                          src="/images/WhatsApp.svg"
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="h-6 w-6"
+                        />
+                      </Link>
+                    </span>
+                  </h3>
+                  <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
+                  <p className="text-sm text-muted-foreground">
+                    Immobilienberater - Regionaler Experte in Berlin und Brandenburg
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="/images/dennisUeber.webp"
+                    alt="Dennis Darwiche"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="relative inline-block">
+                      <span className="block text-center">Dennis Darwiche</span>
+                      <Link
+                        href="https://wa.me/493046690542"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Dennis Darwiche auf WhatsApp kontaktieren"
+                        className="absolute left-full top-1/2 ml-2 inline-flex -translate-y-1/2 items-center opacity-70 transition-opacity hover:opacity-100"
+                      >
+                        <Image
+                          src="/images/WhatsApp.svg"
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="h-6 w-6"
+                        />
+                      </Link>
+                    </span>
+                  </h3>
+                  <p className="text-primary-center font-medium mb-3">Immobilienberater</p>
+                  <p className="text-sm text-muted-foreground">
+                    Schwerpunkt im Bereich Wohnimmobilien und Gewerbe
+                    Miete und Kauf
+                  </p>
+                </div>
+              </div>
+
+              <div className="hidden md:block" aria-hidden="true" />
+
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="/images/tarik.webp"
+                    alt="Thomas Weber"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="relative inline-block">
+                      <span className="block text-center">Arthur Marshall</span>
+                      <Link
+                        href="https://www.linkedin.com/in/tarik-arthur-marshall-6112b2239"
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Arthur Marshall auf LinkedIn"
+                        className="absolute left-full top-1/2 ml-2 inline-flex -translate-y-1/2 items-center opacity-70 transition-opacity hover:opacity-100"
+                      >
+                        <Image
+                          src="/images/LinkedIn_icon.svg"
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="h-4 w-4"
+                        />
+                      </Link>
+                    </span>
+                  </h3>
+                  <p className="text-primary font-medium mb-3">Full Stack Developer</p>
+                  <p className="text-sm text-muted-foreground">
+                    Verantwortlich für die technische Entwicklung unserer Plattform
+                  </p>
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="/images/feelGood.webp"
+                    alt="Feelgood Manager Dog"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="inline-block text-center">Bonnie</span>
+                  </h3>
+                  <p className="text-primary font-medium mb-3">Bürohund</p>
+                </div>
+              </div>
+
+              <div className="bg-card border border-border rounded-lg overflow-hidden">
+                <div className="relative h-64 bg-muted">
+                  <Image
+                    src="/images/MaraKoenig.webp"
+                    alt="Mara Koenig"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="p-6 text-center">
+                  <h3 className="text-xl font-semibold mb-1">
+                    <span className="inline-block text-center">Mara König</span>
+                  </h3>
+                  <p className="text-primary font-medium mb-3">Kundenservice</p>
+                      <Link
+                        href="mailto:info@immo-pal.de"
+                        aria-label="E-Mail an info@immo-pal.de senden"
+                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100">
+                        <Image
+                          src="/images/gmail-neu.png"
+                          alt=""
+                          width={16}
+                          height={16}
+                          className="h-6 w-6"
+                        />
+                      </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -30,28 +200,31 @@ export default function UeberUnsPage() {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Unsere Geschichte</h2>
                 <p className="text-muted-foreground mb-4">
-                  immopal wurde 2020 mit der Vision gegründet, den Immobilienkauf in Berlin und Brandenburg zu
-                  revolutionieren. Wir glauben daran, dass der Kauf oder Verkauf einer Immobilie mehr ist als nur
-                  eine Transaktion – es ist ein wichtiger Lebensschritt, der professionelle Begleitung und
-                  persönliche Betreuung verdient.
+                  Wir sind Freunde seit der Grundschule und teilen seit vielen Jahren eine gemeinsame Leidenschaft: Immobilien.
+                  Was als persönliches Interesse begann, ist heute unser beruflicher Fokus.
+                  Als junges, engagiertes Team begleiten wir Eigentümer und Interessenten bei der
+                  Vermittlung von Immobilien in Berlin und Brandenburg – fachlich fundiert, strukturiert
+                  und mit einem klaren Blick für den Markt.
                 </p>
                 <p className="text-muted-foreground mb-4">
-                  Mit unserem engagierten Team aus erfahrenen Immobilienexperten haben wir bereits über 200 Familien
-                  dabei geholfen, ihre Traumimmobilie zu finden. Dabei legen wir besonderen Wert auf Transparenz,
-                  Ehrlichkeit und individuelle Beratung.
+                  Aus unserer beruflichen Laufbahn bringen wir Erfahrungen aus Konzernstrukturen,
+                  dem Mittelstand sowie aus der Unternehmensgründung mit. Dieses Zusammenspiel hilft
+                  uns insbesondere bei der Immobilienbewertung, der marktgerechten Preisfindung und einer
+                  zielgerichteten Vermarktung. Als gebürtige Berliner kennen wir die Besonderheiten der
+                  einzelnen Stadtteile ebenso wie den Markt im Brandenburger Umland.
                 </p>
                 <p className="text-muted-foreground">
-                  Unsere tiefe Kenntnis des Berliner und Brandenburger Immobilienmarktes sowie unser großes Netzwerk
-                  ermöglichen es uns, Ihnen exklusive Angebote und erstklassigen Service zu bieten.
+                  Transparenz, Offenheit und ein respektvolles Miteinander auf Augenhöhe sind für uns keine Schlagwörter,
+                  sondern die Grundlage unserer Arbeit. Denn jede Immobilie – und jeder Kunde – ist
+                  individuell. Genau darauf gehen wir ein: ehrlich, verbindlich und mit dem Anspruch, für
+                  Sie die bestmögliche Lösung zu finden.
+                </p>
+                <p className="text-muted-foreground"> Wenn Sie Wert auf persönliche Beratung, realistische Einschätzungen und
+                  eine vertrauensvolle Zusammenarbeit legen, freuen wir uns auf Ihre Kontaktaufnahme.
                 </p>
               </div>
               <div className="relative h-96 bg-muted rounded-lg overflow-hidden">
-                <Image
-                  src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg"
-                  alt="Unser Team"
-                  fill
-                  className="object-cover"
-                />
+                <Image src="/images/gruender.webp" alt="Unser Team" fill className="object-cover" />
               </div>
             </div>
           </div>
@@ -72,7 +245,12 @@ export default function UeberUnsPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-card border border-border rounded-lg p-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -83,14 +261,19 @@ export default function UeberUnsPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Vertrauen</h3>
                 <p className="text-muted-foreground">
-                  Transparenz und Ehrlichkeit stehen bei uns an erster Stelle. Wir beraten Sie objektiv und zeigen
-                  auch die Schwächen einer Immobilie auf.
+                  Transparenz und Ehrlichkeit stehen bei uns an erster Stelle. Wir beraten Sie
+                  objektiv und zeigen auch die Schwächen einer Immobilie auf.
                 </p>
               </div>
 
               <div className="bg-card border border-border rounded-lg p-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -101,14 +284,19 @@ export default function UeberUnsPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Professionalität</h3>
                 <p className="text-muted-foreground">
-                  Jahrelange Erfahrung und kontinuierliche Weiterbildung garantieren Ihnen höchste fachliche
-                  Kompetenz in allen Bereichen.
+                  Jahrelange Erfahrung und kontinuierliche Weiterbildung garantieren Ihnen höchste
+                  fachliche Kompetenz in allen Bereichen.
                 </p>
               </div>
 
               <div className="bg-card border border-border rounded-lg p-8 text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-8 h-8 text-primary"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -119,8 +307,8 @@ export default function UeberUnsPage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Leidenschaft</h3>
                 <p className="text-muted-foreground">
-                  Wir lieben Immobilien und brennen für unsere Arbeit. Diese Begeisterung spüren Sie in jeder Phase
-                  unserer Zusammenarbeit.
+                  Wir lieben Immobilien und brennen für unsere Arbeit. Diese Begeisterung spüren Sie
+                  in jeder Phase unserer Zusammenarbeit.
                 </p>
               </div>
             </div>
@@ -128,12 +316,12 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* Numbers Section */}
+      {/* Numbers Section
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">immopal in Zahlen</h2>
+              <h2 className="text-3xl font-bold mb-4">ImmoPal in Zahlen</h2>
               <p className="text-lg text-muted-foreground">
                 Zahlen, die für sich sprechen
               </p>
@@ -159,77 +347,7 @@ export default function UeberUnsPage() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-16 bg-muted">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Unser Team</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Lernen Sie die Menschen kennen, die sich täglich für Ihren Erfolg einsetzen
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-card border border-border rounded-lg overflow-hidden">
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
-                    alt="Max Mustermann"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Max Mustermann</h3>
-                  <p className="text-primary font-medium mb-3">Geschäftsführer & Gründer</p>
-                  <p className="text-sm text-muted-foreground">
-                    Immobilienmakler seit 15 Jahren mit Spezialisierung auf Wohnimmobilien in Berlin
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-card border border-border rounded-lg overflow-hidden">
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"
-                    alt="Anna Schmidt"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Anna Schmidt</h3>
-                  <p className="text-primary font-medium mb-3">Senior Maklerin</p>
-                  <p className="text-sm text-muted-foreground">
-                    Expertin für Luxusimmobilien und Neubauprojekte mit 10 Jahren Berufserfahrung
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-card border border-border rounded-lg overflow-hidden">
-                <div className="relative h-64 bg-muted">
-                  <Image
-                    src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg"
-                    alt="Thomas Weber"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Thomas Weber</h3>
-                  <p className="text-primary font-medium mb-3">Immobilienmakler</p>
-                  <p className="text-sm text-muted-foreground">
-                    Spezialist für Brandenburg und ländliche Immobilien mit fundierter Marktkenntnis
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      </section>*/}
 
       {/* CTA Section */}
       <section className="py-16 bg-primary text-primary-foreground">
@@ -249,7 +367,7 @@ export default function UeberUnsPage() {
                 Jetzt Kontakt aufnehmen
               </Link>
               <Link
-                href="/immobilien"
+                href="/angebote"
                 className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 border-2 border-primary-foreground/20 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien ansehen

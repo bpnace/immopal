@@ -1,70 +1,43 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ReferralCalculator } from '@/components/referral-calculator';
 import { BlogPreview } from '@/components/blog-preview';
 import { FaqSection } from '@/components/faq';
-import { fetchListings } from '@/lib/listings';
+import { fetchListings, type Listing } from '@/lib/listings';
 import { ListingCard } from '@/components/listing-card';
 
-type TrustpilotReview = {
-  title: string;
-  text: string;
-  author: string;
-  date: string;
-};
+export default function Home() {
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-const trustpilotReviews: TrustpilotReview[] = [
-  {
-    title: 'Perfekt, freundlich, kompetent',
-    text: 'Wir sind sehr zufrieden mit dem Verkauf unserer Immobilie. Von Beginn an bis zum Abschluss sehr professionell.',
-    author: 'Andreas R.',
-    date: 'vor 21 Stunden',
-  },
-  {
-    title: 'Ausgezeichnete Marktkenntnis',
-    text: 'Ausgezeichnete Marktkenntnis, realistische Einschätzung und sehr angenehme Zusammenarbeit.',
-    author: 'Mehmet-Ali Öztürk',
-    date: 'vor 7 Tagen',
-  },
-  {
-    title: 'Wir haben 2022 ein Haus über Immopal gekauft',
-    text: 'Wir haben 2022 ein Haus über Immopal gekauft und waren von Anfang an bestens beraten und begleitet.',
-    author: 'Michelle',
-    date: '19. Dezember',
-  },
-  {
-    title: 'Wohnung verkauft',
-    text: 'Während des gesamten Prozesses, von der Wohnungsbesichtigung bis zur Übergabe, verlief alles reibungslos.',
-    author: 'Damian Dobrodziej',
-    date: '18. Dezember',
-  },
-];
-
-function TrustpilotStars({ rating = 5 }: { rating?: 1 | 2 | 3 | 4 | 5 }) {
-  return (
-    <div className="flex items-center gap-1" aria-label={`${rating} von 5 Sternen`}>
-      {[1, 2, 3, 4, 5].map((star) => {
-        const filled = star <= rating;
-        return (
-          <span
-            key={star}
-            className={`inline-flex h-5 w-5 items-center justify-center rounded-[2px] ${
-              filled ? 'bg-[#00b67a]' : 'bg-muted'
-            }`}
-            aria-hidden="true"
-          >
-            <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill={filled ? 'white' : 'currentColor'}>
-              <path d="M12 17.27l5.18 3.13-1.64-5.81L20 9.75l-5.97-.51L12 3.75 9.97 9.24 4 9.75l4.46 4.84-1.64 5.81z" />
-            </svg>
-          </span>
+  useEffect(() => {
+    async function loadListings() {
+      try {
+        setLoading(true);
+        const data = await fetchListings();
+        setListings(data);
+      } catch (err) {
+        console.error('Failed to fetch listings:', err);
+        const message =
+          err instanceof Error
+            ? err.message
+            : typeof err === 'string'
+              ? err
+              : 'Unknown error while fetching listings';
+        setError(
+          process.env.NODE_ENV === 'production' ? 'Fehler beim Laden der Immobilien' : message
         );
-      })}
-    </div>
-  );
-}
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadListings();
+  }, []);
 
-export default async function Home() {
-  const listings = await fetchListings();
   const featuredListings = [...listings]
     .sort((a, b) => {
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
@@ -72,42 +45,60 @@ export default async function Home() {
     })
     .slice(0, 4);
 
+  if (error) {
+    return (
+      <main className="container mx-auto px-4 py-20">
+        <div className="text-center text-red-500">
+          <p>{error}</p>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100svh-4rem)] pt-20 pb-14 md:pt-28 md:pb-16 overflow-hidden bg-gradient-to-b from-primary/5 to-background">
-        <Image src="/images/hero1.webp" alt="" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40" aria-hidden="true" />
+      <section className="relative pt-20 pb-14 md:pt-28 md:pb-16 overflow-hidden bg-gradient-to-b from-primary/5 to-background home-section-divider">
+        <Image
+          src="/images/hero1.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/40"
+          aria-hidden="true"
+        />
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-12 text-white">
-              Ihre Traumimmobilie in <span className="text-primary-foreground">Berlin & Brandenburg</span>
+            <h1 className="text-4xl md:text-6xl font-bold mb-12 text-gray-100">
+              Ihr Immobilienmakler in Berlin & Brandenburg. Deutschlandweit vernetzt!
             </h1>
             <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
-              Professionelle Immobilienvermittlung mit persönlicher Beratung. Finden Sie Ihre perfekte Wohnung oder
-              Ihr Traumhaus.
+              Kaufen. Verkaufen. Vermitteln.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
-                href="/immobilien"
+                href="/angebote"
                 className="bg-white/95 text-foreground border-2 border-white/20 hover:bg-white px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien entdecken
               </Link>
               <Link
-                href="/kontakt"
+                href="/verkaufen"
                 className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 border-1 border rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Kostenlose Immobilienbewertung
               </Link>
             </div>
-
           </div>
         </div>
       </section>
 
       {/* Partner Section - Verkauf */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background home-section-divider">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Ihr Partner für den Verkauf</h2>
@@ -123,7 +114,12 @@ export default async function Home() {
               className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
             >
               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-10 h-10 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -146,7 +142,12 @@ export default async function Home() {
               className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
             >
               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-10 h-10 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -169,7 +170,12 @@ export default async function Home() {
               className="group bg-card border-2 border-border hover:border-primary rounded-xl p-8 text-center transition-all hover:shadow-lg hover:scale-105"
             >
               <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary/20 transition-colors">
-                <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-10 h-10 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -190,19 +196,27 @@ export default async function Home() {
       </section>
 
       {/* USPs Section */}
-      <section className="py-16 bg-muted">
+      <section className="py-16 bg-muted home-section-divider">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Warum immopal?</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Ihr zuverlässiger Partner für den Immobilienkauf in Berlin & Brandenburg
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Warum ImmoPal?</h2>
+            <p className="text-muted-foreground text-lg max-w-4xl mx-auto">
+              ImmoPal ist Ihr Immobilienmakler für Berlin & Brandenburg mit deutschlandweitem
+              Netzwerk. Wir unterstützen Eigentümer beim Verkauf von Wohnungen und Häusern sowie
+              Käufer bei der Suche nach passenden Immobilien – transparent, effizient und
+              persönlich.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-card p-8 rounded-lg border border-border text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -213,13 +227,19 @@ export default async function Home() {
               </div>
               <h3 className="text-xl font-semibold mb-3">Geprüfte Immobilien</h3>
               <p className="text-muted-foreground">
-                Alle Objekte werden von uns persönlich geprüft und bewertet. Keine versteckten Mängel.
+                Alle Objekte werden von uns persönlich geprüft und bewertet. Keine versteckten
+                Mängel.
               </p>
             </div>
 
             <div className="bg-card p-8 rounded-lg border border-border text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -236,7 +256,12 @@ export default async function Home() {
 
             <div className="bg-card p-8 rounded-lg border border-border text-center">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg
+                  className="w-8 h-8 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -254,8 +279,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Trustpilot Section */}
-      <section className="py-16 bg-background">
+      {/* Google Reviews Section */}
+      <section className="py-16 bg-background home-section-divider">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Das sagen unsere Kunden</h2>
@@ -264,42 +289,36 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-            <div className="lg:col-span-1 p-6">
-              <div className="text-xl font-semibold mb-2">Hervorragend</div>
-              <div className="flex items-center gap-3 mb-2">
-                <TrustpilotStars rating={5} />
-                <span className="text-sm text-muted-foreground">Trustpilot</span>
+          <div className="max-w-4xl mx-auto rounded-2xl border border-border bg-card p-8 shadow-sm">
+            <div className="flex flex-col md:flex-row gap-6 md:items-center md:justify-between">
+              <div className="space-y-3">
+                <div className="text-xl font-semibold">Google Bewertungen</div>
+                <p className="text-sm text-muted-foreground">
+                  Unsere Kunden teilen ihre Erfahrungen auf Google. Lesen Sie die aktuellen
+                  Rezensionen direkt auf unserem Google-Profil.
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">Basierend auf Bewertungen unserer Kunden</p>
-              <Link
-                href="https://www.trustpilot.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm font-medium text-primary hover:underline"
-              >
-                Alle Bewertungen ansehen
-              </Link>
-            </div>
-
-            <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {trustpilotReviews.map((review) => (
-                <div key={review.title} className="bg-card border border-border rounded-lg p-5">
-                  <TrustpilotStars rating={5} />
-                  <h3 className="mt-3 font-semibold leading-snug">{review.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{review.text}</p>
-                  <div className="mt-4 text-xs text-muted-foreground">
-                    <span className="font-medium text-foreground/80">{review.author}</span> · {review.date}
-                  </div>
+              <div className="flex flex-col items-start gap-3">
+                <div className="flex items-center gap-2 text-lg font-semibold">
+                  <span className="text-yellow-500">★★★★★</span>
+                  <span className="text-sm text-muted-foreground">auf Google</span>
                 </div>
-              ))}
+                <Link
+                  href="https://www.google.de/maps/place/ImmoPal+UG/@52.5175675,13.1979578,16z/data=!3m1!4b1!4m6!3m5!1s0x47a857e05ed8b93d:0xe793df83a9368dcc!8m2!3d52.5175675!4d13.2005327!16s%2Fg%2F11mlsq6vrb?entry=tts&g_ep=EgoyMDI1MTIwOS4wIPu8ASoASAFQAw%3D%3D&skid=06ca40ec-d910-476b-82ab-75843865c3de"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-md border border-border px-4 py-2 text-sm font-medium text-primary hover:bg-muted transition-colors"
+                >
+                  Google Rezensionen öffnen
+                </Link>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-16 text-primary-foreground overflow-hidden">
+      <section className="relative py-16 text-primary-foreground overflow-hidden home-section-divider">
         <Image
           src="/images/signature.webp"
           alt=""
@@ -314,7 +333,8 @@ export default async function Home() {
               Bereit, Ihre Traumimmobilie zu finden?
             </h2>
             <p className="text-xl mb-8 opacity-90">
-              Vereinbaren Sie jetzt ein kostenloses Beratungsgespräch mit unseren Immobilienexperten.
+              Vereinbaren Sie jetzt ein kostenloses Beratungsgespräch mit unseren
+              Immobilienexperten.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -324,7 +344,7 @@ export default async function Home() {
                 Jetzt Kontakt aufnehmen
               </Link>
               <Link
-                href="/immobilien"
+                href="/angebote"
                 className="bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 border-2 border-primary-foreground/20 px-8 py-4 rounded-lg text-lg font-medium transition-colors inline-block"
               >
                 Immobilien durchstöbern
@@ -335,12 +355,12 @@ export default async function Home() {
       </section>
 
       {/* Featured Properties */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-background home-section-divider">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Aktuelle Immobilien</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Unsere neuesten Highlights aus Berlin & Brandenburg direkt aus unserem Portfolio.
+              Unsere neuesten Highlights aus ganz Deutschland direkt aus unserem Portfolio.
             </p>
           </div>
 
@@ -378,7 +398,7 @@ export default async function Home() {
                 </div>
                 <div className="flex items-end">
                   <Link
-                    href="/immobilien"
+                    href="/angebote"
                     className="w-full bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-2 rounded-md font-medium transition-colors text-center"
                   >
                     Suchen
@@ -388,19 +408,25 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredListings.map((listing) => (
-              <ListingCard
-                key={listing.id}
-                listing={listing}
-                badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
-              />
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">Lade Immobilien...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {featuredListings.map((listing) => (
+                <ListingCard
+                  key={listing.id}
+                  listing={listing}
+                  badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
+                />
+              ))}
+            </div>
+          )}
 
           <div className="text-center">
             <Link
-              href="/immobilien"
+              href="/angebote"
               className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3 rounded-lg font-medium transition-colors"
             >
               Alle Immobilien anzeigen
@@ -410,9 +436,9 @@ export default async function Home() {
       </section>
 
       {/* Referral Calculator Section */}
-      <section className="py-16 bg-background">
+      <section className="py-16 bg-accent/10 home-section-divider">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto border border-accent/30 shadow-sm">
             <ReferralCalculator compact />
           </div>
         </div>

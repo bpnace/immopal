@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 export interface TileSelectOption {
   label: string;
   value: string;
-  icon?: string;
+  icon?: string | { type: 'image'; src: string; alt?: string };
 }
 
 export interface MultiTileSelectProps {
@@ -16,7 +16,7 @@ export interface MultiTileSelectProps {
   multiSelect?: boolean;
   columns?: 2 | 3 | 4;
   disabled?: boolean;
-  onAutoAdvance?: () => void;      // Callback for auto-advance
+  onAutoAdvance?: (value?: string | string[]) => void; // Callback for auto-advance
   autoAdvanceDelay?: number;        // Configurable delay (default 300ms)
 }
 
@@ -45,7 +45,7 @@ export function MultiTileSelect({
       // Auto-advance after delay (if callback provided)
       if (onAutoAdvance) {
         setTimeout(() => {
-          onAutoAdvance();
+          onAutoAdvance(optionValue);
         }, autoAdvanceDelay);
       }
     }

@@ -14,20 +14,20 @@ export interface Consultant {
  * Consultant for Verkaufen (Selling) funnel
  */
 export const VERKAUFEN_CONSULTANT: Consultant = {
-  name: 'Dennis Darrrr',
+  name: 'Dennis Darwiche',
   role: 'Immobilienberater',
   initials: 'DD',
-  // photo: '/images/consultants/max-mueller.jpg', // Uncomment when real photo is available
+  photo: '/images/dennisProfil.webp',
 };
 
 /**
  * Consultant for Kaufen (Buying) funnel
  */
 export const KAUFEN_CONSULTANT: Consultant = {
-  name: 'Lisa Schmidt',
-  role: 'Kundenberaterin',
-  initials: 'LS',
-  // photo: '/images/consultants/lisa-schmidt.jpg', // Uncomment when real photo is available
+  name: 'Kya Bayat',
+  role: 'Immobilienberater',
+  initials: 'KB',
+  photo: '/images/KyaProfil.webp',
 };
 
 /**
@@ -37,4 +37,20 @@ export const getConsultantByFunnel = (
   funnelType: 'verkaufen' | 'kaufen'
 ): Consultant => {
   return funnelType === 'verkaufen' ? VERKAUFEN_CONSULTANT : KAUFEN_CONSULTANT;
+};
+
+/**
+ * Get consultant by property type selection.
+ */
+export const getConsultantByPropertyType = (
+  propertyType: string
+): Consultant | null => {
+  if (!propertyType) return null;
+  if (propertyType === 'wohnung' || propertyType === 'gewerbe') {
+    return VERKAUFEN_CONSULTANT;
+  }
+  if (propertyType === 'haus' || propertyType === 'grundstueck') {
+    return KAUFEN_CONSULTANT;
+  }
+  return null;
 };

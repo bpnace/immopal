@@ -1,10 +1,4 @@
 import type { SellingFormData, BuyingFormData } from './form-validation';
-import {
-  parseAreaRange,
-  parseBudgetRange,
-  parseConstructionYearRange,
-  parseRoomsValue,
-} from './funnel-helpers';
 
 export type WebhookType = 'selling' | 'buying' | 'referral';
 
@@ -14,72 +8,57 @@ export interface WebhookResponse {
   error?: string;
 }
 
+const N8N_WEBHOOK_URL =
+  process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
+  'https://automation.codariq.de/webhook/533c1daf-0e9f-4a18-bcb5-560f56944676';
+const N8N_BASIC_AUTH_USER = process.env.NEXT_PUBLIC_N8N_BASIC_AUTH_USER || 'immoPalAdmin';
+const N8N_BASIC_AUTH_PASS = process.env.NEXT_PUBLIC_N8N_BASIC_AUTH_PASS || 'xaxvet-fyfmav-bIgme0';
+
+const buildBasicAuthHeader = () => {
+  const raw = `${N8N_BASIC_AUTH_USER}:${N8N_BASIC_AUTH_PASS}`;
+  const token =
+    typeof btoa === 'function' ? btoa(raw) : Buffer.from(raw, 'utf-8').toString('base64');
+  return `Basic ${token}`;
+};
+
+export const getN8nHeaders = () => ({
+  'Content-Type': 'application/json',
+  Authorization: buildBasicAuthHeader(),
+});
+
 const WEBHOOK_ENDPOINTS = {
-  selling: process.env.NEXT_PUBLIC_N8N_SELLING_WEBHOOK || '/api/webhook/selling',
-  buying: process.env.NEXT_PUBLIC_N8N_BUYING_WEBHOOK || '/api/webhook/buying',
+  funnel: process.env.NEXT_PUBLIC_FUNNEL_WEBHOOK_URL || N8N_WEBHOOK_URL,
+  contact: process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL || N8N_WEBHOOK_URL,
   referral: process.env.NEXT_PUBLIC_N8N_REFERRAL_WEBHOOK || '/api/webhook/referral',
 };
 
+export const getContactWebhookUrl = () => WEBHOOK_ENDPOINTS.contact;
+
 /**
- * Submit selling funnel data to N8N webhook
+ * Submit selling funnel data directly to N8N webhook (client-side for static export)
  */
 export const submitSellingForm = async (data: SellingFormData): Promise<WebhookResponse> => {
   try {
-    // Parse range values to numeric
-    const livingAreaRange = parseAreaRange(data.livingArea);
-    const constructionYearRange = parseConstructionYearRange(data.constructionYear);
-    const roomsValue = parseRoomsValue(data.rooms);
+    const webhookUrl = WEBHOOK_ENDPOINTS.funnel;
+
+    if (!webhookUrl) {
+      throw new Error('Webhook URL not configured');
+    }
 
     const payload = {
-      type: 'selling',
+      type: 'verkaufen',
       timestamp: new Date().toISOString(),
-      property: {
-        type: data.propertyType,
-        subtype: data.propertySubtype || null,
-        address: {
-          postalCode: data.postalCode,
-          city: data.city,
-          district: data.district,
-        },
-        details: {
-          livingArea: {
-            min: livingAreaRange.min,
-            max: livingAreaRange.max,
-            display: data.livingArea,
-          },
-          rooms: {
-            value: roomsValue,
-            display: data.rooms,
-          },
-          constructionYear: {
-            min: constructionYearRange.min,
-            max: constructionYearRange.max,
-            display: data.constructionYear,
-          },
-          condition: data.condition,
-        },
-      },
-      contact: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        newsletter: data.newsletter || false,
-        gdprConsent: data.gdprConsent,
-        consentTimestamp: new Date().toISOString(),
-      },
+      ...data,
     };
 
-    const response = await fetch(WEBHOOK_ENDPOINTS.selling, {
+    const response = await fetch(webhookUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getN8nHeaders(),
       body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      throw new Error(`Webhook request failed: ${response.statusText}`);
+      throw new Error('Webhook request failed');
     }
 
     // Try to parse response, but don't fail if it's not JSON
@@ -97,73 +76,36 @@ export const submitSellingForm = async (data: SellingFormData): Promise<WebhookR
     console.error('Error submitting selling form:', error);
     return {
       success: false,
-      error: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.',
+      error: error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.',
     };
   }
 };
 
 /**
- * Submit buying funnel data to N8N webhook
+ * Submit buying funnel data directly to N8N webhook (client-side for static export)
  */
 export const submitBuyingForm = async (data: BuyingFormData): Promise<WebhookResponse> => {
   try {
-    // Parse range values to numeric
-    const livingAreaRange = parseAreaRange(data.minLivingArea);
-    const budgetRange = parseBudgetRange(data.maxBudget);
-    const roomsValue = parseRoomsValue(data.minRooms);
+    const webhookUrl = WEBHOOK_ENDPOINTS.funnel;
+
+    if (!webhookUrl) {
+      throw new Error('Webhook URL not configured');
+    }
 
     const payload = {
-      type: 'buying',
+      type: 'kaufen',
       timestamp: new Date().toISOString(),
-      search: {
-        propertyType: data.propertyType,
-        subtype: data.propertySubtype || null,
-        purchaseReason: data.purchaseReason,
-        location: {
-          postalCode: data.postalCode,
-          city: data.city,
-          district: data.district,
-          includeNeighboring: data.includeNeighboring || false,
-        },
-        budget: {
-          min: budgetRange.min,
-          max: budgetRange.max,
-          display: data.maxBudget,
-        },
-        requirements: {
-          minArea: {
-            min: livingAreaRange.min,
-            max: livingAreaRange.max,
-            display: data.minLivingArea,
-          },
-          minRooms: {
-            value: roomsValue,
-            display: data.minRooms,
-          },
-          features: data.features || [],
-        },
-      },
-      contact: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
-        newsletter: data.newsletter || false,
-        gdprConsent: data.gdprConsent,
-        consentTimestamp: new Date().toISOString(),
-      },
+      ...data,
     };
 
-    const response = await fetch(WEBHOOK_ENDPOINTS.buying, {
+    const response = await fetch(webhookUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getN8nHeaders(),
       body: JSON.stringify(payload),
     });
 
     if (!response.ok) {
-      throw new Error(`Webhook request failed: ${response.statusText}`);
+      throw new Error('Webhook request failed');
     }
 
     // Try to parse response, but don't fail if it's not JSON
@@ -181,7 +123,7 @@ export const submitBuyingForm = async (data: BuyingFormData): Promise<WebhookRes
     console.error('Error submitting buying form:', error);
     return {
       success: false,
-      error: 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.',
+      error: error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.',
     };
   }
 };

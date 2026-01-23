@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type Props = {
   address: string;
@@ -15,13 +15,37 @@ export function DsgvoGoogleMaps({
 }: Props) {
   const [hasConsent, setHasConsent] = useState(false);
 
+  const resolveConsent = useCallback(() => {
+    const stored = window.localStorage.getItem(storageKey);
+    if (stored === 'true') return true;
+    if (stored === 'false') return false;
+
+    const cookieConsentRaw = window.localStorage.getItem('cookie-consent');
+    if (!cookieConsentRaw) return false;
+    const cookieConsent = JSON.parse(cookieConsentRaw) as { analytics?: boolean; marketing?: boolean };
+    return Boolean(cookieConsent?.analytics || cookieConsent?.marketing);
+  }, [storageKey]);
+
   useEffect(() => {
     try {
-      setHasConsent(window.localStorage.getItem(storageKey) === 'true');
+      setHasConsent(resolveConsent());
     } catch {
       setHasConsent(false);
     }
-  }, [storageKey]);
+  }, [resolveConsent]);
+
+  useEffect(() => {
+    function handleConsentUpdate() {
+      try {
+        setHasConsent(resolveConsent());
+      } catch {
+        setHasConsent(false);
+      }
+    }
+
+    window.addEventListener('cookie-consent-updated', handleConsentUpdate);
+    return () => window.removeEventListener('cookie-consent-updated', handleConsentUpdate);
+  }, [resolveConsent]);
 
   const mapSrc = useMemo(() => {
     const encoded = encodeURIComponent(address);
@@ -115,4 +139,3 @@ export function DsgvoGoogleMaps({
     </div>
   );
 }
-
