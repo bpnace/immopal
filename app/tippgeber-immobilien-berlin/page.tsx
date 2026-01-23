@@ -119,7 +119,7 @@ export default function TippgeberLandingPage() {
               </div>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/kontakt"
+                  href="/verkaufen"
                   className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-6 py-4 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-colors sm:flex-1"
                 >
                   Jetzt Tipp abgeben
@@ -137,7 +137,7 @@ export default function TippgeberLandingPage() {
               </div>
             </div>
 
-                        <div className="space-y-4">
+          <div className="space-y-4">
               <h2 className="text-2xl md:text-3xl font-semibold">Warum sich ein Tipp wirklich lohnt</h2>
               <p className="text-muted-foreground leading-relaxed">
                 Fast jeder kennt jemanden, der überlegt, eine Immobilie zu verkaufen. Was viele nicht wissen: Ein guter

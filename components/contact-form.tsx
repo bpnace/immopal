@@ -1,14 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-
-function getContactWebhookUrl(): string {
-  const url =
-    process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL ||
-    process.env.NEXT_PUBLIC_FUNNEL_WEBHOOK_URL ||
-    '';
-  return url.trim();
-}
+import { getContactWebhookUrl, getN8nHeaders } from '@/lib/webhook';
 
 export function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,9 +56,7 @@ export function ContactForm() {
 
       const response = await fetch(webhookUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: getN8nHeaders(),
         body: JSON.stringify(data),
       });
 

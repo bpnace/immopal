@@ -19,8 +19,6 @@ import { canSubmit, getRemainingCooldown } from '@/lib/rate-limit';
 import {
   propertyTypeOptions,
   purchaseReasonOptions,
-  getSubtypeOptions,
-  requiresSubtype,
   roomsOptions,
   livingAreaOptionsKaufen,
   budgetOptions,
@@ -97,9 +95,6 @@ export default function KaufenPage() {
     case 2:
       nextDisabled = !formData.purchaseReason;
       break;
-    case 3:
-      nextDisabled = !formData.propertySubtype;
-      break;
     case 4:
       nextDisabled = !formData.minRooms;
       break;
@@ -124,7 +119,7 @@ export default function KaufenPage() {
     setFormData((prev) => {
       if (field === 'propertyType') {
         const propertyTypeValue = value as BuyingFormData['propertyType'];
-        return { ...prev, propertyType: propertyTypeValue, propertySubtype: '' };
+        return { ...prev, propertyType: propertyTypeValue };
       }
       return { ...prev, [field]: value } as Partial<BuyingFormData>;
     });
@@ -168,8 +163,8 @@ export default function KaufenPage() {
   const handleAutoAdvance = () => {
     setDirection(1);
 
-    // Skip step 3 (subtype) if property type is not Haus
-    if (currentStep === 2 && !requiresSubtype(formData.propertyType || '')) {
+    // Skip subtype step
+    if (currentStep === 2) {
       setCurrentStep(4); // Jump to rooms
       return;
     }
@@ -184,8 +179,8 @@ export default function KaufenPage() {
 
     setDirection(1);
 
-    // Skip step 3 (subtype) if property type is not Haus
-    if (currentStep === 2 && !requiresSubtype(formData.propertyType || '')) {
+    // Skip subtype step
+    if (currentStep === 2) {
       setCurrentStep(4); // Jump to rooms
       return;
     }
@@ -202,14 +197,8 @@ export default function KaufenPage() {
       return;
     }
 
-    // Skip step 3 (subtype) when going back
-    if (currentStep === 4 && !requiresSubtype(formData.propertyType || '')) {
-      setFormData((prev) => ({
-        ...prev,
-        propertyType: '',
-        propertySubtype: '',
-      }));
-      setCurrentStep(startStep); // Jump back to property type
+    if (currentStep === 4) {
+      setCurrentStep(2);
       return;
     }
 
@@ -217,7 +206,6 @@ export default function KaufenPage() {
       setFormData((prev) => ({
         ...prev,
         propertyType: '',
-        propertySubtype: '',
       }));
       setCurrentStep(startStep);
       return;
@@ -387,42 +375,6 @@ export default function KaufenPage() {
             />
             {getError('purchaseReason') && (
               <p className="mt-4 text-sm text-destructive">{getError('purchaseReason')}</p>
-            )}
-          </FunnelLayout>
-        );
-
-      case 3:
-        // Step 3: Property Subtype
-        const subtypeOptions = getSubtypeOptions(formData.propertyType || '');
-        const subtypeLabel =
-          formData.propertyType === 'wohnung'
-            ? 'der Wohnung'
-            : formData.propertyType === 'haus'
-              ? 'des Hauses'
-              : formData.propertyType === 'gewerbe'
-                ? 'der Gewerbeimmobilie'
-                : formData.propertyType === 'grundstueck'
-                  ? 'des Grundstücks'
-                  : 'der Immobilie';
-        return (
-          <FunnelLayout
-            consultant={KAUFEN_CONSULTANT}
-            showConsultant={false}
-            question={`Bitte wählen Sie die Art ${subtypeLabel}`}
-            onBack={handleBack}
-            onNext={handleNext}
-            nextDisabled={!formData.propertySubtype}
-          >
-            <MultiTileSelect
-              options={subtypeOptions}
-              value={formData.propertySubtype || ''}
-              onChange={(value) => handleInputChange('propertySubtype', value as string)}
-              onAutoAdvance={handleAutoAdvance}
-              autoAdvanceDelay={300}
-              columns={4}
-            />
-            {getError('propertySubtype') && (
-              <p className="mt-4 text-sm text-destructive">{getError('propertySubtype')}</p>
             )}
           </FunnelLayout>
         );

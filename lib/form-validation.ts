@@ -271,14 +271,7 @@ export const validateSellingStep = (
       );
 
     case 3:
-      // Step 3: Property Subtype (only for haus)
-      if (data.propertyType === 'haus') {
-        return validateTileSelection(
-          data.propertySubtype,
-          'propertySubtype',
-          'Bitte wählen Sie einen Untertyp aus'
-        );
-      }
+      // Step 3: Property Subtype (removed from funnel)
       return [];
 
     case 4:
@@ -378,14 +371,7 @@ export const validateBuyingStep = (
       );
 
     case 3:
-      // Step 3: Property Subtype (only for haus)
-      if (data.propertyType === 'haus') {
-        return validateTileSelection(
-          data.propertySubtype,
-          'propertySubtype',
-          'Bitte wählen Sie einen Untertyp aus'
-        );
-      }
+      // Step 3: Property Subtype (removed from funnel)
       return [];
 
     case 4:

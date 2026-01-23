@@ -23,8 +23,14 @@ export default function Home() {
       } catch (err) {
         console.error('Failed to fetch listings:', err);
         const message =
-          err instanceof Error ? err.message : typeof err === 'string' ? err : 'Unknown error while fetching listings';
-        setError(process.env.NODE_ENV === 'production' ? 'Fehler beim Laden der Immobilien' : message);
+          err instanceof Error
+            ? err.message
+            : typeof err === 'string'
+              ? err
+              : 'Unknown error while fetching listings';
+        setError(
+          process.env.NODE_ENV === 'production' ? 'Fehler beim Laden der Immobilien' : message
+        );
       } finally {
         setLoading(false);
       }
@@ -52,7 +58,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="relative min-h-[calc(100svh-4rem)] pt-20 pb-14 md:pt-28 md:pb-16 overflow-hidden bg-gradient-to-b from-primary/5 to-background home-section-divider">
+      <section className="relative pt-20 pb-14 md:pt-28 md:pb-16 overflow-hidden bg-gradient-to-b from-primary/5 to-background home-section-divider">
         <Image
           src="/images/hero1.webp"
           alt=""
@@ -71,7 +77,7 @@ export default function Home() {
               Ihr Immobilienmakler in Berlin & Brandenburg. Deutschlandweit vernetzt!
             </h1>
             <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
-                Kaufen. Verkaufen. Vermitteln.
+              Kaufen. Verkaufen. Vermitteln.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <Link
@@ -195,7 +201,10 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Warum ImmoPal?</h2>
             <p className="text-muted-foreground text-lg max-w-4xl mx-auto">
-              ImmoPal ist Ihr Immobilienmakler für Berlin & Brandenburg mit deutschlandweitem Netzwerk. Wir unterstützen Eigentümer beim Verkauf von Wohnungen und Häusern sowie Käufer bei der Suche nach passenden Immobilien – transparent, effizient und persönlich.
+              ImmoPal ist Ihr Immobilienmakler für Berlin & Brandenburg mit deutschlandweitem
+              Netzwerk. Wir unterstützen Eigentümer beim Verkauf von Wohnungen und Häusern sowie
+              Käufer bei der Suche nach passenden Immobilien – transparent, effizient und
+              persönlich.
             </p>
           </div>
 
@@ -285,8 +294,8 @@ export default function Home() {
               <div className="space-y-3">
                 <div className="text-xl font-semibold">Google Bewertungen</div>
                 <p className="text-sm text-muted-foreground">
-                  Unsere Kunden teilen ihre Erfahrungen auf Google. Lesen Sie die aktuellen Rezensionen
-                  direkt auf unserem Google-Profil.
+                  Unsere Kunden teilen ihre Erfahrungen auf Google. Lesen Sie die aktuellen
+                  Rezensionen direkt auf unserem Google-Profil.
                 </p>
               </div>
               <div className="flex flex-col items-start gap-3">

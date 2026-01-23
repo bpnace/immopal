@@ -66,8 +66,11 @@ export function FaqSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">FAQ – Immobilienmakler, Bewertung & Verkauf</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Antworten auf häufige Fragen rund um Immobilienverkauf, Immobilienbewertung und Maklerprovision.
+          <p className="text-muted-foreground text-lg max-w-5xl mx-auto">
+Ob Wohnung kaufen, Haus verkaufen oder Immobilie bewerten:
+Als erfahrener Immobilienmakler begleiten wir Sie in Berlin, Brandenburg und deutschlandweit – persönlich, transparent und effizient.
+IMMOPAL ist Ihr Immobilienmakler für Berlin & Brandenburg mit deutschlandweitem Netzwerk. Wir unterstützen Eigentümer beim Verkauf von Wohnungen und Häusern sowie Käufer bei der Suche nach passenden Immobilien – transparent, effizient und persönlich.
+Kostenlose Immobilienbewertung. Persönliche Beratung. Klare Ergebnisse.
           </p>
         </div>
 

@@ -39,7 +39,7 @@ export default function UeberUnsPage() {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">
-                    <span className="inline-flex items-center gap-2">
+                    <span className="inline-flex items-center gap-2 before:inline-block before:h-6 before:w-6 before:opacity-0 before:content-['']">
                       Kya Bayat
                       <Link
                         href="https://wa.me/493046690542"
@@ -76,7 +76,7 @@ export default function UeberUnsPage() {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">
-                    <span className="inline-flex items-center gap-2">
+                    <span className="inline-flex items-center gap-2 before:inline-block before:h-6 before:w-6 before:opacity-0 before:content-['']">
                       Dennis Darwiche
                       <Link
                         href="https://wa.me/493046690542"
@@ -95,7 +95,7 @@ export default function UeberUnsPage() {
                       </Link>
                     </span>
                   </h3>
-                  <p className="text-primary font-medium mb-3">Immobilienberater</p>
+                  <p className="text-primary-center font-medium mb-3">Immobilienberater</p>
                   <p className="text-sm text-muted-foreground">
                     Schwerpunkt im Bereich Wohnimmobilien und Gewerbe
                     Miete und Kauf
@@ -116,7 +116,7 @@ export default function UeberUnsPage() {
                 </div>
                 <div className="p-6 text-center">
                   <h3 className="text-xl font-semibold mb-1">
-                    <span className="inline-flex items-center gap-2">
+                    <span className="inline-flex items-center gap-2 before:inline-block before:h-4 before:w-4 before:opacity-0 before:content-['']">
                       Arthur Marshall
                       <Link
                         href="https://www.linkedin.com/in/tarik-arthur-marshall-6112b2239"
@@ -152,7 +152,7 @@ export default function UeberUnsPage() {
                   />
                 </div>
                 <div className="p-6 text-center">
-                  <h3 className="text-xl font-semibold mb-1">Feelgood Manager</h3>
+                  <h3 className="text-xl font-semibold mb-1">Bonnie</h3>
                   <p className="text-primary font-medium mb-3">Bürohund</p>
                 </div>
               </div>

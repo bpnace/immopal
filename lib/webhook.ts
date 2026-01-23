@@ -8,10 +8,31 @@ export interface WebhookResponse {
   error?: string;
 }
 
+const N8N_WEBHOOK_URL =
+  process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
+  'https://automation.codariq.de/webhook/533c1daf-0e9f-4a18-bcb5-560f56944676';
+const N8N_BASIC_AUTH_USER = process.env.NEXT_PUBLIC_N8N_BASIC_AUTH_USER || 'immoPalAdmin';
+const N8N_BASIC_AUTH_PASS = process.env.NEXT_PUBLIC_N8N_BASIC_AUTH_PASS || 'xaxvet-fyfmav-bIgme0';
+
+const buildBasicAuthHeader = () => {
+  const raw = `${N8N_BASIC_AUTH_USER}:${N8N_BASIC_AUTH_PASS}`;
+  const token =
+    typeof btoa === 'function' ? btoa(raw) : Buffer.from(raw, 'utf-8').toString('base64');
+  return `Basic ${token}`;
+};
+
+export const getN8nHeaders = () => ({
+  'Content-Type': 'application/json',
+  Authorization: buildBasicAuthHeader(),
+});
+
 const WEBHOOK_ENDPOINTS = {
-  funnel: process.env.NEXT_PUBLIC_FUNNEL_WEBHOOK_URL || '',
+  funnel: process.env.NEXT_PUBLIC_FUNNEL_WEBHOOK_URL || N8N_WEBHOOK_URL,
+  contact: process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL || N8N_WEBHOOK_URL,
   referral: process.env.NEXT_PUBLIC_N8N_REFERRAL_WEBHOOK || '/api/webhook/referral',
 };
+
+export const getContactWebhookUrl = () => WEBHOOK_ENDPOINTS.contact;
 
 /**
  * Submit selling funnel data directly to N8N webhook (client-side for static export)
@@ -32,9 +53,7 @@ export const submitSellingForm = async (data: SellingFormData): Promise<WebhookR
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getN8nHeaders(),
       body: JSON.stringify(payload),
     });
 
@@ -81,9 +100,7 @@ export const submitBuyingForm = async (data: BuyingFormData): Promise<WebhookRes
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getN8nHeaders(),
       body: JSON.stringify(payload),
     });
 

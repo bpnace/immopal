@@ -74,7 +74,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
 
         <div className="flex flex-col gap-2 sm:flex-row">
           <a
-            href="/kontakt"
+            href="/verkaufen"
             className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-lg text-sm font-medium text-center transition-colors sm:flex-1"
           >
             Jetzt Immobilie empfehlen
@@ -110,7 +110,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
         {/* Calculator Section */}
         <div className="bg-card border-2 border-border rounded-2xl p-8 md:p-10 shadow-lg">
           <h2 className="text-2xl font-bold mb-6">
-            Schätzen Sie den Immobilienwert – wir zeigen Ihnen Ihre mögliche Provision.
+            Schätzen Sie den Immobilienwert, wir zeigen Ihnen Ihre mögliche Provision.
           </h2>
 
           {/* Value Display */}
@@ -170,7 +170,7 @@ export function ReferralCalculator({ compact = false }: ReferralCalculatorProps)
 
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
-              href="/kontakt"
+              href="/verkaufen"
               className="block w-full bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-4 rounded-xl text-lg font-bold text-center transition-all hover:scale-105 shadow-md sm:flex-1"
             >
               Jetzt Immobilie empfehlen

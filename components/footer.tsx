@@ -104,7 +104,7 @@ export function Footer() {
                   030 46690542
                 </a>
               </li>
-              <li className="text-sm text-muted-foreground">Kurfürstendamm 66, 10707 Berlin</li>
+              <li className="text-sm text-muted-foreground">Büro: Kurfürstendamm 66, 10707 Berlin</li>
             </ul>
 
             <div className="mt-4 flex items-center gap-3">
