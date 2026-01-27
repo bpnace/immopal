@@ -9,6 +9,9 @@ import { getSiteUrl } from '@/lib/site';
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  alternates: {
+    canonical: './',
+  },
   title: {
     default: 'ImmoPal - Immobilien in Deutschland kaufen & verkaufen',
     template: '%s - ImmoPal',

@@ -46,6 +46,11 @@ DirectoryIndex index.html
 RewriteEngine On
 RewriteBase /
 
+# Enforce HTTPS and canonical host
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} !^www\\.immo-pal\\.de$ [NC]
+RewriteRule ^(.*)$ https://www.immo-pal.de/$1 [R=301,L]
+
 # Redirect legacy URLs
 RewriteRule ^immobilien/?$ /angebote/ [R=302,L]
 RewriteRule ^immobilien/([^/]+)/?$ /angebote/?slug=$1 [R=302,L,QSA]
