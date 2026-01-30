@@ -10,7 +10,7 @@ import { getSiteUrl } from '@/lib/site';
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   alternates: {
-    canonical: './',
+    canonical: '/',
   },
   title: {
     default: 'ImmoPal - Immobilien in Deutschland kaufen & verkaufen',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'de_DE',
-    url: getSiteUrl(),
+    url: `${getSiteUrl()}/`,
     title: 'ImmoPal - Immobilien in Deutschland kaufen & verkaufen',
     description: 'Professioneller Immobilienmakler für Deutschland. Kostenlose Beratung & Bewertung.',
     siteName: 'ImmoPal',

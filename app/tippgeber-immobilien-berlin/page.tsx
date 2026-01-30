@@ -3,12 +3,25 @@ import Script from 'next/script';
 import type { Metadata } from 'next';
 import { getSiteUrl } from '@/lib/site';
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  title: 'Immobilie empfehlen & 20% Provision sichern - ImmoPal',
+  title: 'Immobilie empfehlen & 20% Provision sichern',
   description:
     'Kennen Sie jemanden, der eine Immobilie verkaufen möchte? Ein Tipp genügt, wir übernehmen den Verkauf.',
   alternates: {
-    canonical: `${getSiteUrl()}/tippgeber-immobilien-berlin`,
+    canonical: `${siteUrl}/tippgeber-immobilien-berlin/`,
+  },
+  openGraph: {
+    title: 'Immobilie empfehlen & 20% Provision sichern - ImmoPal',
+    description:
+      'Kennen Sie jemanden, der eine Immobilie verkaufen möchte? Ein Tipp genügt, wir übernehmen den Verkauf.',
+    url: `${siteUrl}/tippgeber-immobilien-berlin/`,
+  },
+  twitter: {
+    title: 'Immobilie empfehlen & 20% Provision sichern - ImmoPal',
+    description:
+      'Kennen Sie jemanden, der eine Immobilie verkaufen möchte? Ein Tipp genügt, wir übernehmen den Verkauf.',
   },
 };
 

@@ -1,9 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { getSiteUrl } from '@/lib/site';
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: 'Datenschutz - ImmoPal',
-  description: 'Datenschutz und Informationen zur Datenverarbeitung von ImmoPal UG (haftungsbeschränkt)',
+  title: 'Datenschutz',
+  description: 'Datenschutz und Informationen zur Datenverarbeitung von ImmoPal UG (haftungsbeschränkt).',
+  alternates: {
+    canonical: `${siteUrl}/datenschutz/`,
+  },
+  openGraph: {
+    title: 'Datenschutz - ImmoPal',
+    description: 'Datenschutz und Informationen zur Datenverarbeitung von ImmoPal UG (haftungsbeschränkt).',
+    url: `${siteUrl}/datenschutz/`,
+  },
+  twitter: {
+    title: 'Datenschutz - ImmoPal',
+    description: 'Datenschutz und Informationen zur Datenverarbeitung von ImmoPal UG (haftungsbeschränkt).',
+  },
 };
 
 export default function DatenschutzPage() {

@@ -10,9 +10,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Immobilie verkaufen - Kostenlose Bewertung - ImmoPal',
     description: 'Kostenlose Immobilienbewertung in 48 Stunden. Professionelle Verkaufsberatung.',
+    url: `${siteUrl}/verkaufen/`,
   },
   alternates: {
-    canonical: `${siteUrl}/verkaufen`,
+    canonical: `${siteUrl}/verkaufen/`,
+  },
+  twitter: {
+    title: 'Immobilie verkaufen - Kostenlose Bewertung - ImmoPal',
+    description: 'Kostenlose Immobilienbewertung in 48 Stunden. Professionelle Verkaufsberatung.',
   },
 };
 

@@ -42,10 +42,26 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href="/kostenlose-immobilienbewertung-berlin-brandenburg"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Immobilienbewertung
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/ueber-uns"
                   className="text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   Über uns
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/tippgeber-immobilien-berlin"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  Tippgeber
                 </Link>
               </li>
               <li>

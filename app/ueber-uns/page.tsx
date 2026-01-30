@@ -1,11 +1,28 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getSiteUrl } from '@/lib/site';
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: 'Über uns - ImmoPal',
+  title: 'Über uns',
   description:
-    'Erfahren Sie mehr über ImmoPal, Ihr vertrauensvoller Partner für Immobilien in Deutschland',
+    'Erfahren Sie mehr über ImmoPal, Ihren vertrauensvollen Partner für Immobilien in Deutschland.',
+  alternates: {
+    canonical: `${siteUrl}/ueber-uns/`,
+  },
+  openGraph: {
+    title: 'Über uns - ImmoPal',
+    description:
+      'Erfahren Sie mehr über ImmoPal, Ihren vertrauensvollen Partner für Immobilien in Deutschland.',
+    url: `${siteUrl}/ueber-uns/`,
+  },
+  twitter: {
+    title: 'Über uns - ImmoPal',
+    description:
+      'Erfahren Sie mehr über ImmoPal, Ihren vertrauensvollen Partner für Immobilien in Deutschland.',
+  },
 };
 
 export default function UeberUnsPage() {
