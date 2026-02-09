@@ -4,6 +4,9 @@ import { chmodSync, readdirSync, statSync, unlinkSync } from 'node:fs';
 
 const outDir = join(process.cwd(), 'out');
 mkdirSync(outDir, { recursive: true });
+const htaccessPath = join(outDir, '.htaccess');
+const generateHtaccessEnv = process.env.GENERATE_HTACCESS?.trim().toLowerCase();
+const shouldGenerateHtaccess = !(generateHtaccessEnv === '0' || generateHtaccessEnv === 'false' || generateHtaccessEnv === 'no');
 
 function normalizePermissions(dir) {
   const entries = readdirSync(dir, { withFileTypes: true });
@@ -70,10 +73,20 @@ RewriteRule ^immobilien/([^/]+)/?$ /angebote/?slug=$1 [R=301,L,QSA]
 </IfModule>
 `;
 
-writeFileSync(join(outDir, '.htaccess'), htaccess, 'utf8');
-chmodSync(join(outDir, '.htaccess'), 0o644);
+if (shouldGenerateHtaccess) {
+  writeFileSync(htaccessPath, htaccess, 'utf8');
+  chmodSync(htaccessPath, 0o644);
+  console.log('Wrote out/.htaccess');
+} else {
+  try {
+    unlinkSync(htaccessPath);
+    console.log('Removed out/.htaccess (GENERATE_HTACCESS disabled)');
+  } catch {
+    // ignore if file does not exist
+  }
+  console.log('Skipped out/.htaccess generation (GENERATE_HTACCESS disabled)');
+}
 
 // Ensure Apache can read all exported files (important for webspace deployments).
 chmodSync(outDir, 0o755);
 normalizePermissions(outDir);
-console.log('Wrote out/.htaccess');

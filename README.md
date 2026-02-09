@@ -27,6 +27,15 @@ npm start
 
 Öffnen Sie [http://localhost:3000](http://localhost:3000) im Browser.
 
+## Deployment auf IONOS (.htaccess)
+
+Bei statischem Export wird standardmäßig `out/.htaccess` erzeugt (Canonical-Redirects, Legacy-Redirects, Caching).
+
+- Standard (empfohlen für Apache/IONOS): `.htaccess` wird erzeugt.
+- Ohne `.htaccess`: Build mit `GENERATE_HTACCESS=false npm run build`.
+
+Hinweis: Ohne `.htaccess` muss HTTPS/Host-Canonicalisierung (`http` -> `https`, non-www -> `www`) in IONOS selbst konfiguriert werden.
+
 ## Projektstruktur
 
 ```

@@ -3,22 +3,27 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 
 import { fetchListings, type Listing } from '@/lib/listings';
 import { ListingsGrid } from '@/components/listings-grid';
 import { ListingDetailClient } from './listing-detail-client';
 
 export function AngebotePageClient() {
-  const searchParams = useSearchParams();
-  const slug = searchParams.get('slug');
+  const [slug, setSlug] = useState<string | null>(null);
+  const [searchReady, setSearchReady] = useState(false);
 
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (slug) return;
+    const params = new URLSearchParams(window.location.search);
+    setSlug(params.get('slug'));
+    setSearchReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!searchReady || slug) return;
     async function loadListings() {
       try {
         setLoading(true);
@@ -32,9 +37,9 @@ export function AngebotePageClient() {
       }
     }
     loadListings();
-  }, [slug]);
+  }, [searchReady, slug]);
 
-  if (slug) {
+  if (searchReady && slug) {
     return <ListingDetailClient slug={slug} />;
   }
 
