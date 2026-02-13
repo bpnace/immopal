@@ -3,27 +3,22 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 import { fetchArticles, type Article } from '@/lib/articles';
 import { formatDate } from '@/lib/utils';
 import { BlogArticleClient } from './blog-article-client';
 
 export function BlogPageClient() {
-  const [slug, setSlug] = useState<string | null>(null);
-  const [searchReady, setSearchReady] = useState(false);
+  const searchParams = useSearchParams();
+  const slug = searchParams.get('slug');
 
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setSlug(params.get('slug'));
-    setSearchReady(true);
-  }, []);
-
-  useEffect(() => {
-    if (!searchReady || slug) return;
+    if (slug) return;
     async function loadArticles() {
       try {
         setLoading(true);
@@ -39,9 +34,9 @@ export function BlogPageClient() {
       }
     }
     loadArticles();
-  }, [searchReady, slug]);
+  }, [slug]);
 
-  if (searchReady && slug) {
+  if (slug) {
     return <BlogArticleClient slug={slug} />;
   }
 

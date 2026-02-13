@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { getSiteUrl } from '@/lib/site';
 
 import { BlogPageClient } from './blog-page-client';
@@ -26,5 +27,9 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  return <BlogPageClient />;
+  return (
+    <Suspense fallback={<main className="container mx-auto px-4 py-20 text-muted-foreground">Lade Blog...</main>}>
+      <BlogPageClient />
+    </Suspense>
+  );
 }
