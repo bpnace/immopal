@@ -10,16 +10,17 @@ import { getSiteUrl } from '@/lib/site';
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
   alternates: {
-    canonical: './',
+    canonical: '/',
   },
   title: {
-    default: 'ImmoPal - Immobilien in Deutschland kaufen & verkaufen',
+    default: 'Immobilien in Berlin & Brandenburg kaufen & verkaufen',
     template: '%s - ImmoPal',
   },
   description:
-    'Professioneller Immobilienmakler für ganz Deutschland. Wohnung kaufen, Haus verkaufen deutschlandweit. Kostenlose Beratung & Bewertung in 48 Stunden. Jetzt anfragen!',
+    'Wohnung oder Haus in Berlin & Brandenburg verkaufen? Kostenlose Immobilienbewertung, unabhängige Zweitmeinung und strukturierter Verkaufsprozess ohne Verkaufsdruck.',
   keywords: [
-    'Immobilien Deutschland',
+    'Immobilien Berlin',
+    'Immobilien Brandenburg',
     'Immobilien kaufen',
     'Haus verkaufen',
     'Wohnung kaufen',
@@ -47,21 +48,23 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'de_DE',
-    url: getSiteUrl(),
-    title: 'ImmoPal - Immobilien in Deutschland kaufen & verkaufen',
-    description: 'Professioneller Immobilienmakler für Deutschland. Kostenlose Beratung & Bewertung.',
+    url: `${getSiteUrl()}/`,
+    title: 'Immobilien in Berlin & Brandenburg kaufen & verkaufen',
+    description:
+      'Wohnung oder Haus in Berlin & Brandenburg verkaufen? Kostenlose Immobilienbewertung, unabhängige Zweitmeinung und strukturierter Verkaufsprozess ohne Verkaufsdruck.',
     siteName: 'ImmoPal',
     images: [
       {
         url: '/images/logo1.png',
-        alt: 'ImmoPal - Ihr Immobilienmakler in Deutschland',
+        alt: 'ImmoPal - Ihr Immobilienmakler in Berlin & Brandenburg',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ImmoPal - Immobilien in Deutschland kaufen & verkaufen',
-    description: 'Professioneller Immobilienmakler für Deutschland. Kostenlose Beratung & Bewertung.',
+    title: 'Immobilien in Berlin & Brandenburg kaufen & verkaufen',
+    description:
+      'Wohnung oder Haus in Berlin & Brandenburg verkaufen? Kostenlose Immobilienbewertung, unabhängige Zweitmeinung und strukturierter Verkaufsprozess ohne Verkaufsdruck.',
     images: ['/images/logo1.png'],
     creator: '@immo-pal',
   },
@@ -95,7 +98,7 @@ export default function RootLayout({
       <body className="font-sans flex flex-col min-h-screen">
         <OrganizationSchema />
         <Navigation />
-        <main className="flex-grow">{children}</main>
+        <div className="flex-grow">{children}</div>
         <Footer />
         <CookieBanner />
         <WhatsAppButton />

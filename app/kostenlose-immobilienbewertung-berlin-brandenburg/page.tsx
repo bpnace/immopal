@@ -3,12 +3,25 @@ import Script from 'next/script';
 import type { Metadata } from 'next';
 import { getSiteUrl } from '@/lib/site';
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  title: 'Kostenlose Immobilienbewertung Berlin & Brandenburg - ImmoPal',
+  title: 'Kostenlose Immobilienbewertung Berlin & Brandenburg',
   description:
     'Kostenlose Immobilienbewertung für Wohnungen und Häuser in Berlin und Brandenburg. Persönlich, nachvollziehbar und ohne Verpflichtungen.',
   alternates: {
-    canonical: `${getSiteUrl()}/kostenlose-immobilienbewertung-berlin-brandenburg`,
+    canonical: `${siteUrl}/kostenlose-immobilienbewertung-berlin-brandenburg/`,
+  },
+  openGraph: {
+    title: 'Kostenlose Immobilienbewertung Berlin & Brandenburg - ImmoPal',
+    description:
+      'Kostenlose Immobilienbewertung für Wohnungen und Häuser in Berlin und Brandenburg. Persönlich, nachvollziehbar und ohne Verpflichtungen.',
+    url: `${siteUrl}/kostenlose-immobilienbewertung-berlin-brandenburg/`,
+  },
+  twitter: {
+    title: 'Kostenlose Immobilienbewertung Berlin & Brandenburg - ImmoPal',
+    description:
+      'Kostenlose Immobilienbewertung für Wohnungen und Häuser in Berlin und Brandenburg. Persönlich, nachvollziehbar und ohne Verpflichtungen.',
   },
 };
 

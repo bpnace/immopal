@@ -81,7 +81,7 @@ export function ListingDetailClient({ slug }: Props) {
     );
   }
 
-  const heroImage = listing.images[0]!;
+  const heroImage = listing.images[0] || '/images/hero1.webp';
   const price = listing.price !== null ? formatPrice(listing.price) : 'Auf Anfrage';
 
   return (

@@ -1,11 +1,28 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getSiteUrl } from '@/lib/site';
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: 'Über uns - ImmoPal',
+  title: 'Über uns',
   description:
-    'Erfahren Sie mehr über ImmoPal, Ihr vertrauensvoller Partner für Immobilien in Deutschland',
+    'Erfahren Sie mehr über ImmoPal, Ihren vertrauensvollen Partner für Immobilien in Deutschland.',
+  alternates: {
+    canonical: `${siteUrl}/ueber-uns/`,
+  },
+  openGraph: {
+    title: 'Über uns - ImmoPal',
+    description:
+      'Erfahren Sie mehr über ImmoPal, Ihren vertrauensvollen Partner für Immobilien in Deutschland.',
+    url: `${siteUrl}/ueber-uns/`,
+  },
+  twitter: {
+    title: 'Über uns - ImmoPal',
+    description:
+      'Erfahren Sie mehr über ImmoPal, Ihren vertrauensvollen Partner für Immobilien in Deutschland.',
+  },
 };
 
 export default function UeberUnsPage() {
@@ -62,6 +79,18 @@ export default function UeberUnsPage() {
                   <p className="text-sm text-muted-foreground">
                     Immobilienberater - Regionaler Experte in Berlin und Brandenburg
                   </p>
+                  <div className="mt-4 space-y-1 text-sm text-muted-foreground">
+                    <div>
+                      <a href="tel:+493046690542" className="hover:text-primary transition-colors">
+                        Tel: 030 46690542
+                      </a>
+                    </div>
+                    <div>
+                      <a href="mailto:kya@immo-pal.de" className="hover:text-primary transition-colors">
+                        E-Mail: kya@immo-pal.de
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -95,11 +124,22 @@ export default function UeberUnsPage() {
                       </Link>
                     </span>
                   </h3>
-                  <p className="text-primary-center font-medium mb-3">Immobilienberater</p>
+                  <p className="text-primary font-medium mb-3">Immobilienberater</p>
                   <p className="text-sm text-muted-foreground">
-                    Schwerpunkt im Bereich Wohnimmobilien und Gewerbe
-                    Miete und Kauf
+                    Schwerpunkt im Bereich Wohnimmobilien & Gewerbe zur Miete und Kauf
                   </p>
+                  <div className="mt-4 space-y-1 text-sm text-muted-foreground">
+                    <div>
+                      <a href="tel:+493046690542" className="hover:text-primary transition-colors">
+                        Tel: 030 46690542
+                      </a>
+                    </div>
+                    <div>
+                      <a href="mailto:dennis@immo-pal.de" className="hover:text-primary transition-colors">
+                        E-Mail: dennis@immo-pal.de
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -109,7 +149,7 @@ export default function UeberUnsPage() {
                 <div className="relative h-64 bg-muted">
                   <Image
                     src="/images/tarik.webp"
-                    alt="Thomas Weber"
+                    alt="Arthur Marshall"
                     fill
                     className="object-cover object-top"
                   />
@@ -139,6 +179,13 @@ export default function UeberUnsPage() {
                   <p className="text-sm text-muted-foreground">
                     Verantwortlich für die technische Entwicklung unserer Plattform
                   </p>
+                  <div className="mt-4 space-y-1 text-sm text-muted-foreground">
+                    <div>
+                      <a href="mailto:info@stackwerkhaus.de" className="hover:text-primary transition-colors">
+                        E-Mail: info@stackwerkhaus.de
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -172,19 +219,19 @@ export default function UeberUnsPage() {
                   <h3 className="text-xl font-semibold mb-1">
                     <span className="inline-block text-center">Mara König</span>
                   </h3>
-                  <p className="text-primary font-medium mb-3">Kundenservice</p>
-                      <Link
-                        href="mailto:info@immo-pal.de"
-                        aria-label="E-Mail an info@immo-pal.de senden"
-                        className="inline-flex items-center opacity-70 transition-opacity hover:opacity-100">
-                        <Image
-                          src="/images/gmail-neu.png"
-                          alt=""
-                          width={16}
-                          height={16}
-                          className="h-6 w-6"
-                        />
-                      </Link>
+                  <p className="text-primary font-medium mb-3">Kundenberaterin</p>
+                  <div className="mt-4 space-y-1 text-sm text-muted-foreground">
+                    <div>
+                      <a href="tel:+493046690542" className="hover:text-primary transition-colors">
+                        Tel: 030 46690542
+                      </a>
+                    </div>
+                    <div>
+                      <a href="mailto:info@immo-pal.de" className="hover:text-primary transition-colors">
+                        E-Mail: info@immo-pal.de
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

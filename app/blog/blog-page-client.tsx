@@ -82,7 +82,7 @@ export function BlogPageClient() {
               >
                 <div className="relative h-56 bg-muted">
                   <Image
-                    src={article.imageUrl!}
+                    src={article.imageUrl || '/images/hero1.webp'}
                     alt={article.title}
                     fill
                     className="object-cover"

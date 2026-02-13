@@ -1,9 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { getSiteUrl } from '@/lib/site';
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: 'Impressum - ImmoPal',
-  description: 'Impressum und rechtliche Angaben von ImmoPal UG (haftungsbeschränkt)',
+  title: 'Impressum',
+  description: 'Impressum und rechtliche Angaben von ImmoPal UG (haftungsbeschränkt).',
+  alternates: {
+    canonical: `${siteUrl}/impressum/`,
+  },
+  openGraph: {
+    title: 'Impressum - ImmoPal',
+    description: 'Impressum und rechtliche Angaben von ImmoPal UG (haftungsbeschränkt).',
+    url: `${siteUrl}/impressum/`,
+  },
+  twitter: {
+    title: 'Impressum - ImmoPal',
+    description: 'Impressum und rechtliche Angaben von ImmoPal UG (haftungsbeschränkt).',
+  },
 };
 
 export default function ImpressumPage() {
@@ -66,7 +81,7 @@ export default function ImpressumPage() {
               <br />
               Registergericht: Amtsgericht Charlottenburg
               <br />
-              Registernummer: folgt (in Gründung)
+              Registernummer: HRB 283589 B
             </p>
           </section>
 

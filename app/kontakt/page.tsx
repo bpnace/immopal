@@ -1,11 +1,28 @@
 import type { Metadata } from 'next';
+import { getSiteUrl } from '@/lib/site';
 
 import { ContactForm } from '@/components/contact-form';
 import { DsgvoGoogleMaps } from '@/components/dsgvo-google-maps';
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  title: 'Kontakt - ImmoPal',
-  description: 'Kontaktieren Sie uns für eine kostenlose Beratung zu Ihrer Traumimmobilie in Berlin & Brandenburg',
+  title: 'Kontakt',
+  description: 'Kontaktieren Sie uns für eine kostenlose Beratung zu Ihrer Traumimmobilie in Berlin & Brandenburg.',
+  alternates: {
+    canonical: `${siteUrl}/kontakt/`,
+  },
+  openGraph: {
+    title: 'Kontakt - ImmoPal',
+    description:
+      'Kontaktieren Sie uns für eine kostenlose Beratung zu Ihrer Traumimmobilie in Berlin & Brandenburg.',
+    url: `${siteUrl}/kontakt/`,
+  },
+  twitter: {
+    title: 'Kontakt - ImmoPal',
+    description:
+      'Kontaktieren Sie uns für eine kostenlose Beratung zu Ihrer Traumimmobilie in Berlin & Brandenburg.',
+  },
 };
 
 export default function KontaktPage() {

@@ -74,7 +74,9 @@ export default function Home() {
         <div className="relative z-10 container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-12 text-gray-100">
-              Ihr Immobilienmakler in Berlin & Brandenburg. Deutschlandweit vernetzt!
+              <span className="block">Ihr Immobilienmakler</span>
+              <span className="block">in Berlin & Brandenburg.</span>
+              <span className="block">Deutschlandweit vernetzt!</span>
             </h1>
             <p className="text-xl text-white/85 mb-8 max-w-2xl mx-auto">
               Kaufen. Verkaufen. Vermitteln.

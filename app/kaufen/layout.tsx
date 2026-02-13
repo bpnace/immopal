@@ -10,9 +10,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Immobilie kaufen in Deutschland - ImmoPal',
     description: 'Kostenloser Suchauftrag-Service für Ihre Traumimmobilie in ganz Deutschland.',
+    url: `${siteUrl}/kaufen/`,
   },
   alternates: {
-    canonical: `${siteUrl}/kaufen`,
+    canonical: `${siteUrl}/kaufen/`,
+  },
+  twitter: {
+    title: 'Immobilie kaufen in Deutschland - ImmoPal',
+    description: 'Kostenloser Suchauftrag-Service für Ihre Traumimmobilie in ganz Deutschland.',
   },
 };
 
