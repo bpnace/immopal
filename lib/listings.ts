@@ -2,6 +2,7 @@ import { absolutizeDrupalUrl, fetchDrupal, getDrupalApiBase } from './drupal';
 
 export type Listing = {
   id: string;
+  nid: number | null;
   title: string;
   slug: string;
   type: string;
@@ -15,6 +16,7 @@ export type Listing = {
   longDescription: string;
   status: string;
   featured: boolean;
+  changedAt: string;
   createdAt: string;
   images: string[];
 };
@@ -36,6 +38,7 @@ type JsonApiResource = {
 };
 
 type ListingAttributes = {
+  drupal_internal__nid?: unknown;
   title?: unknown;
   field_slug?: unknown;
   field_type?: unknown;
@@ -49,6 +52,7 @@ type ListingAttributes = {
   field_long_description?: unknown;
   field_status?: unknown;
   field_featured?: unknown;
+  changed?: unknown;
   created?: unknown;
 };
 
@@ -80,6 +84,15 @@ function getBoolean(value: unknown): boolean {
   if (typeof value === 'number') return value === 1;
   if (typeof value === 'string') return value === '1' || value.toLowerCase() === 'true';
   return false;
+}
+
+function getInteger(value: unknown): number | null {
+  if (typeof value === 'number' && Number.isFinite(value)) return Math.trunc(value);
+  if (typeof value === 'string') {
+    const n = Number.parseInt(value, 10);
+    return Number.isFinite(n) ? n : null;
+  }
+  return null;
 }
 
 function getProcessedHtml(value: unknown): string {
@@ -137,6 +150,7 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
 
   return {
     id: item.id,
+    nid: getInteger(a.drupal_internal__nid),
     title: getString(a.title) ?? '',
     slug: getString(a.field_slug) ?? '',
     type: getString(a.field_type) ?? '',
@@ -150,6 +164,7 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
     longDescription: getProcessedHtml(a.field_long_description),
     status: getString(a.field_status) ?? '',
     featured: getBoolean(a.field_featured),
+    changedAt: getString(a.changed) ?? '',
     createdAt: getString(a.created) ?? '',
     images,
   };
@@ -158,7 +173,10 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
 export async function fetchListings(): Promise<Listing[]> {
   const base = getDrupalApiBase();
   if (!base) return [];
-  const url = `${base}/jsonapi/node/listing?include=field_main_image`;
+  const url =
+    `${base}/jsonapi/node/listing` +
+    `?include=field_main_image` +
+    `&sort=-changed,-created,-drupal_internal__nid`;
   const res = await fetchDrupal(url, { cache: 'no-store' });
 
   if (!res.ok) {

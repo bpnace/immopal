@@ -6,11 +6,14 @@ import Link from 'next/link';
 
 import { fetchArticles, type Article } from '@/lib/articles';
 
-type Props = {
-  limit?: number;
-};
+const PREVIEW_COUNT = 3;
 
-export function BlogPreview({ limit = 3 }: Props) {
+function toTimestamp(value: string): number {
+  const ts = Date.parse(value);
+  return Number.isFinite(ts) ? ts : 0;
+}
+
+export function BlogPreview() {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -18,8 +21,11 @@ export function BlogPreview({ limit = 3 }: Props) {
     async function loadArticles() {
       try {
         setLoading(true);
-        const data = await fetchArticles(limit);
-        setArticles(data);
+        const data = await fetchArticles(24);
+        const newestArticles = [...data]
+          .sort((a, b) => toTimestamp(b.createdAt) - toTimestamp(a.createdAt))
+          .slice(0, PREVIEW_COUNT);
+        setArticles(newestArticles);
       } catch (error) {
         console.error('Failed to fetch articles:', error);
         setArticles([]);
@@ -28,7 +34,7 @@ export function BlogPreview({ limit = 3 }: Props) {
       }
     }
     loadArticles();
-  }, [limit]);
+  }, []);
 
   if (loading) {
     return (
@@ -70,7 +76,7 @@ export function BlogPreview({ limit = 3 }: Props) {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {articles.slice(0, limit).map((article) => (
+            {articles.map((article) => (
               <div key={article.id} className="bg-card border border-border rounded-lg overflow-hidden flex flex-col">
                 <Link href={{ pathname: '/blog', query: { slug: article.slug } }} className="block">
                   <div className="relative aspect-[16/9] bg-muted">
