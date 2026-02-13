@@ -5,8 +5,9 @@ export function OrganizationSchema() {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'RealEstateAgent',
-    name: 'immo-pal',
-    description: 'Professioneller Immobilienmakler für Deutschland',
+    name: 'ImmoPal',
+    description:
+      'Immobilienmakler für Berlin und Brandenburg mit deutschlandweitem Netzwerk.',
     url: siteUrl,
     logo: `${siteUrl}/images/logo1.png`,
     image: `${siteUrl}/images/hero1.webp`,
@@ -21,6 +22,14 @@ export function OrganizationSchema() {
       addressCountry: 'DE',
     },
     areaServed: [
+      {
+        '@type': 'AdministrativeArea',
+        name: 'Berlin',
+      },
+      {
+        '@type': 'AdministrativeArea',
+        name: 'Brandenburg',
+      },
       {
         '@type': 'Country',
         name: 'Deutschland',

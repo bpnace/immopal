@@ -17,6 +17,7 @@ function dot() {
 export function ListingCard({ listing, badge, className }: ListingCardProps) {
   const showTopOffer = Boolean(badge);
   const badgeText = badge ?? null;
+  const coverImage = listing.images[0] || '/images/hero1.webp';
 
   return (
     <Link
@@ -30,7 +31,7 @@ export function ListingCard({ listing, badge, className }: ListingCardProps) {
     >
       <div className="relative aspect-[16/9] bg-muted">
         <Image
-          src={listing.images[0]!}
+          src={coverImage}
           alt={listing.title}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"

@@ -81,7 +81,7 @@ export default function ImpressumPage() {
               <br />
               Registergericht: Amtsgericht Charlottenburg
               <br />
-              Registernummer: folgt (in Gründung)
+              Registernummer: HRB 283589 B
             </p>
           </section>
 

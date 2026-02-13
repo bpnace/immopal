@@ -109,7 +109,7 @@ export function BlogArticleClient({ slug }: Props) {
 
         <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-muted mb-10">
           <Image
-            src={article.imageUrl!}
+            src={article.imageUrl || '/images/hero1.webp'}
             alt={article.title}
             fill
             className="object-cover"
