@@ -9,6 +9,16 @@ import { FaqSection } from '@/components/faq';
 import { fetchListings, type Listing } from '@/lib/listings';
 import { ListingCard } from '@/components/listing-card';
 
+function listingTimestamp(listing: Listing): number {
+  const changed = Date.parse(listing.changedAt);
+  if (Number.isFinite(changed)) return changed;
+
+  const created = Date.parse(listing.createdAt);
+  if (Number.isFinite(created)) return created;
+
+  return listing.nid ?? 0;
+}
+
 export default function Home() {
   const [listings, setListings] = useState<Listing[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,12 +48,9 @@ export default function Home() {
     loadListings();
   }, []);
 
-  const featuredListings = [...listings]
-    .sort((a, b) => {
-      if (a.featured !== b.featured) return a.featured ? -1 : 1;
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    })
-    .slice(0, 4);
+  const newestListings = [...listings]
+    .sort((a, b) => listingTimestamp(b) - listingTimestamp(a))
+    .slice(0, 3);
 
   if (error) {
     return (
@@ -416,7 +423,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {featuredListings.map((listing) => (
+              {newestListings.map((listing) => (
                 <ListingCard
                   key={listing.id}
                   listing={listing}
