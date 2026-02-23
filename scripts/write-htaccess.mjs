@@ -50,8 +50,11 @@ ErrorDocument 404 /404.html
 RewriteEngine On
 RewriteBase /
 
-# Enforce HTTPS and canonical host
-RewriteCond %{HTTPS} !=on [OR]
+# Step 1: Redirect HTTP to HTTPS (preserve host for next step)
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Step 2: Redirect non-www to www (only runs when already on HTTPS)
 RewriteCond %{HTTP_HOST} !^www\\.immo-pal\\.de$ [NC]
 RewriteRule ^(.*)$ https://www.immo-pal.de/$1 [R=301,L]
 
@@ -59,7 +62,22 @@ RewriteRule ^(.*)$ https://www.immo-pal.de/$1 [R=301,L]
 RewriteRule ^immobilien/?$ /angebote/ [R=301,L]
 RewriteRule ^immobilien/([^/]+)/?$ /angebote/?slug=$1 [R=301,L,QSA]
 
-# Basic caching for static assets
+# Security headers
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# Caching for static assets
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType image/jpg "access plus 1 year"
@@ -67,9 +85,14 @@ RewriteRule ^immobilien/([^/]+)/?$ /angebote/?slug=$1 [R=301,L,QSA]
   ExpiresByType image/gif "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
   ExpiresByType text/css "access plus 1 month"
   ExpiresByType application/javascript "access plus 1 month"
   ExpiresByType text/javascript "access plus 1 month"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
 `;
 
