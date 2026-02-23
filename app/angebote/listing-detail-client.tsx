@@ -16,6 +16,7 @@ export function ListingDetailClient({ slug }: Props) {
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     async function load() {
@@ -35,6 +36,10 @@ export function ListingDetailClient({ slug }: Props) {
     }
     load();
   }, [slug]);
+
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [listing?.id]);
 
   if (loading) {
     return (
@@ -81,7 +86,8 @@ export function ListingDetailClient({ slug }: Props) {
     );
   }
 
-  const heroImage = listing.images[0] || '/images/hero1.webp';
+  const galleryImages = listing.images.length > 0 ? listing.images : ['/images/hero1.webp'];
+  const activeImage = galleryImages[activeImageIndex] ?? galleryImages[0];
   const price = listing.price !== null ? formatPrice(listing.price) : 'Auf Anfrage';
 
   return (
@@ -116,15 +122,45 @@ export function ListingDetailClient({ slug }: Props) {
           </div>
         </header>
 
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-muted mb-10">
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-muted mb-4">
           <Image
-            src={heroImage}
+            src={activeImage}
             alt={listing.title}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 960px"
           />
         </div>
+
+        {galleryImages.length > 1 && (
+          <section className="mb-10">
+            <h2 className="sr-only">Bildergalerie</h2>
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+              {galleryImages.map((image, index) => (
+                <button
+                  key={`${listing.id}-gallery-${index}`}
+                  type="button"
+                  onClick={() => setActiveImageIndex(index)}
+                  className={[
+                    'relative aspect-[4/3] overflow-hidden rounded-lg border transition',
+                    index === activeImageIndex
+                      ? 'border-primary ring-2 ring-primary/30'
+                      : 'border-border hover:border-primary/50',
+                  ].join(' ')}
+                  aria-label={`Bild ${index + 1} anzeigen`}
+                >
+                  <Image
+                    src={image}
+                    alt={`${listing.title} - Bild ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 33vw, (max-width: 1024px) 20vw, 180px"
+                  />
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
 
         {listing.features.length > 0 && (
           <section className="mb-10">
@@ -137,28 +173,16 @@ export function ListingDetailClient({ slug }: Props) {
           </section>
         )}
 
-        {(listing.shortDescription || listing.longDescription) && (
+        {listing.longDescription && (
           <section className="prose prose-gray max-w-none">
-            {listing.shortDescription && (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(listing.shortDescription, {
-                    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'b', 'i', 'u', 'ul', 'ol', 'li', 'a'],
-                    ALLOWED_ATTR: ['href', 'target', 'rel'],
-                  }),
-                }}
-              />
-            )}
-            {listing.longDescription && (
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(listing.longDescription, {
-                    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'b', 'i', 'u', 'ul', 'ol', 'li', 'a', 'h2', 'h3', 'h4'],
-                    ALLOWED_ATTR: ['href', 'target', 'rel'],
-                  }),
-                }}
-              />
-            )}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(listing.longDescription, {
+                  ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'b', 'i', 'u', 'ul', 'ol', 'li', 'a', 'h2', 'h3', 'h4'],
+                  ALLOWED_ATTR: ['href', 'target', 'rel'],
+                }),
+              }}
+            />
           </section>
         )}
 

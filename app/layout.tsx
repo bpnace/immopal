@@ -7,10 +7,12 @@ import { WhatsAppButton } from '@/components/whatsapp-button';
 import { OrganizationSchema } from '@/components/structured-data';
 import { getSiteUrl } from '@/lib/site';
 
+const siteUrl = getSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL(getSiteUrl()),
+  metadataBase: new URL(siteUrl),
   alternates: {
-    canonical: '/',
+    canonical: `${siteUrl}/`,
   },
   title: {
     default: 'Immobilien in Berlin & Brandenburg kaufen & verkaufen',
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
     'Immobilienmakler Brandenburg',
     'Immobilienbewertung kostenlos',
   ],
-  authors: [{ name: 'ImmoPal', url: getSiteUrl() }],
+  authors: [{ name: 'ImmoPal', url: siteUrl }],
   creator: 'ImmoPal',
   publisher: 'ImmoPal',
   icons: {
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'de_DE',
-    url: `${getSiteUrl()}/`,
+    url: `${siteUrl}/`,
     title: 'Immobilien in Berlin & Brandenburg kaufen & verkaufen',
     description:
       'Wohnung oder Haus in Berlin & Brandenburg verkaufen? Kostenlose Immobilienbewertung, unabhängige Zweitmeinung und strukturierter Verkaufsprozess ohne Verkaufsdruck.',

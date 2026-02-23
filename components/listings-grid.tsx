@@ -10,25 +10,55 @@ const roomOptions = [0, 1, 2, 3, 4, 5];
 
 const statusLabels: Record<string, string> = {
   all: 'Alle Status',
-  available: 'Verfügbar',
+  available: 'Sofort verfügbar',
+  auf_anfrage: 'Auf Anfrage',
   reserved: 'Reserviert',
   sold: 'Verkauft',
 };
+
+type StatusFilter = 'all' | 'available' | 'auf_anfrage' | 'reserved' | 'sold';
+
+function normalizeStatus(status: string): Exclude<StatusFilter, 'all'> | 'unknown' {
+  const normalized = status
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/-+/g, '_');
+
+  if (!normalized) return 'unknown';
+  if (normalized === 'available' || normalized === 'gelistet' || normalized === 'verfugbar' || normalized === 'verfuegbar') {
+    return 'available';
+  }
+  if (normalized === 'auf_anfrage') {
+    return 'auf_anfrage';
+  }
+  if (normalized === 'reserved' || normalized === 'reserviert') {
+    return 'reserved';
+  }
+  if (normalized === 'sold' || normalized === 'verkauft') {
+    return 'sold';
+  }
+  return 'unknown';
+}
 
 type ListingsGridProps = {
   listings: Listing[];
 };
 
 export function ListingsGrid({ listings }: ListingsGridProps) {
-  const [statusFilter, setStatusFilter] = useState<'all' | Listing['status']>('all');
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>('all');
   const [locationFilter, setLocationFilter] = useState('');
   const [maxPrice, setMaxPrice] = useState(0);
   const [minRooms, setMinRooms] = useState(0);
 
   const filteredListings = useMemo(() => {
+    const normalizedLocation = locationFilter.trim().toLowerCase();
+
     return listings.filter((listing) => {
-      if (statusFilter !== 'all' && listing.status !== statusFilter) return false;
-      if (locationFilter && !listing.location.toLowerCase().includes(locationFilter.toLowerCase()))
+      if (statusFilter !== 'all' && normalizeStatus(listing.status) !== statusFilter) return false;
+      if (normalizedLocation && !listing.location.toLowerCase().includes(normalizedLocation))
         return false;
       if (maxPrice > 0) {
         if (listing.price === null) return false;
@@ -49,11 +79,12 @@ export function ListingsGrid({ listings }: ListingsGridProps) {
             <label className="text-sm font-medium mb-3 block">Status</label>
             <select
               value={statusFilter}
-              onChange={(event) => setStatusFilter(event.target.value as 'all' | Listing['status'])}
+              onChange={(event) => setStatusFilter(event.target.value as StatusFilter)}
               className="w-full px-4 py-2 rounded-md border border-input bg-background"
             >
               <option value="all">{statusLabels.all}</option>
               <option value="available">{statusLabels.available}</option>
+              <option value="auf_anfrage">{statusLabels.auf_anfrage}</option>
               <option value="reserved">{statusLabels.reserved}</option>
               <option value="sold">{statusLabels.sold}</option>
             </select>
@@ -129,7 +160,7 @@ export function ListingsGrid({ listings }: ListingsGridProps) {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 items-stretch md:grid-cols-2 gap-6">
             {filteredListings.map((listing) => (
               <ListingCard key={listing.id} listing={listing} />
             ))}
