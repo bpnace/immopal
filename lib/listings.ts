@@ -12,7 +12,6 @@ export type Listing = {
   price: number | null;
   rooms: number | null;
   features: string[];
-  shortDescription: string;
   longDescription: string;
   status: string;
   featured: boolean;
@@ -48,7 +47,6 @@ type ListingAttributes = {
   field_price?: unknown;
   field_rooms?: unknown;
   field_features?: unknown;
-  field_short_description?: unknown;
   field_long_description?: unknown;
   field_status?: unknown;
   field_featured?: unknown;
@@ -160,7 +158,6 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
     price: a.field_price ? coerceNumber(a.field_price) : null,
     rooms: firstNumber(a.field_rooms),
     features: getStringArray(a.field_features),
-    shortDescription: getProcessedHtml(a.field_short_description),
     longDescription: getProcessedHtml(a.field_long_description),
     status: getString(a.field_status) ?? '',
     featured: getBoolean(a.field_featured),
