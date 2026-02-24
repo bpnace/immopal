@@ -56,17 +56,32 @@ export function ListingsGrid({ listings }: ListingsGridProps) {
   const filteredListings = useMemo(() => {
     const normalizedLocation = locationFilter.trim().toLowerCase();
 
-    return listings.filter((listing) => {
-      if (statusFilter !== 'all' && normalizeStatus(listing.status) !== statusFilter) return false;
-      if (normalizedLocation && !listing.location.toLowerCase().includes(normalizedLocation))
-        return false;
-      if (maxPrice > 0) {
-        if (listing.price === null) return false;
-        if (listing.price > maxPrice) return false;
-      }
-      if (minRooms > 0 && (listing.rooms === null || listing.rooms < minRooms)) return false;
-      return true;
-    });
+    const statusRank = (status: string): number => {
+      const normalized = normalizeStatus(status);
+      if (normalized === 'gelistet' || normalized === 'auf_anfrage') return 0;
+      if (normalized === 'vermietet' || normalized === 'verkauft') return 1;
+      return 2;
+    };
+
+    return listings
+      .filter((listing) => {
+        if (statusFilter !== 'all' && normalizeStatus(listing.status) !== statusFilter) return false;
+        if (normalizedLocation && !listing.location.toLowerCase().includes(normalizedLocation))
+          return false;
+        if (maxPrice > 0) {
+          if (listing.price === null) return false;
+          if (listing.price > maxPrice) return false;
+        }
+        if (minRooms > 0 && (listing.rooms === null || listing.rooms < minRooms)) return false;
+        return true;
+      })
+      .map((listing, index) => ({ listing, index }))
+      .sort((a, b) => {
+        const rankDiff = statusRank(a.listing.status) - statusRank(b.listing.status);
+        if (rankDiff !== 0) return rankDiff;
+        return a.index - b.index;
+      })
+      .map(({ listing }) => listing);
   }, [listings, statusFilter, locationFilter, maxPrice, minRooms]);
 
   return (
