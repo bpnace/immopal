@@ -10,13 +10,13 @@ const roomOptions = [0, 1, 2, 3, 4, 5];
 
 const statusLabels: Record<string, string> = {
   all: 'Alle Status',
-  available: 'Sofort verfügbar',
+  gelistet: 'Sofort verfügbar',
   auf_anfrage: 'Auf Anfrage',
-  reserved: 'Reserviert',
-  sold: 'Verkauft',
+  vermietet: 'Vermietet',
+  verkauft: 'Verkauft',
 };
 
-type StatusFilter = 'all' | 'available' | 'auf_anfrage' | 'reserved' | 'sold';
+type StatusFilter = 'all' | 'gelistet' | 'auf_anfrage' | 'vermietet' | 'verkauft';
 
 function normalizeStatus(status: string): Exclude<StatusFilter, 'all'> | 'unknown' {
   const normalized = status
@@ -29,16 +29,16 @@ function normalizeStatus(status: string): Exclude<StatusFilter, 'all'> | 'unknow
 
   if (!normalized) return 'unknown';
   if (normalized === 'available' || normalized === 'gelistet' || normalized === 'verfugbar' || normalized === 'verfuegbar') {
-    return 'available';
+    return 'gelistet';
   }
   if (normalized === 'auf_anfrage') {
     return 'auf_anfrage';
   }
-  if (normalized === 'reserved' || normalized === 'reserviert') {
-    return 'reserved';
+  if (normalized === 'reserved' || normalized === 'reserviert' || normalized === 'rented' || normalized === 'vermietet') {
+    return 'vermietet';
   }
   if (normalized === 'sold' || normalized === 'verkauft') {
-    return 'sold';
+    return 'verkauft';
   }
   return 'unknown';
 }
@@ -72,7 +72,7 @@ export function ListingsGrid({ listings }: ListingsGridProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
       <aside className="lg:col-span-1">
-        <div className="bg-card border border-border rounded-lg p-6 sticky top-4">
+        <div className="bg-card border border-border rounded-lg p-6 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
           <h2 className="text-xl font-semibold mb-6">Filter</h2>
 
           <div className="mb-6">
@@ -83,10 +83,10 @@ export function ListingsGrid({ listings }: ListingsGridProps) {
               className="w-full px-4 py-2 rounded-md border border-input bg-background"
             >
               <option value="all">{statusLabels.all}</option>
-              <option value="available">{statusLabels.available}</option>
+              <option value="gelistet">{statusLabels.gelistet}</option>
               <option value="auf_anfrage">{statusLabels.auf_anfrage}</option>
-              <option value="reserved">{statusLabels.reserved}</option>
-              <option value="sold">{statusLabels.sold}</option>
+              <option value="vermietet">{statusLabels.vermietet}</option>
+              <option value="verkauft">{statusLabels.verkauft}</option>
             </select>
           </div>
 
@@ -162,7 +162,11 @@ export function ListingsGrid({ listings }: ListingsGridProps) {
         ) : (
           <div className="grid grid-cols-1 items-stretch md:grid-cols-2 gap-6">
             {filteredListings.map((listing) => (
-              <ListingCard key={listing.id} listing={listing} />
+              <ListingCard
+                key={listing.id}
+                listing={listing}
+                badge={listing.featured && normalizeStatus(listing.status) === 'gelistet' ? 'Top-Angebot' : null}
+              />
             ))}
           </div>
         )}

@@ -12,6 +12,23 @@ type Props = {
   slug: string;
 };
 
+function normalizeStatus(status: string): string {
+  const normalized = status
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/-+/g, '_');
+
+  if (!normalized) return 'gelistet';
+  if (normalized === 'gelistet' || normalized === 'available' || normalized === 'verfugbar' || normalized === 'verfuegbar') return 'gelistet';
+  if (normalized === 'auf_anfrage') return 'auf_anfrage';
+  if (normalized === 'vermietet' || normalized === 'reserviert' || normalized === 'reserved' || normalized === 'rented') return 'vermietet';
+  if (normalized === 'verkauft' || normalized === 'sold') return 'verkauft';
+  return normalized;
+}
+
 export function ListingDetailClient({ slug }: Props) {
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
@@ -89,6 +106,8 @@ export function ListingDetailClient({ slug }: Props) {
   const galleryImages = listing.images.length > 0 ? listing.images : ['/images/hero1.webp'];
   const activeImage = galleryImages[activeImageIndex] ?? galleryImages[0];
   const price = listing.price !== null ? formatPrice(listing.price) : 'Auf Anfrage';
+  const normalizedStatus = normalizeStatus(listing.status || '');
+  const hideFeatures = normalizedStatus === 'verkauft' || normalizedStatus === 'vermietet';
 
   return (
     <main className="min-h-screen bg-background">
@@ -162,7 +181,7 @@ export function ListingDetailClient({ slug }: Props) {
           </section>
         )}
 
-        {listing.features.length > 0 && (
+        {!hideFeatures && listing.features.length > 0 && (
           <section className="mb-10">
             <h2 className="text-xl font-semibold mb-4">Ausstattung</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-muted-foreground">

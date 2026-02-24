@@ -15,6 +15,7 @@ export type Listing = {
   longDescription: string;
   status: string;
   featured: boolean;
+  dateAt: string;
   changedAt: string;
   createdAt: string;
   images: string[];
@@ -50,6 +51,7 @@ type ListingAttributes = {
   field_long_description?: unknown;
   field_status?: unknown;
   field_featured?: unknown;
+  field_datum?: unknown;
   changed?: unknown;
   created?: unknown;
 };
@@ -71,6 +73,15 @@ function firstNumber(value: unknown): number | null {
 
 function getString(value: unknown): string | null {
   return typeof value === 'string' ? value : null;
+}
+
+function getDateString(value: unknown): string | null {
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) {
+    const first = value[0];
+    return typeof first === 'string' ? first : null;
+  }
+  return null;
 }
 
 function getStringArray(value: unknown): string[] {
@@ -161,10 +172,36 @@ function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listin
     longDescription: getProcessedHtml(a.field_long_description),
     status: getString(a.field_status) ?? '',
     featured: getBoolean(a.field_featured),
+    dateAt: getDateString(a.field_datum) ?? '',
     changedAt: getString(a.changed) ?? '',
     createdAt: getString(a.created) ?? '',
     images,
   };
+}
+
+function parseTimestamp(value: string): number | null {
+  const normalized = value.trim();
+  if (!normalized) return null;
+
+  const parsed = Date.parse(normalized);
+  if (Number.isFinite(parsed)) return parsed;
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(normalized)) {
+    const asDateOnly = Date.parse(`${normalized}T00:00:00Z`);
+    if (Number.isFinite(asDateOnly)) return asDateOnly;
+  }
+
+  return null;
+}
+
+function listingSortTimestamp(listing: Listing): number {
+  return (
+    parseTimestamp(listing.dateAt) ??
+    parseTimestamp(listing.changedAt) ??
+    parseTimestamp(listing.createdAt) ??
+    listing.nid ??
+    0
+  );
 }
 
 export async function fetchListings(): Promise<Listing[]> {
@@ -183,7 +220,9 @@ export async function fetchListings(): Promise<Listing[]> {
   const json = (await res.json()) as { data?: unknown; included?: unknown };
   const data = Array.isArray(json.data) ? (json.data as JsonApiResource[]) : [];
   const included = Array.isArray(json.included) ? (json.included as JsonApiResource[]) : undefined;
-  return data.map((item) => mapListing(item, included));
+  return data
+    .map((item) => mapListing(item, included))
+    .sort((a, b) => listingSortTimestamp(b) - listingSortTimestamp(a));
 }
 
 export async function fetchListingBySlug(slug: string): Promise<Listing | null> {

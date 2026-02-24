@@ -16,28 +16,26 @@ function dot() {
 
 function normalizeStatus(status: string): string {
   const normalized = status.trim().toLowerCase();
-  if (!normalized) return 'sofort verfuegbar';
-  return normalized
+  const slug = normalized
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/\s+/g, '_')
     .replace(/-+/g, '_');
+
+  if (!slug) return 'gelistet';
+  if (slug === 'gelistet' || slug === 'available' || slug === 'verfugbar' || slug === 'verfuegbar') return 'gelistet';
+  if (slug === 'auf_anfrage') return 'auf_anfrage';
+  if (slug === 'vermietet' || slug === 'reserviert' || slug === 'reserved' || slug === 'rented') return 'vermietet';
+  if (slug === 'verkauft' || slug === 'sold') return 'verkauft';
+  return slug;
 }
 
 function getStatusLabel(status: string): string {
   const normalized = normalizeStatus(status);
-  if (normalized === 'gelistet' || normalized === 'verfugbar' || normalized === 'verfuegbar' || normalized === 'available') {
-    return 'Sofort verfügbar';
-  }
-  if (normalized === 'auf_anfrage') {
-    return 'Auf Anfrage';
-  }
-  if (normalized === 'reserviert' || normalized === 'reserved') {
-    return 'Reserviert';
-  }
-  if (normalized === 'verkauft' || normalized === 'sold') {
-    return 'Verkauft';
-  }
+  if (normalized === 'gelistet') return 'Sofort verfügbar';
+  if (normalized === 'auf_anfrage') return 'Auf Anfrage';
+  if (normalized === 'vermietet') return 'Vermietet';
+  if (normalized === 'verkauft') return 'Verkauft';
   if (!status.trim()) return 'Sofort verfügbar';
   return status.trim();
 }
@@ -52,31 +50,36 @@ export function ListingCard({ listing, badge, className }: ListingCardProps) {
   const badgeText = badge ?? null;
   const coverImage = listing.images[0] || '/images/hero1.webp';
   const normalizedStatus = normalizeStatus(listing.status || '');
-  const isSoldStatus = normalizedStatus === 'verkauft' || normalizedStatus === 'sold';
+  const isVermietetStatus = normalizedStatus === 'vermietet';
+  const isVerkauftStatus = normalizedStatus === 'verkauft';
+  const isInactiveStatus = isVerkauftStatus || isVermietetStatus;
+  const isGelistetStatus = normalizedStatus === 'gelistet';
   const statusLabel = getStatusLabel(listing.status || '');
   const statusToneClass = getStatusTone(listing.status || '');
   const isLongTitle = listing.title.trim().length > 68;
+  const typeLabel = !isInactiveStatus ? (listing.type?.trim() || 'Immobilie') : '';
+  const locationLabel = listing.location?.trim() || '';
+  const priceLabel = listing.price !== null ? formatPrice(listing.price) : isInactiveStatus ? null : 'Auf Anfrage';
+  const cardClassName = [
+    isInactiveStatus ? 'flex h-full min-h-[24.5rem] flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm cursor-default' : 'group flex h-full min-h-[24.5rem] flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
 
-  return (
-    <Link
-      href={{ pathname: '/angebote', query: { slug: listing.slug } }}
-      className={[
-        'group flex h-full min-h-[24.5rem] flex-col overflow-hidden rounded-xl border border-border bg-card shadow-sm',
-        className,
-      ]
-        .filter(Boolean)
-        .join(' ')}
-    >
+  const cardContent = (
+    <>
       <div className="relative aspect-[16/9] bg-muted">
         <Image
           src={coverImage}
           alt={listing.title}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-          className={isSoldStatus ? 'object-cover grayscale' : 'object-cover'}
+          className="object-cover"
+          style={isInactiveStatus ? { filter: 'grayscale(50%)' } : undefined}
         />
 
-        {showTopOffer && listing.status === 'available' && (
+        {showTopOffer && isGelistetStatus && (
           <div className="absolute top-4 right-4 bg-slate-900/90 text-white px-4 py-2 text-lg font-bold">
             {badgeText}
           </div>
@@ -92,9 +95,9 @@ export function ListingCard({ listing, badge, className }: ListingCardProps) {
 
       <div className="flex grow flex-col bg-muted/30 p-5">
         <div className="min-h-[1.5rem] flex items-center gap-2 text-sm text-muted-foreground mb-2">
-          <span className="font-medium text-muted-foreground">{listing.type || 'Immobilie'}</span>
-          {dot()}
-          <span className="line-clamp-1">{listing.location}</span>
+          {typeLabel && <span className="font-medium text-muted-foreground">{typeLabel}</span>}
+          {typeLabel && locationLabel && dot()}
+          {locationLabel && <span className="line-clamp-1">{locationLabel}</span>}
         </div>
 
         <h3
@@ -123,14 +126,24 @@ export function ListingCard({ listing, badge, className }: ListingCardProps) {
         </div>
 
         <div className="mt-auto flex items-end justify-between gap-6 pt-4">
-          <p className="text-3xl font-bold text-foreground">
-            {listing.price !== null ? formatPrice(listing.price) : 'Auf Anfrage'}
-          </p>
-          <span className="text-sm font-semibold text-foreground group-hover:translate-x-1 transition-transform whitespace-nowrap">
-            Details →
-          </span>
+          <p className="text-3xl font-bold text-foreground">{priceLabel ?? '\u00A0'}</p>
+          {!isInactiveStatus && (
+            <span className="text-sm font-semibold text-foreground group-hover:translate-x-1 transition-transform whitespace-nowrap">
+              Details →
+            </span>
+          )}
         </div>
       </div>
+    </>
+  );
+
+  if (isInactiveStatus || !listing.slug) {
+    return <article className={cardClassName}>{cardContent}</article>;
+  }
+
+  return (
+    <Link href={{ pathname: '/angebote', query: { slug: listing.slug } }} className={cardClassName}>
+      {cardContent}
     </Link>
   );
 }

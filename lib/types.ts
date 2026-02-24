@@ -1,4 +1,4 @@
-export type PropertyStatus = 'available' | 'reserved' | 'sold';
+export type PropertyStatus = 'gelistet' | 'vermietet' | 'verkauft' | 'auf_anfrage';
 
 export type PropertyCategory = 'wohnung' | 'haus' | 'grundstueck' | 'gewerbe';
 
