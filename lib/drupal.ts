@@ -1,8 +1,6 @@
 export function getDrupalApiBase(): string | null {
   // NEXT_PUBLIC_ is required for client-side access (static export)
   const raw =
-    process.env.NEXT_PUBLIC_DRUPAL_API_BASE ||
-    process.env.DRUPAL_API_BASE ||
     process.env.NEXT_PUBLIC_DRUPAL_BASE_URL ||
     process.env.DRUPAL_BASE_URL;
   if (typeof raw !== 'string') return null;
