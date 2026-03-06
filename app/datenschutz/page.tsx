@@ -31,13 +31,13 @@ export default function DatenschutzPage() {
           <div className="text-sm text-muted-foreground space-y-1">
             <div>Genfenbergstraße 23, 13595 Berlin</div>
             <div>
-              Phone:{' '}
+              Telefon:{' '}
               <a href="tel:+493046690542" className="hover:text-primary transition-colors">
                 030 46690542
               </a>
             </div>
             <div>
-              Mail:{' '}
+              E-Mail:{' '}
               <a href="mailto:info@immo-pal.de" className="hover:text-primary transition-colors">
                 info@immo-pal.de
               </a>
@@ -46,118 +46,303 @@ export default function DatenschutzPage() {
         </div>
 
         <div className="prose prose-gray max-w-none space-y-8">
+          <p className="text-sm text-muted-foreground">Stand: 06. März 2026</p>
+
           <section>
-            <h2 className="text-2xl font-semibold mb-4">1. Datenschutz auf einen Blick</h2>
-
-            <h3 className="text-xl font-semibold mb-3">Allgemeine Hinweise</h3>
+            <h2 className="text-2xl font-semibold mb-4">1. Datenschutz auf einen Blick &amp; Verantwortliche Stelle</h2>
+            <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber:</p>
             <p>
-              Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten
-              passiert, wenn Sie unsere Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie
-              persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie
-              unserer unter diesem Text aufgeführten Datenschutzerklärung.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Datenerfassung auf unserer Website</h3>
-
-            <p className="font-semibold">Wer ist verantwortlich für die Datenerfassung auf dieser Website?</p>
-            <p>
-              Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können
-              Sie dem{' '}
-              <Link href="/impressum" className="text-primary hover:underline">
-                Impressum
-              </Link>{' '}
-              dieser Website entnehmen.
-            </p>
-
-            <p className="font-semibold mt-4">Wie erfassen wir Ihre Daten?</p>
-            <p>
-              Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z.B. um
-              Daten handeln, die Sie in ein Kontaktformular oder einen anderen Dialog zur Datenerfassung eingeben.
-              Andere Daten werden automatisch beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor
-              allem technische Daten (z.B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die
-              Erfassung dieser Daten erfolgt automatisch, sobald Sie unsere Website betreten.
-            </p>
-
-            <p className="font-semibold mt-4">Wofür nutzen wir Ihre Daten?</p>
-            <p>
-              Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere
-              Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden.
-            </p>
-
-            <p className="font-semibold mt-4">Welche Rechte haben Sie bezüglich Ihrer Daten?</p>
-            <p>
-              Sie haben jederzeit das Recht unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer
-              gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung,
-              Sperrung oder Löschung dieser Daten zu verlangen. Hierzu sowie zu weiteren Fragen zum Thema Datenschutz
-              können Sie sich jederzeit unter der im{' '}
-              <Link href="/impressum" className="text-primary hover:underline">
-                Impressum
-              </Link>{' '}
-              angegebenen Adresse an uns wenden. Des Weiteren steht Ihnen ein Beschwerderecht bei der zuständigen
-              Aufsichtsbehörde zu.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Analyse-Tools und Tools von Drittanbietern</h3>
-            <p>
-              Beim Besuch unserer Website kann Ihr Surf-Verhalten statistisch ausgewertet werden. Das geschieht vor
-              allem mit Cookies und mit sogenannten Analyseprogrammen. Die Analyse Ihres Surf-Verhaltens erfolgt in der
-              Regel anonym; das Surf-Verhalten kann nicht zu Ihnen zurückverfolgt werden. Sie können dieser Analyse
-              widersprechen oder sie durch die Nichtbenutzung bestimmter Tools verhindern. Detaillierte Informationen
-              dazu finden Sie in der folgenden Datenschutzerklärung. Sie können dieser Analyse widersprechen. Über die
-              Widerspruchsmöglichkeiten werden wir Sie in dieser Datenschutzerklärung informieren.
+              ImmoPal UG (haftungsbeschränkt)
+              <br />
+              Genfenbergstraße 23, 13595 Berlin
+              <br />
+              Telefon: 030 46690542
+              <br />
+              E-Mail: info@immo-pal.de
+              <br />
+              Vertreten durch den Geschäftsführer: Kya Bayat
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">2. Allgemeine Hinweise und Pflichtinformationen</h2>
-
-            <h3 className="text-xl font-semibold mb-3">Datenschutz</h3>
+            <h2 className="text-2xl font-semibold mb-4">2. Datenschutzbeauftragter</h2>
             <p>
-              Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre
-              personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Datenschutzvorschriften sowie
-              dieser Datenschutzerklärung. Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten
-              erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die
-              vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie
-              erläutert auch, wie und zu welchem Zweck das geschieht. Wir weisen darauf hin, dass die Datenübertragung
-              im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser
-              Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.
+              Aufgrund der Größe unseres Unternehmens und der Art der Datenverarbeitung besteht derzeit keine gesetzliche
+              Verpflichtung zur Bestellung eines Datenschutzbeauftragten gemäß Art. 37 DSGVO in Verbindung mit § 38 BDSG.
             </p>
+          </section>
 
-            <h3 className="text-xl font-semibold mb-3 mt-6">Hinweis zur verantwortlichen Stelle</h3>
-            <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">3. Hosting</h2>
+            <p>Unsere Website wird bei folgendem Anbieter gehostet:</p>
             <p>
-              ImmoPal UG (haftungsbeschränkt)
+              IONOS SE
               <br />
-              Genfenbergstraße 23
+              Elgendorfer Straße 57
               <br />
-              13595 Berlin
+              56410 Montabaur
               <br />
-              Telefon: 030 46690542
+              Deutschland
+            </p>
+            <p>
+              IONOS stellt die technische Infrastruktur zum Betrieb dieser Website bereit. Beim Aufruf unserer Website
+              erfasst und speichert IONOS automatisch Informationen in sogenannten Server-Logfiles, die Ihr Browser
+              automatisch übermittelt. Hierzu gehören insbesondere:
+            </p>
+            <ul>
+              <li>IP-Adresse des anfragenden Geräts</li>
+              <li>Datum und Uhrzeit des Zugriffs</li>
+              <li>Browsertyp und Browserversion</li>
+              <li>verwendetes Betriebssystem</li>
+              <li>Referrer URL (zuvor besuchte Seite)</li>
+              <li>Hostname des zugreifenden Rechners</li>
+            </ul>
+            <p>
+              Die Verarbeitung dieser Daten erfolgt zur Sicherstellung eines störungsfreien Betriebs der Website sowie zur
+              Gewährleistung der Systemsicherheit. Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes
+              Interesse an einer sicheren und stabilen Bereitstellung unseres Online-Angebots). Wir haben mit IONOS einen
+              Vertrag zur Auftragsverarbeitung gemäß Art. 28 DSGVO abgeschlossen.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">
+              4. Datenerfassung auf unserer Website (Cookies &amp; Consent-Management)
+            </h2>
+            <h3 className="text-xl font-semibold mb-3">Cookies und Cookie-Einwilligungsmanagement</h3>
+            <p>
+              Unsere Website verwendet Cookies. Cookies sind kleine Textdateien, die auf Ihrem Endgerät gespeichert
+              werden und die Ihr Browser speichert. Sie dienen dazu, unser Angebot nutzerfreundlicher, effektiver und
+              sicherer zu machen.
+            </p>
+            <p>
+              Zur Verwaltung der eingesetzten Cookies und ähnlicher Technologien sowie der diesbezüglichen Einwilligungen
+              nutzen wir das Consent-Management-Tool Cookiebot. Anbieter ist:
+            </p>
+            <p>
+              Usercentrics A/S
               <br />
-              Mail:{' '}
-              <a href="mailto:info@immo-pal.de" className="text-primary hover:underline">
-                info@immo-pal.de
+              Havnegade 39
+              <br />
+              1058 Kopenhagen
+              <br />
+              Dänemark
+            </p>
+            <p>
+              Cookiebot ermöglicht es uns, Ihre Einwilligung zur Speicherung bestimmter Cookies auf Ihrem Endgerät
+              einzuholen und diese datenschutzkonform zu dokumentieren. Wenn Sie unsere Website betreten, wird eine
+              Verbindung zu den Servern von Cookiebot hergestellt, um Ihre Einwilligungen und weitere Erklärungen zur
+              Cookie-Nutzung einzuholen.
+            </p>
+            <p>
+              Cookiebot speichert anschließend ein Cookie in Ihrem Browser, um die von Ihnen erteilten Einwilligungen
+              oder deren Widerruf zuordnen zu können. Die so erfassten Daten werden gespeichert, bis Sie uns zur Löschung
+              auffordern, das Cookie selbst löschen oder der Zweck für die Datenspeicherung entfällt.
+            </p>
+            <p>
+              Die Nutzung von Cookiebot erfolgt, um die gesetzlich vorgeschriebenen Einwilligungen für den Einsatz von
+              Cookies einzuholen. Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. c DSGVO.
+            </p>
+            <p>
+              Allgemeiner Hinweis zu Cookies (TDDDG &amp; DSGVO): Das Speichern von Informationen in Ihrer Endeinrichtung
+              (z.B. durch Cookies) oder der Zugriff auf Informationen, die bereits in Ihrer Endeinrichtung gespeichert
+              sind, erfolgt auf Grundlage von § 25 Abs. 1 TDDDG nur mit Ihrer ausdrücklichen Einwilligung. Ausgenommen
+              hiervon sind technisch zwingend erforderliche Cookies, deren Einsatz nach § 25 Abs. 2 TDDDG legitimiert
+              ist. Sofern durch Cookies personenbezogene Daten verarbeitet werden, stützen wir uns bei essenziellen
+              Cookies auf Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse) und bei Analyse-/Marketing-Cookies auf Art.
+              6 Abs. 1 lit. a DSGVO (Ihre jederzeit widerrufbare Einwilligung).
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">
+              5. Kontaktformulare, Immobilienanfragen &amp; Immobilienbewertung
+            </h2>
+            <p>
+              Wenn Sie uns kontaktieren oder unsere Immobilienbewertung nutzen, verarbeiten wir Ihre Angaben (Name,
+              E-Mail, Telefon, Objektdaten) zur Bearbeitung der Anfrage und zur Erstellung der Ersteinschätzung.
+            </p>
+            <p>
+              Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen). Die von
+              Ihnen übermittelten Daten verbleiben bei uns, bis der Zweck der Speicherung entfällt oder Sie uns zur
+              Löschung auffordern.
+            </p>
+            <p>
+              Sofern sich aus Ihrer Anfrage kein Vertragsverhältnis ergibt, werden Ihre Daten in der Regel spätestens
+              nach sechs Monaten gelöscht. Daten im Zusammenhang mit konkreten Immobilienanfragen können im Einzelfall
+              länger gespeichert werden, soweit dies zur Durchführung der Immobilienvermittlung oder zur Wahrung
+              rechtlicher Ansprüche erforderlich ist. Gesetzliche Aufbewahrungspflichten bleiben unberührt.
+            </p>
+            <p>
+              (Hinweis Transparenzpflicht gem. KI-VO): Sollten bei der Generierung der Immobilienbewertung automatisierte
+              und KI-gestützte Verfahren zum Einsatz kommen, weisen wir gemäß Art. 50 KI-VO ausdrücklich darauf hin, dass
+              das Ergebnis (z.B. der geschätzte Immobilienwert) künstlich erzeugt wurde und lediglich eine algorithmische
+              Marktschätzung darstellt.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">6. Datenverarbeitung zur Geldwäscheprävention (GwG)</h2>
+            <p>
+              Als Immobilienmakler sind wir nach § 2 Abs. 1 Nr. 14 Geldwäschegesetz (GwG) verpflichtet, bei bestimmten
+              Rechtsgeschäften (z.B. Immobilienkaufverträge oder Mietverträge über 10.000 € monatlich) Ihre Identität
+              festzustellen.
+            </p>
+            <p>
+              Gemäß § 11a GwG in Verbindung mit Art. 13 DSGVO weisen wir Sie ausdrücklich darauf hin, dass wir Ihre
+              personenbezogenen Daten (insbesondere Kopien Ihres Personalausweises oder Reisepasses sowie Informationen
+              zur Herkunft von Vermögenswerten) ausschließlich zum Zwecke der Geldwäscheprävention verarbeiten.
+            </p>
+            <p>
+              Die Rechtsgrundlage für diese Verarbeitung ist Art. 6 Abs. 1 lit. c DSGVO i.V.m. den entsprechenden Normen
+              des GwG. Die nach dem GwG erhobenen Daten und Dokumente (insb. Ausweiskopien) müssen nach § 8 Abs. 4 GwG
+              zwingend für fünf Jahre aufbewahrt werden und dürfen vor Ablauf dieser Frist nicht gelöscht werden.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">
+              7. Datenweitergabe und internationale Datentransfers (EU-US DPF)
+            </h2>
+            <p>
+              Wir setzen teilweise Dienstleister ein, die ihren Sitz in Drittstaaten außerhalb des Europäischen
+              Wirtschaftsraums (EWR) haben (insb. USA und Israel). Für Datenübermittlungen an zertifizierte
+              US-Dienstleister (wie Meta, Google, Microsoft) stützen wir uns auf den Angemessenheitsbeschluss der
+              EU-Kommission für die USA, das sogenannte &quot;EU-US Data Privacy Framework (DPF)&quot;.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">8. CRM-System monday.com</h2>
+            <p>
+              Zur Kundenverwaltung nutzen wir monday.com (monday.com Ltd., Tel Aviv, Israel). Für Israel liegt ein
+              Angemessenheitsbeschluss der Europäischen Kommission vor. Sofern monday.com weitere Unterauftragsverarbeiter
+              in Drittstaaten ohne Angemessenheitsbeschluss einsetzt, erfolgt die Datenübermittlung dorthin auf Basis
+              vertraglicher Garantien, insbesondere durch den Abschluss von EU-Standardvertragsklauseln (SCCs).
+            </p>
+            <p>
+              Weitere Informationen zum Datenschutz bei monday.com finden Sie unter:{' '}
+              <a
+                href="https://monday.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                https://monday.com/privacy
               </a>
+              .
             </p>
-            <p>
-              Verantwortliche Stelle ist die natürliche oder juristische Person, die allein oder gemeinsam mit anderen
-              über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z.B. Namen, E-Mail-Adressen o.
-              Ä.) entscheidet.
-            </p>
+          </section>
 
-            <h3 className="text-xl font-semibold mb-3 mt-6">Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
-            <p>
-              Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine
-              bereits erteilte Einwilligung jederzeit widerrufen. Dazu reicht eine formlose Mitteilung per E-Mail an
-              uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.
-            </p>
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">9. Analyse, Marketing &amp; Drittanbieter</h2>
+            <ul>
+              <li>
+                Google Analytics &amp; Google Ads (Google Ireland Limited / Google LLC, USA): Nutzen wir nur nach Ihrer
+                ausdrücklichen Einwilligung (§ 25 Abs. 1 TDDDG i.V.m. Art. 6 Abs. 1 lit. a DSGVO). Der Datentransfer in
+                die USA ist durch das EU-US DPF abgesichert. Weitere Informationen:{' '}
+                <a
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  https://policies.google.com/privacy
+                </a>
+                .
+              </li>
+              <li>
+                Meta Pixel (Meta Platforms Ireland Limited / Meta Platforms Inc., USA): Setzen wir nur nach Ihrer
+                vorherigen Einwilligung (§ 25 Abs. 1 TDDDG i.V.m. Art. 6 Abs. 1 lit. a DSGVO) ein, um die Wirksamkeit
+                von Werbeanzeigen zu messen. Mit Meta Platforms Ireland Limited besteht eine gemeinsame Verantwortlichkeit
+                nach Art. 26 DSGVO. Der Datentransfer in die USA ist durch das EU-US DPF abgesichert. Weitere
+                Informationen:{' '}
+                <a
+                  href="https://www.facebook.com/privacy/policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  https://www.facebook.com/privacy/policy
+                </a>
+                .
+              </li>
+              <li>
+                Microsoft Application Insights: Setzen wir zur Fehleranalyse der Website ein. Die Microsoft Corporation
+                in den USA ist unter dem EU-US DPF zertifiziert. Weitere Informationen:{' '}
+                <a
+                  href="https://privacy.microsoft.com/de-de/privacystatement"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  https://privacy.microsoft.com/de-de/privacystatement
+                </a>
+                .
+              </li>
+            </ul>
+          </section>
 
-            <h3 className="text-xl font-semibold mb-3 mt-6">Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">10. Kommunikation über WhatsApp</h2>
             <p>
-              Im Falle datenschutzrechtlicher Verstöße steht dem Betroffenen ein Beschwerderecht bei der zuständigen
-              Aufsichtsbehörde zu. Zuständige Aufsichtsbehörde in datenschutzrechtlichen Fragen ist der
-              Landesdatenschutzbeauftragte des Bundeslandes, in dem unser Unternehmen seinen Sitz hat. Eine Liste der
-              Datenschutzbeauftragten sowie deren Kontaktdaten können folgendem Link entnommen werden:{' '}
+              Wenn Sie uns per WhatsApp kontaktieren, erfolgt dies auf Ihre eigene Initiative. Wir weisen darauf hin,
+              dass WhatsApp (Meta) Metadaten der Kommunikation verarbeitet und in die USA (abgesichert über das DPF)
+              übertragen kann.
+            </p>
+            <p>
+              Wir nutzen Maßnahmen (z.B. Trennung der Adressbücher), um den unautorisierten Abgleich von Kontaktdaten
+              Dritter zu verhindern. Weitere Informationen:{' '}
+              <a
+                href="https://www.whatsapp.com/legal/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                https://www.whatsapp.com/legal/privacy-policy
+              </a>
+              .
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">11. SSL- bzw. TLS-Verschlüsselung</h2>
+            <p>
+              Diese Seite nutzt aus Sicherheitsgründen eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung
+              erkennen Sie daran, dass die Adresszeile des Browsers von &quot;http://&quot; auf &quot;https://&quot;
+              wechselt und ein Schloss-Symbol angezeigt wird.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">12. Löschfristen und Aufbewahrungspflichten</h2>
+            <p>
+              Ihre Daten werden gelöscht, sobald der Zweck der Speicherung entfällt und Sie Ihre Einwilligung widerrufen
+              oder die Löschung verlangen (Art. 17 DSGVO), sofern keine gesetzlichen Aufbewahrungsfristen entgegenstehen.
+              Zwingende gesetzliche Aufbewahrungsfristen für uns sind:
+            </p>
+            <ul>
+              <li>10 Jahre: Steuerrelevante Dokumente und Rechnungen (§ 147 Abs. 3 AO).</li>
+              <li>6 Jahre: Handels- und Geschäftsbriefe (§ 257 Abs. 4 HGB).</li>
+              <li>
+                5 Jahre: Alle zur Geldwäscheprävention erhobenen Identifikations- und Überprüfungsdaten (§ 8 Abs. 4 GwG).
+              </li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-4">
+              13. Ihre Rechte als betroffene Person + Art. 21 Widerspruch
+            </h2>
+            <p>
+              Sie haben jederzeit das Recht auf unentgeltliche Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO),
+              Löschung (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO) sowie auf
+              Datenübertragbarkeit (Art. 20 DSGVO). Wenn Sie uns eine Einwilligung erteilt haben, können Sie diese
+              jederzeit mit Wirkung für die Zukunft widerrufen.
+            </p>
+            <p>
+              Zudem steht Ihnen ein Beschwerderecht bei der zuständigen Aufsichtsbehörde (z. B. der Berliner
+              Beauftragten für Datenschutz und Informationsfreiheit) zu. Eine Liste der Behörden finden Sie hier:{' '}
               <a
                 href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html"
                 target="_blank"
@@ -168,331 +353,13 @@ export default function DatenschutzPage() {
               </a>
               .
             </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Recht auf Datenübertragbarkeit</h3>
+            <p className="font-semibold">Besonderer Hinweis auf Ihr Widerspruchsrecht (Art. 21 DSGVO)</p>
             <p>
-              Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags
-              automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format
-              aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen
-              verlangen, erfolgt dies nur, soweit es technisch machbar ist.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">SSL- bzw. TLS-Verschlüsselung</h3>
-            <p>
-              Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, wie zum
-              Beispiel Bestellungen oder Anfragen, die Sie an uns als Seitenbetreiber senden, eine SSL-bzw.
-              TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers
-              von “http://” auf “https://” wechselt und an dem Schloss-Symbol in Ihrer Browserzeile. Wenn die SSL- bzw.
-              TLS-Verschlüsselung aktiviert ist, können die Daten, die Sie an uns übermitteln, nicht von Dritten
-              mitgelesen werden.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Verschlüsselter Zahlungsverkehr auf dieser Website</h3>
-            <p>
-              Besteht nach dem Abschluss eines kostenpflichtigen Vertrags eine Verpflichtung, uns Ihre Zahlungsdaten
-              (z.B. Kontonummer bei Einzugsermächtigung) zu übermitteln, werden diese Daten zur Zahlungsabwicklung
-              benötigt. Der Zahlungsverkehr über die gängigen Zahlungsmittel (Visa/MasterCard, Lastschriftverfahren)
-              erfolgt ausschließlich über eine verschlüsselte SSL- bzw. TLS-Verbindung. Eine verschlüsselte Verbindung
-              erkennen Sie daran, dass die Adresszeile des Browsers von "http://" auf "https://" wechselt und an dem
-              Schloss-Symbol in Ihrer Browserzeile. Bei verschlüsselter Kommunikation können Ihre Zahlungsdaten, die Sie
-              an uns übermitteln, nicht von Dritten mitgelesen werden.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Auskunft, Sperrung, Löschung</h3>
-            <p>
-              Sie haben im Rahmen der geltenden gesetzlichen Bestimmungen jederzeit das Recht auf unentgeltliche
-              Auskunft über Ihre gespeicherten personenbezogenen Daten, deren Herkunft und Empfänger und den Zweck der
-              Datenverarbeitung und ggf. ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten. Hierzu sowie
-              zu weiteren Fragen zum Thema personenbezogene Daten können Sie sich jederzeit unter der im{' '}
-              <Link href="/impressum" className="text-primary hover:underline">
-                Impressum
-              </Link>{' '}
-              angegebenen Adresse an uns wenden.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Widerspruch gegen Werbe-Mails</h3>
-            <p>
-              Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten zur Übersendung von nicht
-              ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit widersprochen. Die Betreiber
-              der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von
-              Werbeinformationen, etwa durch Spam-E-Mails, vor.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-4">3. Datenerfassung auf unserer Website</h2>
-
-            <h3 className="text-xl font-semibold mb-3">Cookies</h3>
-            <p>
-              Die Internetseiten verwenden teilweise so genannte Cookies. Cookies richten auf Ihrem Rechner keinen
-              Schaden an und enthalten keine Viren. Cookies dienen dazu, unser Angebot nutzerfreundlicher, effektiver
-              und sicherer zu machen. Cookies sind kleine Textdateien, die auf Ihrem Rechner abgelegt werden und die
-              Ihr Browser speichert. Die meisten der von uns verwendeten Cookies sind so genannte “Session-Cookies”.
-              Sie werden nach Ende Ihres Besuchs automatisch gelöscht. Andere Cookies bleiben auf Ihrem Endgerät
-              gespeichert bis Sie diese löschen. Diese Cookies ermöglichen es uns, Ihren Browser beim nächsten Besuch
-              wiederzuerkennen. Sie können Ihren Browser so einstellen, dass Sie über das Setzen von Cookies informiert
-              werden und Cookies nur im Einzelfall erlauben, die Annahme von Cookies für bestimmte Fälle oder generell
-              ausschließen sowie das automatische Löschen der Cookies beim Schließen des Browser aktivieren. Bei der
-              Deaktivierung von Cookies kann die Funktionalität dieser Website eingeschränkt sein. Cookies, die zur
-              Durchführung des elektronischen Kommunikationsvorgangs oder zur Bereitstellung bestimmter, von Ihnen
-              erwünschter Funktionen (z.B. Warenkorbfunktion) erforderlich sind, werden auf Grundlage von Art. 6 Abs. 1
-              lit. f DSGVO gespeichert. Der Websitebetreiber hat ein berechtigtes Interesse an der Speicherung von
-              Cookies zur technisch fehlerfreien und optimierten Bereitstellung seiner Dienste. Soweit andere Cookies
-              (z.B. Cookies zur Analyse Ihres Surfverhaltens) gespeichert werden, werden diese in dieser
-              Datenschutzerklärung gesondert behandelt.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Server-Log-Dateien</h3>
-            <p>
-              Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien,
-              die Ihr Browser automatisch an uns übermittelt. Dies sind:
-            </p>
-            <ul>
-              <li>Browsertyp und Browserversion</li>
-              <li>verwendetes Betriebssystem</li>
-              <li>Referrer URL</li>
-              <li>Hostname des zugreifenden Rechners</li>
-              <li>Uhrzeit der Serveranfrage</li>
-              <li>IP-Adresse</li>
-            </ul>
-            <p>
-              Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Grundlage für die
-              Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO, der die Verarbeitung von Daten zur Erfüllung eines
-              Vertrags oder vorvertraglicher Maßnahmen gestattet.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">
-              Kontaktformulare zur Datenerfassung u.a. Dialoge, Selbstauskünfte und Terminanfragen
-            </h3>
-            <p>
-              Wenn Sie uns per Kontaktformular Anfragen zukommen lassen, werden Ihre Angaben aus dem Anfrageformular
-              inklusive der von Ihnen dort angegebenen Kontaktdaten zwecks Bearbeitung der Anfrage und für den Fall von
-              Anschlussfragen bei uns gespeichert. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter. Die
-              Verarbeitung der in das Kontaktformular eingegebenen Daten erfolgt somit ausschließlich auf Grundlage
-              Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können diese Einwilligung jederzeit widerrufen. Dazu
-              reicht eine formlose Mitteilung per E-Mail an uns. Die Rechtmäßigkeit der bis zum Widerruf erfolgten
-              Datenverarbeitungsvorgänge bleibt vom Widerruf unberührt. Die von Ihnen im Kontaktformular eingegebenen
-              Daten verbleiben bei uns, bis Sie uns zur Löschung auffordern, Ihre Einwilligung zur Speicherung widerrufen
-              oder der Zweck für die Datenspeicherung entfällt (z.B. nach abgeschlossener Bearbeitung Ihrer Anfrage).
-              Zwingende gesetzliche Bestimmungen – insbesondere Aufbewahrungsfristen – bleiben unberührt.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Verarbeiten von Daten (Kunden- und Vertragsdaten)</h3>
-            <p>
-              Wir erheben, verarbeiten und nutzen personenbezogene Daten nur, soweit sie für die Begründung,
-              inhaltliche Ausgestaltung oder Änderung des Rechtsverhältnisses erforderlich sind (Bestandsdaten). Dies
-              erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, der die Verarbeitung von Daten zur Erfüllung eines
-              Vertrags oder vorvertraglicher Maßnahmen gestattet. Personenbezogene Daten über die Inanspruchnahme
-              unserer Internetseiten (Nutzungsdaten) erheben, verarbeiten und nutzen wir nur, soweit dies erforderlich
-              ist, um dem Nutzer die Inanspruchnahme des Dienstes zu ermöglichen oder abzurechnen. Die erhobenen
-              Kundendaten werden nach Abschluss des Auftrags oder Beendigung der Geschäftsbeziehung gelöscht.
-              Gesetzliche Aufbewahrungsfristen bleiben unberührt.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">
-              Datenübermittlung bei Vertragsschluss für Dienstleistungen und digitale Inhalte
-            </h3>
-            <p>
-              Wir übermitteln personenbezogene Daten an Dritte nur dann, wenn dies im Rahmen der Vertragsabwicklung
-              notwendig ist, etwa an das mit der Zahlungsabwicklung beauftragte Kreditinstitut. Eine weitergehende
-              Übermittlung der Daten erfolgt nicht bzw. nur dann, wenn Sie der Übermittlung ausdrücklich zugestimmt
-              haben. Eine Weitergabe Ihrer Daten an Dritte ohne ausdrückliche Einwilligung, etwa zu Zwecken der Werbung,
-              erfolgt nicht. Grundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. b DSGVO, der die Verarbeitung
-              von Daten zur Erfüllung eines Vertrags oder vorvertraglicher Maßnahmen gestattet.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-4">4. Soziale Medien</h2>
-            <p>
-              Auf unseren Seiten sind Plugins des sozialen Netzwerks Facebook, Anbieter Facebook Inc., 1 Hacker Way,
-              Menlo Park, California 94025, USA, integriert. Die Facebook-Plugins erkennen Sie an dem Facebook-Logo oder
-              dem "Like-Button" ("Gefällt mir") auf unserer Seite. Eine Übersicht über die Facebook-Plugins finden Sie
-              hier:{' '}
-              <a
-                href="https://developers.facebook.com/docs/plugins/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                https://developers.facebook.com/docs/plugins/
-              </a>
-              . Wenn Sie unsere Seiten besuchen, wird über das Plugin eine direkte Verbindung zwischen Ihrem Browser und
-              dem Facebook-Server hergestellt. Facebook erhält dadurch die Information, dass Sie mit Ihrer IP-Adresse
-              unsere Seite besucht haben. Wenn Sie den Facebook "Like-Button" anklicken während Sie in Ihrem
-              Facebook-Account eingeloggt sind, können Sie die Inhalte unserer Seiten auf Ihrem Facebook-Profil
-              verlinken. Dadurch kann Facebook den Besuch unserer Seiten Ihrem Benutzerkonto zuordnen. Wir weisen darauf
-              hin, dass wir als Anbieter der Seiten keine Kenntnis vom Inhalt der übermittelten Daten sowie deren
-              Nutzung durch Facebook erhalten. Weitere Informationen hierzu finden Sie in der Datenschutzerklärung von
-              Facebook unter:{' '}
-              <a
-                href="https://de-de.facebook.com/policy.php"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                https://de-de.facebook.com/policy.php
-              </a>
-              . Wenn Sie nicht wünschen, dass Facebook den Besuch unserer Seiten Ihrem Facebook-Nutzerkonto zuordnen
-              kann, loggen Sie sich bitte aus Ihrem Facebook-Benutzerkonto aus.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-4">5. Analyse Tools und Werbung</h2>
-
-            <h3 className="text-xl font-semibold mb-3">Google Analytics</h3>
-            <p>
-              Diese Website nutzt Funktionen des Webanalysedienstes Google Analytics. Anbieter ist die Google Inc.,
-              1600 Amphitheatre Parkway, Mountain View, CA 94043, USA. Google Analytics verwendet so genannte "Cookies".
-              Das sind Textdateien, die auf Ihrem Computer gespeichert werden und die eine Analyse der Benutzung der
-              Website durch Sie ermöglichen. Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser
-              Website werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert. Die
-              Speicherung von Google-Analytics-Cookies erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der
-              Websitebetreiber hat ein berechtigtes Interesse an der Analyse des Nutzerverhaltens, um sowohl sein
-              Webangebot als auch seine Werbung zu optimieren.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">IP Anonymisierung</h3>
-            <p>
-              Wir haben auf dieser Website die Funktion IP-Anonymisierung aktiviert. Dadurch wird Ihre IP-Adresse von
-              Google innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens
-              über den Europäischen Wirtschaftsraum vor der Übermittlung in die USA gekürzt. Nur in Ausnahmefällen wird
-              die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt. Im Auftrag des
-              Betreibers dieser Website wird Google diese Informationen benutzen, um Ihre Nutzung der Website
-              auszuwerten, um Reports über die Websiteaktivitäten zusammenzustellen und um weitere mit der Websitenutzung
-              und der Internetnutzung verbundene Dienstleistungen gegenüber dem Websitebetreiber zu erbringen. Die im
-              Rahmen von Google Analytics von Ihrem Browser übermittelte IP-Adresse wird nicht mit anderen Daten von
-              Google zusammengeführt.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Browser Plugin</h3>
-            <p>
-              Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software
-              verhindern; wir weisen Sie jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche
-              Funktionen dieser Website vollumfänglich werden nutzen können. Sie können darüber hinaus die Erfassung der
-              durch den Cookie erzeugten und auf Ihre Nutzung der Website bezogenen Daten (inkl. Ihrer IP-Adresse) an
-              Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem Sie das unter dem folgenden Link
-              verfügbare Browser-Plugin herunterladen und installieren:{' '}
-              <a
-                href="https://tools.google.com/dlpage/gaoptout?hl=de"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                https://tools.google.com/dlpage/gaoptout?hl=de
-              </a>
-              .
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Widerspruch gegen Datenerfassung</h3>
-            <p>
-              Sie können die Erfassung Ihrer Daten durch Google Analytics verhindern, indem Sie auf folgenden Link
-              klicken. Es wird ein Opt-Out-Cookie gesetzt, der die Erfassung Ihrer Daten bei zukünftigen Besuchen dieser
-              Website verhindert: Google Analytics deaktivieren. Mehr Informationen zum Umgang mit Nutzerdaten bei Google
-              Analytics finden Sie in der Datenschutzerklärung von Google:{' '}
-              <a
-                href="https://support.google.com/analytics/answer/6004245?hl=de"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                https://support.google.com/analytics/answer/6004245?hl=de
-              </a>
-              .
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Auftragsdatenverarbeitung</h3>
-            <p>
-              Wir haben mit Google einen Vertrag zur Auftragsdatenverarbeitung abgeschlossen und setzen die strengen
-              Vorgaben der deutschen Datenschutzbehörden bei der Nutzung von Google Analytics vollständig um.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Demografische Merkmale bei Google Analytics</h3>
-            <p>
-              Diese Website nutzt die Funktion “demografische Merkmale” von Google Analytics. Dadurch können Berichte
-              erstellt werden, die Aussagen zu Alter, Geschlecht und Interessen der Seitenbesucher enthalten. Diese Daten
-              stammen aus interessenbezogener Werbung von Google sowie aus Besucherdaten von Drittanbietern. Diese Daten
-              können keiner bestimmten Person zugeordnet werden. Sie können diese Funktion jederzeit über die
-              Anzeigeneinstellungen in Ihrem Google-Konto deaktivieren oder die Erfassung Ihrer Daten durch Google
-              Analytics wie im Punkt “Widerspruch gegen Datenerfassung” dargestellt generell untersagen.
-            </p>
-
-            <h3 className="text-xl font-semibold mb-3 mt-6">Application Insights</h3>
-
-            <h4 className="text-lg font-semibold mb-2">Microsoft Application Insights</h4>
-            <p>
-              Wir setzen auf Grundlage unserer berechtigten Interessen (d.h. Interesse an der Analyse, Optimierung und
-              wirtschaftlichem Betrieb unseres Onlineangebotes im Sinne des Art. 6 Abs. 1 lit. f. DSGVO) Application
-              Insights, einen Webanalysedienst der Microsoft Corporation, One Microsoft Way, Redmond, WA 98052-6399, USA
-              („Microsoft“) ein.
-            </p>
-            <p>
-              Application Insights legt in Ihrem Browser ein Cookie ab, das eine Analyse der Benutzung der Webseite durch
-              Sie ermöglicht. Die durch das Cookie erzeugten Informationen über die Benutzung unserer Webseite werden in
-              der Regel an einen Server von Microsoft in den USA übertragen und dort gespeichert. In unserem Auftrag als
-              Webseitenbetreiber wird Microsoft diese Informationen benutzen, um Ihre Nutzung der Webseite auszuwerten,
-              um Reports über die Webseitenaktivitäten zusammenzustellen und um weitere mit der Webseitennutzung und der
-              Internetnutzung verbundene Dienstleistungen gegenüber uns als Webseitenbetreiber zu erbringen. Sie können
-              das erforderliche Platzieren eines Cookies ablehnen - z.B. durch eine Einstellung in Ihrem Browser, die das
-              automatische Setzen von Cookies generell deaktiviert oder Ihren Browser so einstellen, dass Cookies von
-              Microsoft blockiert werden. In diesem Fall kann es jedoch sein, dass Ihnen nicht sämtliche Funktionen
-              unserer Webseite vollumfänglich zur Verfügung stehen.
-            </p>
-            <p>Durch die Nutzung von Application Insights können zusätzlich folgende Daten erhoben werden:</p>
-            <ul>
-              <li>Betriebssystem</li>
-              <li>Browser + Version</li>
-              <li>Bildschirmauflösung</li>
-              <li>Ungefährer Standort des Benutzers</li>
-              <li>IP-Adresse</li>
-            </ul>
-            <p>
-              Wir haben die Möglichkeit, diese Daten mittels verschiedener Reports auszuwerten. Bei diesen Daten handelt
-              es sich um anonyme statistische Daten. Die Herstellung eines Personenbezugs ist aufgrund dieser Daten nicht
-              möglich. Die Auswertungen dienen sämtlich der Fehlerbehebung und Optimierung der Webseite und der Anwendung.
-            </p>
-            <p>
-              Weitergehende Informationen von Microsoft zum Thema Datenschutz und Azure finden Sie unter:{' '}
-              <a
-                href="https://azure.microsoft.com/de-de/support/trust-center/privacy/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                http://azure.microsoft.com/de-de/support/trust-center/privacy/
-              </a>{' '}
-              sowie für Application Insights unter{' '}
-              <a
-                href="https://docs.microsoft.com/de-de/azure/application-insights/app-insights-data-retention-privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:underline"
-              >
-                https://docs.microsoft.com/de-de/azure/application-insights/app-insights-data-retention-privacy
-              </a>
-              .
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-semibold mb-4">6. Newsletter</h2>
-
-            <h3 className="text-xl font-semibold mb-3">Newsletterdaten</h3>
-            <p>
-              Wenn Sie den auf der Website angebotenen Newsletter beziehen möchten, benötigen wir von Ihnen eine
-              E-Mail-Adresse sowie Informationen, welche uns die Überprüfung gestatten, dass Sie der Inhaber der
-              angegebenen E-Mail-Adresse sind und mit dem Empfang des Newsletters einverstanden sind. Weitere Daten
-              werden nicht bzw. nur auf freiwilliger Basis erhoben. Diese Daten verwenden wir ausschließlich für den
-              Versand der angeforderten Informationen und geben diese nicht an Dritte weiter. Die Verarbeitung der in das
-              Newsletteranmeldeformular eingegebenen Daten erfolgt ausschließlich auf Grundlage Ihrer Einwilligung (Art.
-              6 Abs. 1 lit. a DSGVO). Die erteilte Einwilligung zur Speicherung der Daten, der E-Mail-Adresse sowie deren
-              Nutzung zum Versand des Newsletters können Sie jederzeit widerrufen, etwa über den "Austragen"-Link im
-              Newsletter. Die Rechtmäßigkeit der bereits erfolgten Datenverarbeitungsvorgänge bleibt vom Widerruf
-              unberührt. Die von Ihnen zum Zwecke des Newsletter-Bezugs bei uns hinterlegten Daten werden von uns bis zu
-              Ihrer Austragung aus dem Newsletter gespeichert und nach der Abbestellung des Newsletters gelöscht. Daten,
-              die zu anderen Zwecken bei uns gespeichert wurden (z.B. E-Mail-Adressen für den Mitgliederbereich) bleiben
-              hiervon unberührt.
+              Sie haben das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit gegen die
+              Verarbeitung Sie betreffender personenbezogener Daten, die aufgrund von Art. 6 Abs. 1 lit. f DSGVO
+              (Datenverarbeitung auf Grundlage einer Interessenabwägung) erfolgt, Widerspruch einzulegen. Richten sich
+              Ihre Daten gegen Direktwerbung, haben Sie ein generelles Widerspruchsrecht, das ohne Angabe von Gründen
+              von uns umgesetzt wird.
             </p>
           </section>
         </div>

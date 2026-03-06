@@ -31,13 +31,13 @@ export default function ImpressumPage() {
           <div className="text-sm text-muted-foreground space-y-1">
             <div>Genfenbergstraße 23, 13595 Berlin</div>
             <div>
-              Phone:{' '}
+              Telefon:{' '}
               <a href="tel:+493046690542" className="hover:text-primary transition-colors">
                 030 46690542
               </a>
             </div>
             <div>
-              Mail:{' '}
+              E-Mail:{' '}
               <a href="mailto:info@immo-pal.de" className="hover:text-primary transition-colors">
                 info@immo-pal.de
               </a>
@@ -88,7 +88,8 @@ export default function ImpressumPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">Umsatzsteuer:</h2>
             <p>
-              Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: DEXXXXX (folgt) (in Gründung)
+              Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz: <br />
+              UST-ID: DE460444912
             </p>
           </section>
 

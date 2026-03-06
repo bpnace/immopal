@@ -16,7 +16,7 @@ export function Footer() {
               className="h-30x w-auto mb-4"
             />
             <p className="text-muted-foreground text-sm">
-              Ihr vertrauensvoller Partner für Immobilien in Deutschland
+              Ihr vertrauensvoller Partner für Immobilien in Berlin & Brandenburg
             </p>
           </div>
 
