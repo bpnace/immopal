@@ -153,9 +153,23 @@ function extractFileUrls(
     .filter((v): v is string => Boolean(v));
 }
 
+function normalizeImageUrls(urls: string[]): string[] {
+  const seen = new Set<string>();
+  const normalized: string[] = [];
+
+  for (const url of urls) {
+    const trimmed = url.trim();
+    if (!trimmed || seen.has(trimmed)) continue;
+    seen.add(trimmed);
+    normalized.push(trimmed);
+  }
+
+  return normalized;
+}
+
 function mapListing(item: JsonApiResource, included?: JsonApiResource[]): Listing {
   const a = (item.attributes ?? {}) as ListingAttributes;
-  const images = extractFileUrls(included, item.relationships?.field_main_image?.data ?? null);
+  const images = normalizeImageUrls(extractFileUrls(included, item.relationships?.field_main_image?.data ?? null));
 
   return {
     id: item.id,

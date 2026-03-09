@@ -83,14 +83,14 @@ export default function RootLayout({
         <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           data-cbid="f8b2a502-0199-4c01-abd1-6b759dd3db25"
           data-blockingmode="auto"
           type="text/javascript"
         />
         <Script
           id="google-consent-mode-default"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           data-cookieconsent="ignore"
           dangerouslySetInnerHTML={{
             __html: `
@@ -115,13 +115,13 @@ export default function RootLayout({
         />
         <Script
           id="gtag-js"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           data-cookieconsent="ignore"
           src="https://www.googletagmanager.com/gtag/js?id=G-G1WJQEH62V"
         />
         <Script
           id="gtag-config"
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           data-cookieconsent="ignore"
           dangerouslySetInnerHTML={{
             __html: `

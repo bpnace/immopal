@@ -141,12 +141,13 @@ export function ListingDetailClient({ slug }: Props) {
           </div>
         </header>
 
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-muted mb-4">
+        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-muted mb-4">
           <Image
             src={activeImage}
             alt={listing.title}
             fill
-            className="object-cover"
+            className="object-cover object-center"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
             sizes="(max-width: 768px) 100vw, 960px"
           />
         </div>
@@ -154,7 +155,7 @@ export function ListingDetailClient({ slug }: Props) {
         {galleryImages.length > 1 && (
           <section className="mb-10">
             <h2 className="sr-only">Bildergalerie</h2>
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
               {galleryImages.map((image, index) => (
                 <button
                   key={`${listing.id}-gallery-${index}`}
@@ -172,7 +173,7 @@ export function ListingDetailClient({ slug }: Props) {
                     src={image}
                     alt={`${listing.title} - Bild ${index + 1}`}
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
                     sizes="(max-width: 640px) 33vw, (max-width: 1024px) 20vw, 180px"
                   />
                 </button>

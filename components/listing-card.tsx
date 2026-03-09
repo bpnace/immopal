@@ -69,14 +69,18 @@ export function ListingCard({ listing, badge, className }: ListingCardProps) {
 
   const cardContent = (
     <>
-      <div className="relative aspect-[16/9] bg-muted">
+      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <Image
           src={coverImage}
           alt={listing.title}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-          className="object-cover"
-          style={isInactiveStatus ? { filter: 'grayscale(50%)' } : undefined}
+          className="object-cover object-center"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center',
+            ...(isInactiveStatus ? { filter: 'grayscale(50%)' } : {}),
+          }}
         />
 
         {showTopOffer && isGelistetStatus && (
