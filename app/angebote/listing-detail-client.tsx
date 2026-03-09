@@ -166,7 +166,7 @@ export function ListingDetailClient({ slug }: Props) {
         </header>
 
         <div
-          className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-muted mb-4"
+          className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-muted mb-4"
           tabIndex={hasMultipleImages ? 0 : -1}
           onKeyDown={handleHeroKeyDown}
           aria-label={hasMultipleImages ? 'Hauptbildgalerie, mit Pfeiltasten navigierbar' : undefined}
