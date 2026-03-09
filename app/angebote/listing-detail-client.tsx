@@ -108,6 +108,30 @@ export function ListingDetailClient({ slug }: Props) {
   const price = listing.price !== null ? formatPrice(listing.price) : 'Auf Anfrage';
   const normalizedStatus = normalizeStatus(listing.status || '');
   const hideFeatures = normalizedStatus === 'verkauft' || normalizedStatus === 'vermietet';
+  const hasMultipleImages = galleryImages.length > 1;
+
+  function goToNextImage() {
+    if (!hasMultipleImages) return;
+    setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
+  }
+
+  function goToPrevImage() {
+    if (!hasMultipleImages) return;
+    setActiveImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  }
+
+  function handleHeroKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    if (!hasMultipleImages) return;
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      goToNextImage();
+      return;
+    }
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      goToPrevImage();
+    }
+  }
 
   return (
     <main className="min-h-screen bg-background">
@@ -141,7 +165,12 @@ export function ListingDetailClient({ slug }: Props) {
           </div>
         </header>
 
-        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-muted mb-4">
+        <div
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-border bg-muted mb-4"
+          tabIndex={hasMultipleImages ? 0 : -1}
+          onKeyDown={handleHeroKeyDown}
+          aria-label={hasMultipleImages ? 'Hauptbildgalerie, mit Pfeiltasten navigierbar' : undefined}
+        >
           <Image
             src={activeImage}
             alt={listing.title}
@@ -150,9 +179,43 @@ export function ListingDetailClient({ slug }: Props) {
             style={{ objectFit: 'cover', objectPosition: 'center' }}
             sizes="(max-width: 768px) 100vw, 960px"
           />
+
+          {hasMultipleImages && (
+            <>
+              <button
+                type="button"
+                onClick={goToPrevImage}
+                className="absolute left-3 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/55 text-white transition hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+                aria-label="Vorheriges Bild anzeigen"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path
+                    fillRule="evenodd"
+                    d="M12.78 15.53a.75.75 0 0 1-1.06 0l-5-5a.75.75 0 0 1 0-1.06l5-5a.75.75 0 1 1 1.06 1.06L8.31 10l4.47 4.47a.75.75 0 0 1 0 1.06Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                onClick={goToNextImage}
+                className="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/55 text-white transition hover:bg-black/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
+                aria-label="Nächstes Bild anzeigen"
+              >
+                <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path
+                    fillRule="evenodd"
+                    d="M7.22 4.47a.75.75 0 0 1 1.06 0l5 5a.75.75 0 0 1 0 1.06l-5 5a.75.75 0 0 1-1.06-1.06L11.69 10 7.22 5.53a.75.75 0 0 1 0-1.06Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </>
+          )}
         </div>
 
-        {galleryImages.length > 1 && (
+        {hasMultipleImages && (
           <section className="mb-10">
             <h2 className="sr-only">Bildergalerie</h2>
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
