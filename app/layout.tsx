@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
-import { CookieBanner } from '@/components/cookie-banner';
 import { WhatsAppButton } from '@/components/whatsapp-button';
 import { OrganizationSchema } from '@/components/structured-data';
 import { getSiteUrl } from '@/lib/site';
@@ -80,17 +80,51 @@ export default function RootLayout({
   return (
     <html lang="de">
       <head>
-        {/* eslint-disable-next-line @next/next/next-script-for-ga */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-G1WJQEH62V"
+        <Script
+          id="Cookiebot"
+          src="https://consent.cookiebot.com/uc.js"
+          strategy="beforeInteractive"
+          data-cbid="f8b2a502-0199-4c01-abd1-6b759dd3db25"
+          data-blockingmode="auto"
+          type="text/javascript"
         />
-        {/* eslint-disable-next-line @next/next/next-script-for-ga */}
-        <script
+        <Script
+          id="google-consent-mode-default"
+          strategy="beforeInteractive"
+          data-cookieconsent="ignore"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
+              function gtag() {
+                dataLayer.push(arguments);
+              }
+              gtag('consent', 'default', {
+                ad_personalization: 'denied',
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                analytics_storage: 'denied',
+                functionality_storage: 'denied',
+                personalization_storage: 'denied',
+                security_storage: 'granted',
+                wait_for_update: 500,
+              });
+              gtag('set', 'ads_data_redaction', true);
+              gtag('set', 'url_passthrough', false);
+            `,
+          }}
+        />
+        <Script
+          id="gtag-js"
+          strategy="beforeInteractive"
+          data-cookieconsent="ignore"
+          src="https://www.googletagmanager.com/gtag/js?id=G-G1WJQEH62V"
+        />
+        <Script
+          id="gtag-config"
+          strategy="beforeInteractive"
+          data-cookieconsent="ignore"
+          dangerouslySetInnerHTML={{
+            __html: `
               gtag('js', new Date());
               gtag('config', 'G-G1WJQEH62V');
             `,
@@ -102,7 +136,6 @@ export default function RootLayout({
         <Navigation />
         <div className="flex-grow">{children}</div>
         <Footer />
-        <CookieBanner />
         <WhatsAppButton />
       </body>
     </html>

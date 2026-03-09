@@ -46,7 +46,7 @@ export default function DatenschutzPage() {
         </div>
 
         <div className="prose prose-gray max-w-none space-y-8">
-          <p className="text-sm text-muted-foreground">Stand: 06. März 2026</p>
+          <p className="text-sm text-muted-foreground">Stand: 07. März 2026</p>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">1. Datenschutz auf einen Blick &amp; Verantwortliche Stelle</h2>
@@ -133,6 +133,11 @@ export default function DatenschutzPage() {
               einzuholen und diese datenschutzkonform zu dokumentieren. Wenn Sie unsere Website betreten, wird eine
               Verbindung zu den Servern von Cookiebot hergestellt, um Ihre Einwilligungen und weitere Erklärungen zur
               Cookie-Nutzung einzuholen.
+            </p>
+            <p>
+              Cookiebot wird auf dieser Website im automatischen Blockierungsmodus (Autoblocking) eingesetzt. Dadurch
+              werden einwilligungspflichtige Skripte und Technologien bis zur entsprechenden Auswahl im Consent-Banner
+              grundsätzlich blockiert.
             </p>
             <p>
               Cookiebot speichert anschließend ein Cookie in Ihrem Browser, um die von Ihnen erteilten Einwilligungen
@@ -241,6 +246,9 @@ export default function DatenschutzPage() {
                 Google Analytics &amp; Google Ads (Google Ireland Limited / Google LLC, USA): Nutzen wir nur nach Ihrer
                 ausdrücklichen Einwilligung (§ 25 Abs. 1 TDDDG i.V.m. Art. 6 Abs. 1 lit. a DSGVO). Der Datentransfer in
                 die USA ist durch das EU-US DPF abgesichert. Weitere Informationen:{' '}
+                Zusätzlich nutzen wir den Google Consent Mode v2 mit datenschutzfreundlichen Standardeinstellungen
+                (standardmäßig verweigerte Einwilligungssignale), bis Sie eine Auswahl im Consent-Tool treffen.
+                <br />
                 <a
                   href="https://policies.google.com/privacy"
                   target="_blank"
