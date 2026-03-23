@@ -7,20 +7,16 @@ type Props = {
   heightClassName?: string;
 };
 
-type CookiebotConsent = {
-  preferences?: boolean;
-  statistics?: boolean;
-  marketing?: boolean;
-};
-
-type CookiebotApi = {
-  consent?: CookiebotConsent;
-  renew?: () => void;
+type CCM19Api = {
+  consent?: boolean;
+  fullConsentGiven?: boolean;
+  acceptedEmbeddings?: { id: string; name: string }[];
+  openWidget?: () => void;
 };
 
 declare global {
   interface Window {
-    Cookiebot?: CookiebotApi;
+    CCM?: CCM19Api;
   }
 }
 
@@ -31,8 +27,10 @@ export function DsgvoGoogleMaps({
   const [hasConsent, setHasConsent] = useState(false);
 
   const resolveConsent = useCallback(() => {
-    const consent = window.Cookiebot?.consent;
-    return Boolean(consent?.preferences || consent?.statistics || consent?.marketing);
+    const ccm = window.CCM;
+    if (!ccm) return false;
+    if (ccm.fullConsentGiven) return true;
+    return Boolean(ccm.acceptedEmbeddings && ccm.acceptedEmbeddings.length > 0);
   }, []);
 
   useEffect(() => {
@@ -44,14 +42,14 @@ export function DsgvoGoogleMaps({
       setHasConsent(resolveConsent());
     }
 
-    window.addEventListener('CookiebotOnConsentReady', handleConsentUpdate);
-    window.addEventListener('CookiebotOnAccept', handleConsentUpdate);
-    window.addEventListener('CookiebotOnDecline', handleConsentUpdate);
+    window.addEventListener('ccm19WidgetLoaded', handleConsentUpdate);
+    window.addEventListener('ccm19WidgetClosed', handleConsentUpdate);
+    window.addEventListener('ccm19EmbeddingAccepted', handleConsentUpdate);
 
     return () => {
-      window.removeEventListener('CookiebotOnConsentReady', handleConsentUpdate);
-      window.removeEventListener('CookiebotOnAccept', handleConsentUpdate);
-      window.removeEventListener('CookiebotOnDecline', handleConsentUpdate);
+      window.removeEventListener('ccm19WidgetLoaded', handleConsentUpdate);
+      window.removeEventListener('ccm19WidgetClosed', handleConsentUpdate);
+      window.removeEventListener('ccm19EmbeddingAccepted', handleConsentUpdate);
     };
   }, [resolveConsent]);
 
@@ -66,7 +64,7 @@ export function DsgvoGoogleMaps({
   }, [address]);
 
   function openConsentManager() {
-    window.Cookiebot?.renew?.();
+    window.CCM?.openWidget?.();
   }
 
   return (

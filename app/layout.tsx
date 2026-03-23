@@ -81,12 +81,10 @@ export default function RootLayout({
     <html lang="de">
       <head>
         <Script
-          id="Cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
+          id="CCM19"
+          src="https://cloud.ccm19.de/app.js?apiKey=19757b1aa9456ce5cbb106086bf0cec7953a0ab53aa977e1&domain=69c11469b0a8fd5a220a28d2"
           strategy="afterInteractive"
-          data-cbid="f8b2a502-0199-4c01-abd1-6b759dd3db25"
-          data-blockingmode="auto"
-          type="text/javascript"
+          referrerPolicy="origin"
         />
         <Script
           id="google-consent-mode-default"

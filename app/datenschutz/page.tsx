@@ -117,35 +117,34 @@ export default function DatenschutzPage() {
             </p>
             <p>
               Zur Verwaltung der eingesetzten Cookies und ähnlicher Technologien sowie der diesbezüglichen Einwilligungen
-              nutzen wir das Consent-Management-Tool Cookiebot. Anbieter ist:
+              nutzen wir das Consent-Management-Tool CCM19. Anbieter ist:
             </p>
             <p>
-              Usercentrics A/S
+              Papoo Software &amp; Media GmbH
               <br />
-              Havnegade 39
+              Auguststr. 4
               <br />
-              1058 Kopenhagen
+              53229 Bonn
               <br />
-              Dänemark
+              Deutschland
             </p>
             <p>
-              Cookiebot ermöglicht es uns, Ihre Einwilligung zur Speicherung bestimmter Cookies auf Ihrem Endgerät
+              CCM19 ermöglicht es uns, Ihre Einwilligung zur Speicherung bestimmter Cookies auf Ihrem Endgerät
               einzuholen und diese datenschutzkonform zu dokumentieren. Wenn Sie unsere Website betreten, wird eine
-              Verbindung zu den Servern von Cookiebot hergestellt, um Ihre Einwilligungen und weitere Erklärungen zur
+              Verbindung zu den Servern von CCM19 hergestellt, um Ihre Einwilligungen und weitere Erklärungen zur
               Cookie-Nutzung einzuholen.
             </p>
             <p>
-              Cookiebot wird auf dieser Website im automatischen Blockierungsmodus (Autoblocking) eingesetzt. Dadurch
-              werden einwilligungspflichtige Skripte und Technologien bis zur entsprechenden Auswahl im Consent-Banner
-              grundsätzlich blockiert.
+              CCM19 blockiert einwilligungspflichtige Skripte und Technologien bis zur entsprechenden Auswahl im
+              Consent-Banner grundsätzlich.
             </p>
             <p>
-              Cookiebot speichert anschließend ein Cookie in Ihrem Browser, um die von Ihnen erteilten Einwilligungen
+              CCM19 speichert anschließend ein Cookie in Ihrem Browser, um die von Ihnen erteilten Einwilligungen
               oder deren Widerruf zuordnen zu können. Die so erfassten Daten werden gespeichert, bis Sie uns zur Löschung
               auffordern, das Cookie selbst löschen oder der Zweck für die Datenspeicherung entfällt.
             </p>
             <p>
-              Die Nutzung von Cookiebot erfolgt, um die gesetzlich vorgeschriebenen Einwilligungen für den Einsatz von
+              Die Nutzung von CCM19 erfolgt, um die gesetzlich vorgeschriebenen Einwilligungen für den Einsatz von
               Cookies einzuholen. Rechtsgrundlage hierfür ist Art. 6 Abs. 1 lit. c DSGVO.
             </p>
             <p>
