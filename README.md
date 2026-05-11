@@ -1,6 +1,23 @@
 # ImmoPal
 
-Immobilien-Website auf Basis von Next.js (App Router) für Berlin, Brandenburg und deutschlandweite Vermarktung.
+<p>
+  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-15-000000?style=flat-square&logo=nextdotjs&logoColor=white" />
+  <img alt="React" src="https://img.shields.io/badge/React-19-20232A?style=flat-square&logo=react&logoColor=61DAFB" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" />
+  <img alt="Tailwind" src="https://img.shields.io/badge/Tailwind-3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" />
+  <img alt="Static Export" src="https://img.shields.io/badge/Static%20export-Apache%20%2F%20IONOS-111827?style=flat-square" />
+</p>
+
+Berlin-focused real estate website built with Next.js App Router, static export,
+listing/content routes, valuation landing pages, and Apache deployment support.
+
+## What this shows
+
+- Business-facing real estate website with routes for buying, selling, listings, blog, and contact
+- Next.js static export setup for conventional hosting instead of only Vercel-style deployment
+- Build-time `.htaccess` generation for Apache / IONOS deployment
+- TypeScript component structure with reusable UI, data helpers, and content routes
+- SEO-oriented landing page for property valuation in Berlin and Brandenburg
 
 ## Tech Stack
 
