@@ -4,47 +4,53 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type Props = {
   address: string;
-  storageKey?: string;
   heightClassName?: string;
 };
 
+type CCM19Api = {
+  consent?: boolean;
+  fullConsentGiven?: boolean;
+  acceptedEmbeddings?: { id: string; name: string }[];
+  openWidget?: () => void;
+};
+
+declare global {
+  interface Window {
+    CCM?: CCM19Api;
+  }
+}
+
 export function DsgvoGoogleMaps({
   address,
-  storageKey = 'maps:google:consent',
   heightClassName = 'h-64',
 }: Props) {
   const [hasConsent, setHasConsent] = useState(false);
 
   const resolveConsent = useCallback(() => {
-    const stored = window.localStorage.getItem(storageKey);
-    if (stored === 'true') return true;
-    if (stored === 'false') return false;
-
-    const cookieConsentRaw = window.localStorage.getItem('cookie-consent');
-    if (!cookieConsentRaw) return false;
-    const cookieConsent = JSON.parse(cookieConsentRaw) as { analytics?: boolean; marketing?: boolean };
-    return Boolean(cookieConsent?.analytics || cookieConsent?.marketing);
-  }, [storageKey]);
+    const ccm = window.CCM;
+    if (!ccm) return false;
+    if (ccm.fullConsentGiven) return true;
+    return Boolean(ccm.acceptedEmbeddings && ccm.acceptedEmbeddings.length > 0);
+  }, []);
 
   useEffect(() => {
-    try {
-      setHasConsent(resolveConsent());
-    } catch {
-      setHasConsent(false);
-    }
+    setHasConsent(resolveConsent());
   }, [resolveConsent]);
 
   useEffect(() => {
     function handleConsentUpdate() {
-      try {
-        setHasConsent(resolveConsent());
-      } catch {
-        setHasConsent(false);
-      }
+      setHasConsent(resolveConsent());
     }
 
-    window.addEventListener('cookie-consent-updated', handleConsentUpdate);
-    return () => window.removeEventListener('cookie-consent-updated', handleConsentUpdate);
+    window.addEventListener('ccm19WidgetLoaded', handleConsentUpdate);
+    window.addEventListener('ccm19WidgetClosed', handleConsentUpdate);
+    window.addEventListener('ccm19EmbeddingAccepted', handleConsentUpdate);
+
+    return () => {
+      window.removeEventListener('ccm19WidgetLoaded', handleConsentUpdate);
+      window.removeEventListener('ccm19WidgetClosed', handleConsentUpdate);
+      window.removeEventListener('ccm19EmbeddingAccepted', handleConsentUpdate);
+    };
   }, [resolveConsent]);
 
   const mapSrc = useMemo(() => {
@@ -57,22 +63,8 @@ export function DsgvoGoogleMaps({
     return `https://www.google.com/maps/search/?api=1&query=${encoded}`;
   }, [address]);
 
-  function enable() {
-    setHasConsent(true);
-    try {
-      window.localStorage.setItem(storageKey, 'true');
-    } catch {
-      // ignore
-    }
-  }
-
-  function disable() {
-    setHasConsent(false);
-    try {
-      window.localStorage.setItem(storageKey, 'false');
-    } catch {
-      // ignore
-    }
+  function openConsentManager() {
+    window.CCM?.openWidget?.();
   }
 
   return (
@@ -98,10 +90,10 @@ export function DsgvoGoogleMaps({
             </a>
             <button
               type="button"
-              onClick={disable}
+              onClick={openConsentManager}
               className="inline-flex items-center rounded-md bg-background/90 border border-border px-3 py-2 text-xs font-medium text-foreground hover:bg-background"
             >
-              Einwilligung widerrufen
+              Cookie-Einstellungen öffnen
             </button>
           </div>
         </div>
@@ -116,10 +108,10 @@ export function DsgvoGoogleMaps({
             <div className="flex flex-wrap justify-center gap-3">
               <button
                 type="button"
-                onClick={enable}
+                onClick={openConsentManager}
                 className="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
               >
-                Karte laden
+                Einwilligung verwalten
               </button>
               <a
                 href={mapLink}
@@ -131,7 +123,8 @@ export function DsgvoGoogleMaps({
               </a>
             </div>
             <p className="text-xs text-muted-foreground">
-              Beim Laden der Karte können Daten an Google (USA) übertragen werden.
+              Für die eingebettete Karte ist Ihre Cookie-Einwilligung erforderlich. Beim Laden können Daten an
+              Google (USA) übertragen werden.
             </p>
           </div>
         </div>

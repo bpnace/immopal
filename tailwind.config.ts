@@ -3,7 +3,7 @@ import defaultTheme from 'tailwindcss/defaultTheme';
 import typography from '@tailwindcss/typography';
 
 const config: Config = {
-  darkMode: ['class'],
+  darkMode: 'class',
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',

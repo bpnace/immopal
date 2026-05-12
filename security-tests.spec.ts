@@ -13,45 +13,6 @@ test.describe('Security Fixes Verification', () => {
     await page.evaluate(() => localStorage.clear());
   });
 
-  test('localStorage Security: Rejects invalid cookie consent data', async ({ page }) => {
-    console.log('🧪 Testing localStorage security...');
-
-    // Inject malicious data
-    await page.evaluate(() => {
-      localStorage.setItem('cookie-consent', '{"necessary":true,"analytics":"malicious","marketing":123}');
-    });
-
-    // Reload page to trigger validation
-    await page.reload();
-    await page.waitForTimeout(1000);
-
-    // Check console for warning
-    const consoleMessages: string[] = [];
-    page.on('console', msg => consoleMessages.push(msg.text()));
-
-    await page.reload();
-    await page.waitForTimeout(1000);
-
-    // Verify the invalid data was detected
-    const hasWarning = consoleMessages.some(msg =>
-      msg.includes('Invalid cookie consent') || msg.includes('clearing')
-    );
-
-    if (hasWarning) {
-      console.log('✅ PASSED: Invalid localStorage detected and logged');
-    } else {
-      console.log('⚠️  Warning message not found (banner may have handled it silently)');
-    }
-
-    // Verify localStorage was cleaned or banner appeared
-    const localStorageCleared = await page.evaluate(() => {
-      const stored = localStorage.getItem('cookie-consent');
-      return stored === null || stored === undefined;
-    });
-
-    expect(localStorageCleared || hasWarning).toBeTruthy();
-  });
-
   test('Input Validation: Rejects invalid email formats', async ({ page }) => {
     console.log('🧪 Testing email validation...');
 
@@ -141,12 +102,6 @@ test.describe('Manual Testing Instructions', () => {
     console.log('   - Try "11111111" → Should be rejected');
     console.log('   - Try "030 123 456" → Should be accepted');
     console.log('   - Try "+49 30 123456" → Should be accepted\n');
-
-    console.log('6. ✅ localStorage Security:');
-    console.log('   - Open DevTools → Application → localStorage');
-    console.log('   - Manually edit cookie-consent to invalid JSON');
-    console.log('   - Reload page → Should handle gracefully');
-    console.log('   - Check localStorage → Invalid data should be cleared\n');
   });
 
 });

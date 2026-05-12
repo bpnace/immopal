@@ -10,6 +10,9 @@ import { fetchListings, type Listing } from '@/lib/listings';
 import { ListingCard } from '@/components/listing-card';
 
 function listingTimestamp(listing: Listing): number {
+  const dateField = Date.parse(listing.dateAt);
+  if (Number.isFinite(dateField)) return dateField;
+
   const changed = Date.parse(listing.changedAt);
   if (Number.isFinite(changed)) return changed;
 
@@ -17,6 +20,18 @@ function listingTimestamp(listing: Listing): number {
   if (Number.isFinite(created)) return created;
 
   return listing.nid ?? 0;
+}
+
+function isGelistetStatus(status: string): boolean {
+  const normalized = status
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '_')
+    .replace(/-+/g, '_');
+
+  return normalized === 'gelistet' || normalized === 'available' || normalized === 'verfugbar' || normalized === 'verfuegbar';
 }
 
 export default function Home() {
@@ -427,7 +442,7 @@ export default function Home() {
                 <ListingCard
                   key={listing.id}
                   listing={listing}
-                  badge={listing.featured && listing.status === 'available' ? 'Top-Angebot' : null}
+                  badge={listing.featured && isGelistetStatus(listing.status) ? 'Top-Angebot' : null}
                 />
               ))}
             </div>
