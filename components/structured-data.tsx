@@ -42,7 +42,6 @@ export function OrganizationSchema() {
     <script
       id="organization-schema"
       type="application/ld+json"
-      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );

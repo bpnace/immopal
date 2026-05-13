@@ -28,20 +28,18 @@ export function PostalCodeAutocomplete({
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const listboxId = 'postal-code-suggestions';
+  const trimmedValue = value.trim();
+  const canSearch = trimmedValue.length >= POSTAL_CODE_MIN_QUERY_LENGTH;
+  const visibleSuggestions = canSearch ? suggestions : [];
+  const shouldShowSuggestions = canSearch && showSuggestions;
+  const visibleFetchError = canSearch ? fetchError : null;
   const activeDescendantId =
-    selectedIndex >= 0 && selectedIndex < suggestions.length
+    selectedIndex >= 0 && selectedIndex < visibleSuggestions.length
       ? `postal-code-suggestion-${selectedIndex}`
       : undefined;
 
   useEffect(() => {
-    const trimmed = value.trim();
-    if (!trimmed || trimmed.length < POSTAL_CODE_MIN_QUERY_LENGTH) {
-      setSuggestions([]);
-      setShowSuggestions(false);
-      setSelectedIndex(-1);
-      setFetchError(null);
-      return;
-    }
+    if (!canSearch) return;
 
     const controller = new AbortController();
     const debounceId = window.setTimeout(async () => {
@@ -49,7 +47,7 @@ export function PostalCodeAutocomplete({
       setFetchError(null);
 
       try {
-        const results = await fetchPostalCodeSuggestions(trimmed, 10, { signal: controller.signal });
+        const results = await fetchPostalCodeSuggestions(trimmedValue, 10, { signal: controller.signal });
         setSuggestions(results);
         setShowSuggestions(true);
       } catch {
@@ -64,7 +62,7 @@ export function PostalCodeAutocomplete({
       controller.abort();
       window.clearTimeout(debounceId);
     };
-  }, [value]);
+  }, [canSearch, trimmedValue]);
 
   // Click outside to close
   useEffect(() => {
@@ -84,7 +82,13 @@ export function PostalCodeAutocomplete({
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
+    const nextValue = e.target.value;
+    if (nextValue.trim().length < POSTAL_CODE_MIN_QUERY_LENGTH) {
+      setShowSuggestions(false);
+      setSelectedIndex(-1);
+      setFetchError(null);
+    }
+    onChange(nextValue);
   };
 
   const handleSelectSuggestion = (data: PostalCodeData) => {
@@ -95,12 +99,12 @@ export function PostalCodeAutocomplete({
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!showSuggestions || suggestions.length === 0) return;
+    if (!shouldShowSuggestions || visibleSuggestions.length === 0) return;
 
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
-        setSelectedIndex((prev) => (prev < suggestions.length - 1 ? prev + 1 : prev));
+        setSelectedIndex((prev) => (prev < visibleSuggestions.length - 1 ? prev + 1 : prev));
         break;
       case 'ArrowUp':
         e.preventDefault();
@@ -108,8 +112,8 @@ export function PostalCodeAutocomplete({
         break;
       case 'Enter':
         e.preventDefault();
-        if (selectedIndex >= 0 && selectedIndex < suggestions.length) {
-          handleSelectSuggestion(suggestions[selectedIndex]);
+        if (selectedIndex >= 0 && selectedIndex < visibleSuggestions.length) {
+          handleSelectSuggestion(visibleSuggestions[selectedIndex]);
         }
         break;
       case 'Escape':
@@ -129,7 +133,7 @@ export function PostalCodeAutocomplete({
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         onFocus={() => {
-          if (suggestions.length > 0) {
+          if (visibleSuggestions.length > 0) {
             setShowSuggestions(true);
           }
         }}
@@ -139,13 +143,13 @@ export function PostalCodeAutocomplete({
         role="combobox"
         aria-autocomplete="list"
         aria-controls={listboxId}
-        aria-expanded={showSuggestions}
+        aria-expanded={shouldShowSuggestions}
         aria-haspopup="listbox"
         aria-activedescendant={activeDescendantId}
       />
 
       {/* Suggestions Dropdown */}
-      {showSuggestions && (
+      {shouldShowSuggestions && (
         <div
           ref={dropdownRef}
           id={listboxId}
@@ -155,12 +159,12 @@ export function PostalCodeAutocomplete({
           {isLoading && (
             <div className="px-4 py-3 text-sm text-muted-foreground">Lade Vorschläge…</div>
           )}
-          {!isLoading && suggestions.length === 0 && (
+          {!isLoading && visibleSuggestions.length === 0 && (
             <div className="px-4 py-3 text-sm text-muted-foreground">
               Keine passenden Postleitzahlen gefunden.
             </div>
           )}
-          {suggestions.map((suggestion, index) => (
+          {visibleSuggestions.map((suggestion, index) => (
             <button
               key={`${suggestion.postalCode}-${suggestion.city}-${suggestion.district}`}
               id={`postal-code-suggestion-${index}`}
@@ -197,13 +201,13 @@ export function PostalCodeAutocomplete({
       )}
 
       {error && <p className="text-destructive text-sm mt-1">{error}</p>}
-      {!error && fetchError && <p className="text-destructive text-sm mt-1">{fetchError}</p>}
+      {!error && visibleFetchError && <p className="text-destructive text-sm mt-1">{visibleFetchError}</p>}
 
       {/* Helper text */}
       {!error &&
-        !showSuggestions &&
+        !shouldShowSuggestions &&
         value.length > 0 &&
-        value.trim().length < POSTAL_CODE_MIN_QUERY_LENGTH && (
+        !canSearch && (
           <p className="text-muted-foreground text-xs mt-1">
             Mindestens {POSTAL_CODE_MIN_QUERY_LENGTH} Zeichen eingeben
           </p>
