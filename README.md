@@ -1,6 +1,29 @@
 # ImmoPal
 
-Immobilien-Website auf Basis von Next.js (App Router) für Berlin, Brandenburg und deutschlandweite Vermarktung.
+<p>
+  <a href="https://github.com/bpnace/immopal/actions/workflows/ci.yml">
+    <img alt="CI" src="https://github.com/bpnace/immopal/actions/workflows/ci.yml/badge.svg?branch=main" />
+  </a>
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-2563EB?style=flat-square" />
+  <img alt="Status" src="https://img.shields.io/badge/status-real_estate_showcase-1F2937?style=flat-square" />
+  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-15.5-000000?style=flat-square&logo=nextdotjs&logoColor=white" />
+  <img alt="React" src="https://img.shields.io/badge/React-19.2-20232A?style=flat-square&logo=react&logoColor=61DAFB" />
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" />
+  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" />
+  <img alt="npm" src="https://img.shields.io/badge/npm-lockfile_v3-CB3837?style=flat-square&logo=npm&logoColor=white" />
+  <img alt="Static Export" src="https://img.shields.io/badge/Static%20export-Apache%20%2F%20IONOS-111827?style=flat-square" />
+</p>
+
+Berlin-focused real estate website built with Next.js App Router, static export,
+listing/content routes, valuation landing pages, and Apache deployment support.
+
+## What this shows
+
+- Business-facing real estate website with routes for buying, selling, listings, blog, and contact
+- Next.js static export setup for conventional hosting instead of only Vercel-style deployment
+- Build-time `.htaccess` generation for Apache / IONOS deployment
+- TypeScript component structure with reusable UI, data helpers, and content routes
+- SEO-oriented landing page for property valuation in Berlin and Brandenburg
 
 ## Tech Stack
 
