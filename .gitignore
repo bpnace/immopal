@@ -14,13 +14,13 @@ raw_images/
 
 # Next.js
 /.next/
+**/.next/
 /.next.bak-*/
 /out/
 
 # Production
 /build
 dist
-*.md
 
 # Misc
 .DS_Store
