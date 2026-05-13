@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type Props = {
   address: string;
@@ -20,22 +20,20 @@ declare global {
   }
 }
 
+function resolveConsent() {
+  if (typeof window === 'undefined') return false;
+
+  const ccm = window.CCM;
+  if (!ccm) return false;
+  if (ccm.fullConsentGiven) return true;
+  return Boolean(ccm.acceptedEmbeddings && ccm.acceptedEmbeddings.length > 0);
+}
+
 export function DsgvoGoogleMaps({
   address,
   heightClassName = 'h-64',
 }: Props) {
-  const [hasConsent, setHasConsent] = useState(false);
-
-  const resolveConsent = useCallback(() => {
-    const ccm = window.CCM;
-    if (!ccm) return false;
-    if (ccm.fullConsentGiven) return true;
-    return Boolean(ccm.acceptedEmbeddings && ccm.acceptedEmbeddings.length > 0);
-  }, []);
-
-  useEffect(() => {
-    setHasConsent(resolveConsent());
-  }, [resolveConsent]);
+  const [hasConsent, setHasConsent] = useState(() => resolveConsent());
 
   useEffect(() => {
     function handleConsentUpdate() {
@@ -51,7 +49,7 @@ export function DsgvoGoogleMaps({
       window.removeEventListener('ccm19WidgetClosed', handleConsentUpdate);
       window.removeEventListener('ccm19EmbeddingAccepted', handleConsentUpdate);
     };
-  }, [resolveConsent]);
+  }, []);
 
   const mapSrc = useMemo(() => {
     const encoded = encodeURIComponent(address);

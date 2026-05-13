@@ -102,7 +102,6 @@ Kostenlose Immobilienbewertung. Persönliche Beratung. Klare Ergebnisse.
 
         <script
           type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </div>

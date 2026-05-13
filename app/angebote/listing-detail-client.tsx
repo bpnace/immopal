@@ -33,7 +33,7 @@ export function ListingDetailClient({ slug }: Props) {
   const [listing, setListing] = useState<Listing | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [activeImageSelection, setActiveImageSelection] = useState({ listingId: '', index: 0 });
 
   useEffect(() => {
     async function load() {
@@ -53,10 +53,6 @@ export function ListingDetailClient({ slug }: Props) {
     }
     load();
   }, [slug]);
-
-  useEffect(() => {
-    setActiveImageIndex(0);
-  }, [listing?.id]);
 
   if (loading) {
     return (
@@ -104,6 +100,8 @@ export function ListingDetailClient({ slug }: Props) {
   }
 
   const galleryImages = listing.images.length > 0 ? listing.images : ['/images/hero1.webp'];
+  const listingId = listing.id;
+  const activeImageIndex = activeImageSelection.listingId === listingId ? activeImageSelection.index : 0;
   const activeImage = galleryImages[activeImageIndex] ?? galleryImages[0];
   const price = listing.price !== null ? formatPrice(listing.price) : 'Auf Anfrage';
   const normalizedStatus = normalizeStatus(listing.status || '');
@@ -112,12 +110,18 @@ export function ListingDetailClient({ slug }: Props) {
 
   function goToNextImage() {
     if (!hasMultipleImages) return;
-    setActiveImageIndex((prev) => (prev + 1) % galleryImages.length);
+    setActiveImageSelection((prev) => ({
+      listingId,
+      index: ((prev.listingId === listingId ? prev.index : 0) + 1) % galleryImages.length,
+    }));
   }
 
   function goToPrevImage() {
     if (!hasMultipleImages) return;
-    setActiveImageIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+    setActiveImageSelection((prev) => ({
+      listingId,
+      index: ((prev.listingId === listingId ? prev.index : 0) - 1 + galleryImages.length) % galleryImages.length,
+    }));
   }
 
   function handleHeroKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
@@ -223,7 +227,7 @@ export function ListingDetailClient({ slug }: Props) {
                 <button
                   key={`${listing.id}-gallery-${index}`}
                   type="button"
-                  onClick={() => setActiveImageIndex(index)}
+                  onClick={() => setActiveImageSelection({ listingId, index })}
                   className={[
                     'relative aspect-[4/3] overflow-hidden rounded-lg border transition',
                     index === activeImageIndex

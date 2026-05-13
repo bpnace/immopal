@@ -64,12 +64,86 @@ function getProcessedHtml(value: unknown): string {
   return typeof processed === 'string' ? processed : '';
 }
 
+function findClosingTagEnd(html: string, tagName: string, start: number): number {
+  const lowerHtml = html.toLowerCase();
+  const closingStart = lowerHtml.indexOf(`</${tagName}`, start);
+  if (closingStart === -1) return html.length;
+
+  const closingEnd = html.indexOf('>', closingStart + tagName.length + 2);
+  return closingEnd === -1 ? html.length : closingEnd + 1;
+}
+
+function decodeBasicEntities(value: string): string {
+  const entities: Record<string, string> = {
+    '&nbsp;': ' ',
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#39;': "'",
+  };
+
+  return value.replace(/&(?:nbsp|amp|lt|gt|quot|#39);/g, (entity) => entities[entity] ?? entity);
+}
+
+function collapseWhitespace(value: string): string {
+  let result = '';
+  let previousWasWhitespace = true;
+
+  for (const char of value) {
+    if (char.trim() === '') {
+      if (!previousWasWhitespace) result += ' ';
+      previousWasWhitespace = true;
+      continue;
+    }
+
+    result += char;
+    previousWasWhitespace = false;
+  }
+
+  return result.trim();
+}
+
+function htmlToPlainText(html: string): string {
+  let result = '';
+  let index = 0;
+
+  while (index < html.length) {
+    const char = html[index];
+
+    if (char !== '<') {
+      result += char;
+      index += 1;
+      continue;
+    }
+
+    const tagEnd = html.indexOf('>', index + 1);
+    if (tagEnd === -1) break;
+
+    const tagContent = html.slice(index + 1, tagEnd).trimStart().toLowerCase();
+    if (tagContent.startsWith('script')) {
+      index = findClosingTagEnd(html, 'script', tagEnd + 1);
+      continue;
+    }
+
+    if (tagContent.startsWith('style')) {
+      index = findClosingTagEnd(html, 'style', tagEnd + 1);
+      continue;
+    }
+
+    result += ' ';
+    index = tagEnd + 1;
+  }
+
+  return collapseWhitespace(decodeBasicEntities(result));
+}
+
 function getSummaryText(value: unknown): string {
   const text = normalizeDrupalTextField(value);
   if (!text) return '';
   const summary = text.summary;
   const raw = typeof summary === 'string' ? summary : '';
-  return raw.replace(/<[^>]+>/g, '').trim();
+  return htmlToPlainText(raw);
 }
 
 function extractFileUrl(included: JsonApiResource[] | undefined, relData: JsonApiRelationship['data']): string | null {
@@ -130,8 +204,7 @@ function mapArticle(item: JsonApiResource, included?: JsonApiResource[]): Articl
   const rawTitle = getString(a.field_title) ?? getString(a.title) ?? '';
   const slug = deriveSlug(a) || item.id;
   const bodyHtml = getProcessedHtml(a.body);
-  const summaryText =
-    getSummaryText(a.body) || bodyHtml.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().slice(0, 240);
+  const summaryText = getSummaryText(a.body) || htmlToPlainText(bodyHtml).slice(0, 240);
 
   return {
     id: item.id,
