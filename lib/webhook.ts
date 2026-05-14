@@ -9,21 +9,10 @@ export interface WebhookResponse {
 }
 
 const N8N_WEBHOOK_URL =
-  process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL ||
-  'https://automation.codariq.de/webhook/533c1daf-0e9f-4a18-bcb5-560f56944676';
-const N8N_BASIC_AUTH_USER = process.env.NEXT_PUBLIC_N8N_BASIC_AUTH_USER || 'immoPalAdmin';
-const N8N_BASIC_AUTH_PASS = process.env.NEXT_PUBLIC_N8N_BASIC_AUTH_PASS || 'xaxvet-fyfmav-bIgme0';
-
-const buildBasicAuthHeader = () => {
-  const raw = `${N8N_BASIC_AUTH_USER}:${N8N_BASIC_AUTH_PASS}`;
-  const token =
-    typeof btoa === 'function' ? btoa(raw) : Buffer.from(raw, 'utf-8').toString('base64');
-  return `Basic ${token}`;
-};
+  process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL || '';
 
 export const getN8nHeaders = () => ({
   'Content-Type': 'application/json',
-  Authorization: buildBasicAuthHeader(),
 });
 
 const WEBHOOK_ENDPOINTS = {

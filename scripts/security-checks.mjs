@@ -33,6 +33,16 @@ const combinedSource = searchableFiles
   .join('\n');
 
 assert.doesNotMatch(combinedSource, /PEXELS_API_KEY|pexels\.com\/v1/i, 'Pexels API references must not be shipped');
+assert.doesNotMatch(
+  combinedSource,
+  /automation\.codariq\.de|\/webhook(?:-test)?\/[0-9a-f-]{20,}/i,
+  'Real automation domains and webhook ids must not be shipped',
+);
+assert.doesNotMatch(
+  combinedSource,
+  /NEXT_PUBLIC_N8N_BASIC_AUTH|Authorization:\s*buildBasicAuthHeader|Basic\s+[A-Za-z0-9+/=]{12,}/i,
+  'Client bundles must not contain webhook basic-auth credentials',
+);
 assert.deepEqual(
   trackedFiles.filter((path) => /(^|\/)\.env(?:\.|$)|\.pem$/.test(path)),
   [],
