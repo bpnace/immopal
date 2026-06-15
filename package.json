@@ -28,16 +28,16 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.0",
-    "@tailwindcss/typography": "^0.5.19",
-    "@types/node": "^25.7.0",
+    "@tailwindcss/postcss": "^4.3.1",
+    "@tailwindcss/typography": "^0.5.20",
+    "@types/node": "^25.9.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.5.0",
-    "baseline-browser-mapping": "^2.10.29",
+    "baseline-browser-mapping": "^2.10.37",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^16.2.6",
-    "postcss": "^8.5.14",
+    "eslint-config-next": "^16.2.9",
+    "postcss": "^8.5.15",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
