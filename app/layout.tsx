@@ -88,15 +88,15 @@ export default function RootLayout({
         />
         <Script
           id="google-consent-mode-default"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           data-cookieconsent="ignore"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
-              function gtag() {
-                dataLayer.push(arguments);
+              window.gtag = window.gtag || function gtag() {
+                window.dataLayer.push(arguments);
               }
-              gtag('consent', 'default', {
+              window.gtag('consent', 'default', {
                 ad_personalization: 'denied',
                 ad_storage: 'denied',
                 ad_user_data: 'denied',
@@ -106,8 +106,8 @@ export default function RootLayout({
                 security_storage: 'granted',
                 wait_for_update: 500,
               });
-              gtag('set', 'ads_data_redaction', true);
-              gtag('set', 'url_passthrough', false);
+              window.gtag('set', 'ads_data_redaction', true);
+              window.gtag('set', 'url_passthrough', false);
             `,
           }}
         />
@@ -118,13 +118,116 @@ export default function RootLayout({
           src="https://www.googletagmanager.com/gtag/js?id=G-G1WJQEH62V"
         />
         <Script
+          id="google-consent-mode-ccm19-sync"
+          strategy="afterInteractive"
+          data-cookieconsent="ignore"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                var measurementId = 'G-G1WJQEH62V';
+                var analyticsPattern = /google analytics|analytics|gtag|google tag|google ads|ads conversion|G-G1WJQEH62V/i;
+
+                function getStoredConsent() {
+                  try {
+                    var raw = window.localStorage && window.localStorage.getItem('ccm_consent');
+                    if (!raw) return null;
+
+                    var parsed = JSON.parse(raw);
+                    var paths = ['/', window.location.pathname];
+                    var consent = null;
+
+                    for (var i = 0; i < paths.length; i += 1) {
+                      if (parsed && parsed[paths[i]]) {
+                        consent = parsed[paths[i]];
+                        break;
+                      }
+                    }
+
+                    if (!consent && parsed && typeof parsed === 'object') {
+                      var firstKey = Object.keys(parsed)[0];
+                      consent = parsed[firstKey];
+                    }
+
+                    return consent || null;
+                  } catch (_error) {
+                    return null;
+                  }
+                }
+
+                function entryMatchesAnalytics(entry) {
+                  if (!entry) return false;
+                  if (typeof entry === 'string') return analyticsPattern.test(entry);
+                  return analyticsPattern.test(
+                    [entry.id, entry.name, entry.code, entry.purpose].filter(Boolean).join(' ')
+                  );
+                }
+
+                function hasAnalyticsConsent() {
+                  var storedConsent = getStoredConsent();
+
+                  if (storedConsent) {
+                    if (storedConsent.clickedButton === 'acceptAll') return true;
+                    if (storedConsent.clickedButton === 'decline') return false;
+                  }
+
+                  var ccm = window.CCM;
+                  if (!ccm || ccm.consent !== true) return false;
+
+                  var acceptedCookies = Array.isArray(ccm.acceptedCookies) ? ccm.acceptedCookies : [];
+                  var acceptedEmbeddings = Array.isArray(ccm.acceptedEmbeddings) ? ccm.acceptedEmbeddings : [];
+
+                  return acceptedCookies.some(entryMatchesAnalytics) || acceptedEmbeddings.some(entryMatchesAnalytics);
+                }
+
+                function syncGoogleConsentFromCcm19() {
+                  window.dataLayer = window.dataLayer || [];
+                  window.gtag = window.gtag || function gtag() {
+                    window.dataLayer.push(arguments);
+                  };
+
+                  var granted = hasAnalyticsConsent();
+                  var consentState = granted ? 'granted' : 'denied';
+
+                  window.gtag('consent', 'update', {
+                    ad_personalization: consentState,
+                    ad_storage: consentState,
+                    ad_user_data: consentState,
+                    analytics_storage: consentState,
+                    functionality_storage: 'denied',
+                    personalization_storage: 'denied',
+                    security_storage: 'granted',
+                  });
+
+                  if (
+                    granted &&
+                    window.__immoPalGoogleConsentState !== consentState &&
+                    window.__immoPalGoogleTagConfigured
+                  ) {
+                    window.gtag('config', measurementId, {
+                      page_path: window.location.pathname + window.location.search,
+                    });
+                  }
+
+                  window.__immoPalGoogleConsentState = consentState;
+                }
+
+                window.addEventListener('ccm19WidgetLoaded', syncGoogleConsentFromCcm19);
+                window.addEventListener('ccm19WidgetClosed', syncGoogleConsentFromCcm19);
+                window.addEventListener('ccm19EmbeddingAccepted', syncGoogleConsentFromCcm19);
+                syncGoogleConsentFromCcm19();
+              })();
+            `,
+          }}
+        />
+        <Script
           id="gtag-config"
           strategy="afterInteractive"
           data-cookieconsent="ignore"
           dangerouslySetInnerHTML={{
             __html: `
-              gtag('js', new Date());
-              gtag('config', 'G-G1WJQEH62V');
+              window.gtag('js', new Date());
+              window.gtag('config', 'G-G1WJQEH62V');
+              window.__immoPalGoogleTagConfigured = true;
             `,
           }}
         />
