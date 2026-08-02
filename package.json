@@ -37,7 +37,7 @@
     "baseline-browser-mapping": "^2.10.29",
     "eslint": "^9.39.4",
     "eslint-config-next": "^16.2.6",
-    "postcss": "^8.5.14",
+    "postcss": "^8.5.18",
     "tailwindcss": "^4.3.0",
     "typescript": "^6.0.3"
   },
