@@ -47,6 +47,7 @@
   ],
   "exclude": [
     "node_modules",
-    "stackwerkhaus_2026"
+    "stackwerkhaus_2026",
+    "security-tests.spec.ts"
   ]
 }

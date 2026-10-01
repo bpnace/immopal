@@ -4,6 +4,7 @@ import './globals.css';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { WhatsAppButton } from '@/components/whatsapp-button';
+import { MarketingPixels } from '@/components/marketing-pixels';
 import { OrganizationSchema } from '@/components/structured-data';
 import { getSiteUrl } from '@/lib/site';
 
@@ -233,6 +234,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans flex flex-col min-h-screen">
+        <MarketingPixels />
         <OrganizationSchema />
         <Navigation />
         <div className="flex-grow">{children}</div>

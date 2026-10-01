@@ -6,10 +6,10 @@
   </a>
   <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-2563EB?style=flat-square" />
   <img alt="Status" src="https://img.shields.io/badge/status-real_estate_showcase-1F2937?style=flat-square" />
-  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-15.5-000000?style=flat-square&logo=nextdotjs&logoColor=white" />
+    <img alt="Next.js" src="https://img.shields.io/badge/Next.js-16.3-000000?style=flat-square&logo=nextdotjs&logoColor=white" />
   <img alt="React" src="https://img.shields.io/badge/React-19.2-20232A?style=flat-square&logo=react&logoColor=61DAFB" />
-  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white" />
-  <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-3.4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" />
+    <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-6-3178C6?style=flat-square&logo=typescript&logoColor=white" />
+    <img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind_CSS-4.3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" />
   <img alt="npm" src="https://img.shields.io/badge/npm-lockfile_v3-CB3837?style=flat-square&logo=npm&logoColor=white" />
   <img alt="Static Export" src="https://img.shields.io/badge/Static%20export-Apache%20%2F%20IONOS-111827?style=flat-square" />
 </p>
@@ -27,10 +27,10 @@ listing/content routes, valuation landing pages, and Apache deployment support.
 
 ## Tech Stack
 
-- Next.js 15
+- Next.js 16
 - React 19
 - TypeScript
-- Tailwind CSS
+- Tailwind CSS 4
 
 ## Voraussetzungen
 

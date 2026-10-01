@@ -275,6 +275,24 @@ export default function DatenschutzPage() {
                 .
               </li>
               <li>
+                OpenAI Measurement Pixel (ChatGPT Ads): Auf der Seite „Immobilie verkaufen“ messen wir nach Ihrer
+                vorherigen Einwilligung (§ 25 Abs. 1 TDDDG i.V.m. Art. 6 Abs. 1 lit. a DSGVO) Seitenaufrufe und
+                erfolgreich abgeschickte Bewertungsanfragen, um die Wirksamkeit unserer Anzeigen in ChatGPT
+                auszuwerten. Dabei können die aufgerufene Seite, eine Anzeigen-Klickreferenz und eine
+                Browserkennung verarbeitet werden. Falls die automatische erweiterte Zuordnung aktiviert ist,
+                können geeignete Formularangaben vor der Übermittlung im Browser gehasht werden. Eine
+                Datenübermittlung in die USA ist möglich. Weitere Informationen:{' '}
+                <a
+                  href="https://openai.com/policies/eu-privacy-policy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  https://openai.com/policies/eu-privacy-policy/
+                </a>
+                .
+              </li>
+              <li>
                 Microsoft Application Insights: Setzen wir zur Fehleranalyse der Website ein. Die Microsoft Corporation
                 in den USA ist unter dem EU-US DPF zertifiziert. Weitere Informationen:{' '}
                 <a

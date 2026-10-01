@@ -8,6 +8,7 @@ import { FunnelLayout } from '@/components/funnel/funnel-layout';
 import { ConsultantAvatar } from '@/components/funnel/consultant-avatar';
 import { MultiTileSelect } from '@/components/funnel/multi-tile-select';
 import { PostalCodeAutocomplete } from '@/components/postal-code-autocomplete';
+import { trackSuccessfulSellingLead } from '@/components/marketing-pixels';
 import {
   type SellingFormData,
   type ValidationError,
@@ -224,6 +225,7 @@ export default function VerkaufenPage() {
       return;
     }
 
+    trackSuccessfulSellingLead();
     setSubmitSuccess(true);
     setIsSubmitting(false);
   };
